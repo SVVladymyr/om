@@ -66,3 +66,13 @@ mainApp.controller('RightCtrl', function ($scope, $timeout, $mdSidenav, $log) {
         });
     };
 })
+mainApp.controller('specification', [
+    '$scope', '$timeout', '$mdSidenav', '$log',
+    function($scope, $timeout, $mdSidenav, $log){
+          $scope.loaded = true;
+    }])
+mainApp.controller('user', [
+    '$scope', '$timeout', '$mdSidenav', '$log',
+    function($scope, $timeout, $mdSidenav, $log){
+          $scope.loaded = true;
+    }])

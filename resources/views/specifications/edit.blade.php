@@ -1,7 +1,18 @@
 @extends('layouts.master')
 
 @section('content')
-<h1 class="center-h1">Редактирование спецификации</h1>
+<div ng-controller="specification" class="main-body ng-scope flex" data-ui-view="" data-flex="">
+    <md-card class="md-table ng-scope _md">
+    <md-card-content>
+      <div class="md-table-loader" data-ng-if="!loaded">
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+                <section class="md-table-header">
+            <div class="md-table-header-title">
+                            <span ng-click="toggleRight()" >Редактирование спецификации</span>
+                        </div>
+        </section>
+        <section class="md-table-body">
 <h1>{{ $specification->name }}</h1>
 <div class="col-xs-12 col-md-3  edit-spec create-edit" style="margin-top: 20px;width: 100%;float: none;font-size: 0;max-width: 100%;">
 			{!! Form::model($specification, ['url' => ['specifications/update', $specification->id]]); !!}
@@ -75,4 +86,8 @@
 			    if(!!$($("[data-lem]")[i]).find('input').val()) $($("[data-lem]")[i]).find('input').val((+$($("[data-lem]")[i]).find('input').val()).toFixed(0))
 			}
 			</script>
+</section>
+</md-card-content>
+</md-card>
+</div>
 @endsection

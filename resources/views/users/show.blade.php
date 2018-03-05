@@ -1,7 +1,18 @@
 @extends('layouts.master')
 
 @section('content')
-<h1 class="center-h1">Просмотр пользователя</h1>
+    <div ng-controller="user" class="main-body ng-scope flex" data-ui-view="" data-flex="">
+    <md-card class="md-table ng-scope _md">
+    <md-card-content>
+      <div class="md-table-loader" data-ng-if="!loaded">
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+                <section class="md-table-header">
+            <div class="md-table-header-title">
+                            <span ng-click="toggleRight()" >Просмотр пользователя</span>
+                        </div>
+        </section>
+        <section class="md-table-body">
 
     <table class="table table-bordered">
         <tr>
@@ -46,5 +57,8 @@
             <a class="btn btn-large btn-primary" href="/users/edit/{{ $user->id }}">Изменить</a>
         @endif
     @endcan
-
+</section>
+</md-card-content>
+</md-card>
+</div>
 @endsection

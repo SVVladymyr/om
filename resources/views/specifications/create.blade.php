@@ -1,7 +1,18 @@
 @extends('layouts.master')
 
 @section('content')
-<h1 class="center-h1">Создание спецификации</h1>
+<div ng-controller="specification" class="main-body ng-scope flex" data-ui-view="" data-flex="">
+    <md-card class="md-table ng-scope _md">
+    <md-card-content>
+      <div class="md-table-loader" data-ng-if="!loaded">
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+                <section class="md-table-header">
+            <div class="md-table-header-title">
+                            <span ng-click="toggleRight()" >Создание спецификации</span>
+                        </div>
+        </section>
+        <section class="md-table-body">
 <div class="col-xs-12 col-md-3 create-edit" style="margin-top: 20px;width: 100%;float: none;font-size: 0;max-width: 100%;">
 			{!! Form::open(['route' => 'specifications']) !!}
 
@@ -66,10 +77,15 @@
 			   if(!!$($("[data-lem]")[i]).find('input').val()) $($("[data-lem]")[i]).find('input').val((+$($("[data-lem]")[i]).find('input').val()).toFixed(0))
 			}
 			</script>
+</style>
+</section>
+</md-card-content>
+</md-card>
+</div>
 @endsection
 <style>
 	.create-edit input {
 		font-size: 12px;
 		padding-left: 10px!important;
 	}
-</style>
+

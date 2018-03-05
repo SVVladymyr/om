@@ -1,7 +1,18 @@
 @extends('layouts.master')
 
 @section('content')
-<h1 class="center-h1">Просмотр спецификации</h1>
+<div ng-controller="specification" class="main-body ng-scope flex" data-ui-view="" data-flex="">
+    <md-card class="md-table ng-scope _md">
+    <md-card-content>
+      <div class="md-table-loader" data-ng-if="!loaded">
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+                <section class="md-table-header">
+            <div class="md-table-header-title">
+                            <span ng-click="toggleRight()" >Просмотр спецификации</span>
+                        </div>
+        </section>
+        <section class="md-table-body">
 <h1>{{ $specification->name }}</h1>
 
 @if(Auth::user()->isManager() && !$specification->main_specification && count($specification->clients))
@@ -89,5 +100,8 @@ for(let i = 0 ; i < $("[data-lem]").length; i++){
 }
 </script>
     <end-table-specification />
-
+</section>
+</md-card-content>
+</md-card>
+</div>
 @endsection
