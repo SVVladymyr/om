@@ -86,8 +86,8 @@ mainApp.controller('RightCtrl', function ($scope, $timeout, $mdSidenav, $log) {
       var now = $scope.myDate;
       var formated_date = now.format("yyyy-mm-dd");
       $scope.created_from =  formated_date;
-
   }
+  // duble
   $scope.ChangeChechbox = function (){
     for(let item in $scope.defaultStatusOrder){
         document.getElementById($scope.defaultStatusOrder[item]).checked=false;
@@ -96,6 +96,7 @@ mainApp.controller('RightCtrl', function ($scope, $timeout, $mdSidenav, $log) {
         document.getElementById($scope.selectedVegetables[item]).checked=true;
       }
   }
+  // end duble
     $scope.close = function () {
 
       $mdSidenav('right').close()
