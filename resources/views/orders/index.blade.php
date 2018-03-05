@@ -7,6 +7,7 @@
       <md-content ng-controller="RightCtrl" layout-padding="10">
         {!! Form::open(['route' => 'user_orders']) !!}
 				 <md-card-content flex-gt-md="100">
+           <!-- start select -->
 					<md-input-container>
 					<label>Фильтрация по статусу заказа</label>
 					<md-select  ng-change="ChangeChechbox()" ng-model="selectedVegetables"
@@ -15,20 +16,33 @@
 									 multiple>
 					<md-optgroup label="Фильтрация по статусу заказа">
 	          @foreach($statuses as $status)
-						<md-option ng-value="'{{$status->name}}'"  >{{$status->name}}</md-option>
+						<md-option ng-value="'{{$status->name}}'">{{$status->name}}</md-option>
 						@endforeach
 					</md-optgroup>
 					</md-select>
 					</md-input-container>
+          <!-- end select -->
+          <!-- start date -->
+          <md-datepicker  ng-model="myDate" md-current-view="year" md-placeholder="Enter date"></md-datepicker>
+          {!! Form::date('created_from', session()->get("filters.created_from"), ['ng-value' => 'created_from', 'class'=>'hidden'] ); !!}
+          <!-- end start -->
 				</md-card-content>
         <md-button flex-gt-md="100" ng-click="close()" class="md-primary">
           Закрыть
         </md-button>
-        <!-- 'class'=>'hidden', -->
+          <span ng-init="defaultStatusOrder = []"> </span>
         @foreach($statuses as $status)
-    		{!! Form::checkbox("statuses[$status->id]", $status->name, session()->has("filters.statuses.$status->id"), ['id' => "statuses[$status->id]",  'ng-checked' => "statuses[$status->id]"]); !!}
+        <span ng-init="defaultStatusOrder.push('{{$status->name}}')" class="hidden"></span>
+    		{!! Form::checkbox("statuses[$status->id]", $status->name, session()->has("filters.statuses.$status->id"), ['id' => "$status->name", 'class'=>'hidden']); !!}
     		@endforeach
-        {!! Form::submit('Фильтровать',['class' => 'btn btn-large btn-primary mob']); !!}
+        <span ng-init="defaultStatusOrder = []"> </span>
+        @foreach($clients as $id => $name)
+          <span ng-init="defaultClientOrder.push('{{$status->name}}')" class="hidden"></span>
+    		     {!! Form::checkbox("clients[$id]", $id, session()->has("filters.clients.$id"), ['id' => "clients[$id]", 'class'=>'hidden']);!!}
+    		@endforeach
+        <md-button class="md-primary md-raised" type="button" ng-click="changedate()">
+            Фильтровать
+        </md-button>
         {!! Form::close() !!}
       </md-content>
 </md-sidenav>

@@ -81,13 +81,21 @@ mainApp.controller('orders', [
 ])
 
 mainApp.controller('RightCtrl', function ($scope, $timeout, $mdSidenav, $log) {
-  $scope.ChangeChechbox = function (name){
+  $scope.myDate;
+  $scope.changedate = function(){
+      var now = $scope.myDate;
+      var formated_date = now.format("yyyy-mm-dd");
+      $scope.created_from =  formated_date;
+
+  }
+  $scope.ChangeChechbox = function (){
+    for(let item in $scope.defaultStatusOrder){
+        document.getElementById($scope.defaultStatusOrder[item]).checked=false;
+      }
     for(let item in $scope.selectedVegetables){
-      $scope.statuses[+item+1] = !  $scope.statuses[+item+1];
-      console.log($scope.statuses[+item+1])
-    }
-    $scope.name = !$scope.name;
-    }
+        document.getElementById($scope.selectedVegetables[item]).checked=true;
+      }
+  }
     $scope.close = function () {
 
       $mdSidenav('right').close()
@@ -131,9 +139,9 @@ mainApp.controller('specification', [
             }, function() {
               $scope.status = 'You cancelled the dialog.';
             });
-          };  
-           
-          
+          };
+
+
     }])
 mainApp.controller('cost-item', [
     '$scope', '$timeout', '$mdSidenav', '$log', '$mdDialog', '$http',
