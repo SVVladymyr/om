@@ -1,18 +1,18 @@
-@extends('layouts.master')
+<!-- шапка модалки -->
+<md-dialog aria-label="Test">
+    {!! Form::open(['route' => 'users']) !!}
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2 ng-bind-html="title"></h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
 
-@section('content')
-<div ng-controller="client" class="main-body ng-scope flex" data-ui-view="" data-flex="">
-	<md-card class="md-table ng-scope _md">
-    <md-card-content>
-      <div class="md-table-loader" data-ng-if="!loaded">
-            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-        </div>
-				<section class="md-table-header">
-            <div class="md-table-header-title">
-							<span ng-click="toggleRight()" >Создание клиента</span>
-						</div>
-        </section>
-        <section class="md-table-body">
+<!-- END -->
 <div style="padding-top: 25px;width: 115%;min-width: calc(50% + 40px);margin: 0 auto;float: none;display: block;" class="col-xs-12 col-md-3 create-edit user-edit">
 			{!! Form::open(['route' => 'clients']) !!}
 			<div class="colum-left">
@@ -104,8 +104,15 @@
 
 
 </div>
-</section>
-</md-card-content>
-</md-card>
-</div>
-@endsection
+<!-- футер модалки -->
+
+</md-dialog-content>
+<md-dialog-actions layout="row">
+  <md-button type="submit" class="md-primary md-raised">
+    Создать
+  </md-button>
+</md-dialog-actions>
+    {!! Form::close() !!}
+</md-dialog>
+
+<!-- END -->

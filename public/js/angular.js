@@ -10,11 +10,26 @@ mainApp.controller('leftSideBar', [
 
 
 mainApp.controller('client', [
-    '$scope', '$timeout', '$mdSidenav', '$log',
-    function($scope, $timeout, $mdSidenav, $log){
+    '$scope', '$timeout', '$mdSidenav', '$log', '$mdDialog', '$http',
+    function($scope, $timeout, $mdSidenav, $log, $mdDialog, $http){
       //  setTimeout(function(){
           $scope.loaded = true;
       //  },1000)
+      $scope.OpenModalClientsCreate = function(ev) {
+            $mdDialog.show({
+              controller: OpenModalClientsCreate,
+              templateUrl: '/clients/create',
+              parent: angular.element(document.body),
+              targetEvent: ev,
+              clickOutsideToClose:true,
+              fullscreen: $scope.customFullscreen
+            })
+            .then(function(answer) {
+              $scope.status = 'You said the information was "' + answer + '".';
+            }, function() {
+              $scope.status = 'You cancelled the dialog.';
+            });
+          };
     }])
 
 mainApp.controller('orders', [
@@ -86,15 +101,91 @@ mainApp.controller('specification', [
               $scope.status = 'You cancelled the dialog.';
             });
           };
+
+          $scope.OpenModalShow = function(ev, id) {
+            $mdDialog.show({
+              controller: OpenModalCreateCtrl,
+              templateUrl: '/specifications/'+id,
+              parent: angular.element(document.body),
+              targetEvent: ev,
+              clickOutsideToClose:true,
+              fullscreen: $scope.customFullscreen
+            })
+            .then(function(answer) {
+              $scope.status = 'You said the information was "' + answer + '".';
+            }, function() {
+              $scope.status = 'You cancelled the dialog.';
+            });
+          };  
+           
+          
     }])
 mainApp.controller('user', [
-    '$scope', '$timeout', '$mdSidenav', '$log',
-    function($scope, $timeout, $mdSidenav, $log){
+    '$scope', '$timeout', '$mdSidenav', '$log', '$mdDialog', '$http',
+    function($scope, $timeout, $mdSidenav, $log, $mdDialog, $http){
           $scope.loaded = true;
+
+          $scope.OpenModalUserCreate = function(ev) {
+            $mdDialog.show({
+              controller: OpenModalUserCreate,
+              templateUrl: '/users/create',
+              parent: angular.element(document.body),
+              targetEvent: ev,
+              clickOutsideToClose:true,
+              fullscreen: $scope.customFullscreen
+            })
+            .then(function(answer) {
+              $scope.status = 'You said the information was "' + answer + '".';
+            }, function() {
+              $scope.status = 'You cancelled the dialog.';
+            });
+          };
     }])
     // Контроллеры
     function OpenModalCreateCtrl($scope, $mdDialog, $http) {
     $scope.title = 'Создание спецификации'
+    $scope.hide = function() {
+      $mdDialog.hide();
+    };
+
+    $scope.cancel = function() {
+      $mdDialog.cancel();
+    };
+
+    $scope.answer = function(answer) {
+      $mdDialog.hide(answer);
+    };
+  }
+    function OpenModalShow($scope, $mdDialog, $http) {
+    $scope.title = 'Спецификация'
+    $scope.hide = function() {
+      $mdDialog.hide();
+    };
+
+    $scope.cancel = function() {
+      $mdDialog.cancel();
+    };
+
+    $scope.answer = function(answer) {
+      $mdDialog.hide(answer);
+    };
+  }
+    function OpenModalUserCreate($scope, $mdDialog, $http) {
+    $scope.title = 'Создание пользователя'
+    $scope.hide = function() {
+      $mdDialog.hide();
+    };
+
+    $scope.cancel = function() {
+      $mdDialog.cancel();
+    };
+
+    $scope.answer = function(answer) {
+      $mdDialog.hide(answer);
+    };
+  }
+    function OpenModalClientsCreate($scope, $mdDialog, $http) {
+    $scope.title = 'Создание клиента'
     $scope.hide = function() {
       $mdDialog.hide();
     };

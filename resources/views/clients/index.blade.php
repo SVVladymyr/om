@@ -64,6 +64,9 @@
 
     @can('create', App\Client::class)
         <md-button class="md-raised md-accent" ng-href="/clients/create" type="submit" >Создать</md-button>
+        <md-button class="md-primary md-raised" ng-click="OpenModalClientsCreate($event)">
+          Создать
+      </md-button>
     @endcan
   </section>
   </md-card-content>

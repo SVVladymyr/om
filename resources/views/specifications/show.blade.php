@@ -1,19 +1,18 @@
-@extends('layouts.master')
+<!-- шапка модалки -->
+<md-dialog aria-label="Test">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2 ng-bind-html="title"></h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
 
-@section('content')
-<div ng-controller="specification" class="main-body ng-scope flex" data-ui-view="" data-flex="">
-    <md-card class="md-table ng-scope _md">
-    <md-card-content>
-      <div class="md-table-loader" data-ng-if="!loaded">
-            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-        </div>
-                <section class="md-table-header">
-            <div class="md-table-header-title">
-                            <span ng-click="toggleRight()" >Просмотр спецификации</span>
-                        </div>
-        </section>
-        <section class="md-table-body">
-<h1>{{ $specification->name }}</h1>
+<!-- END -->
+<h1 ng-init="title = 'Просмотр спецификации: {{ $specification->name }}'"></h1>
 
 @if(Auth::user()->isManager() && !$specification->main_specification && count($specification->clients))
 {{ $specification->clients->first()->name }}
@@ -87,10 +86,7 @@
 
     @endcan
 
-    <a class="btn btn-large btn-warning mob-xl" href="/specifications/edit/{{ $specification->id }}">Изменить</a>
-    @can('delete', $specification)
-        <a class="btn btn-large btn-danger mob-xl" href="#" onclick="deleteItem('/specifications/delete/{{ $specification->id }}')" >Удалить</a>
-    @endcan
+    
 <script>
 for(let i = 0 ; i < $("[data-sum]").length; i++){
     $($("[data-sum]")[i]).text((+$($("[data-sum]")[i]).text()).toFixed(2))
@@ -100,8 +96,15 @@ for(let i = 0 ; i < $("[data-lem]").length; i++){
 }
 </script>
     <end-table-specification />
-</section>
-</md-card-content>
-</md-card>
-</div>
-@endsection
+<!-- футер модалки -->
+
+</md-dialog-content>
+<md-dialog-actions layout="row">
+    <a class="btn btn-large btn-warning mob-xl" href="/specifications/edit/{{ $specification->id }}">Изменить</a>
+    @can('delete', $specification)
+        <a class="btn btn-large btn-danger mob-xl" href="#" onclick="deleteItem('/specifications/delete/{{ $specification->id }}')" >Удалить</a>
+    @endcan
+</md-dialog-actions>
+</md-dialog>
+
+<!-- END -->
