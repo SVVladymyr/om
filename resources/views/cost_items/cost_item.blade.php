@@ -8,7 +8,11 @@
           <tr>
 {{--              <td>{{ $cost_item->id }}</td>--}}
               <td>{{ $cost_item->name }}
-               <a data-id="{{ $cost_item->id }}" class="btn btn-large btn-primary edit-togle open-modal-cost-item-edit" style="margin: 0; float: right;" href="#"></a></td>
+               <a data-id="{{ $cost_item->id }}" class="btn btn-large btn-primary edit-togle open-modal-cost-item-edit" style="margin: 0; float: right;" href="#"></a>
+               <md-button class="md-primary md-raised" ng-click="EditsItemsCreates($event,'{{ $cost_item->id }}')" style="margin: 0; float: right;">
+               Создать
+               </md-button>
+               </td>
           </tr>
 </md-card-content>
 </md-card>

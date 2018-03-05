@@ -164,6 +164,21 @@ mainApp.controller('cost-item', [
               $scope.status = 'You cancelled the dialog.';
             });
           };
+          $scope.EditsItemsCreates = function(ev,id) {
+            $mdDialog.show({
+              controller: EditsItemsCreatess,
+              templateUrl: '/cost_items/edit/'+id,
+              parent: angular.element(document.body),
+              targetEvent: ev,
+              clickOutsideToClose:true,
+              fullscreen: $scope.customFullscreen
+            })
+            .then(function(answer) {
+              $scope.status = 'You said the information was "' + answer + '".';
+            }, function() {
+              $scope.status = 'You cancelled the dialog.';
+            });
+          };
     }])
 mainApp.controller('user', [
     '$scope', '$timeout', '$mdSidenav', '$log', '$mdDialog', '$http',
@@ -245,6 +260,20 @@ $scope.hide = function() {
   }
     function CostItemsCreatess($scope, $mdDialog, $http) {
     $scope.title = 'Создание статьи затрат';
+    $scope.hide = function() {
+      $mdDialog.hide();
+    };
+
+    $scope.cancel = function() {
+      $mdDialog.cancel();
+    };
+
+    $scope.answer = function(answer) {
+      $mdDialog.hide(answer);
+    };
+  }
+  function EditsItemsCreatess($scope, $mdDialog, $http) {
+    $scope.title = 'Редактирование статьи затрат';
     $scope.hide = function() {
       $mdDialog.hide();
     };

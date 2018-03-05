@@ -27,7 +27,6 @@
                          </tr>
                        </thead>
 
-
 <tbody>
 
         @foreach($cost_items as $cost_item)

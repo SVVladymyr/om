@@ -1,11 +1,21 @@
 @extends('layouts.master')
 
 @section('content')
+<div ng-controller="orders" class="main-body ng-scope flex" data-ui-view="" data-flex="">
+    <md-card class="md-table ng-scope _md">
+    <md-card-content>
+      <div class="md-table-loader" data-ng-if="!loaded">
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+                <section class="md-table-header">
+            <div class="md-table-header-title">
+                            <span ng-click="toggleRight()" >Редактирование заказа</span>
+                        </div>
+        </section>
 <script type="text/javascript">
 $('.create-orders-info-money-limit').hide();
 $('.create-orders-info-money-limit-info').hide()
 </script>
-<h1 class="center-h1">Редактирование заказа</h1>
 			{!! Form::open(['url' => "orders/update/$order->id"]) !!}
 <table class="table table-bordered">
 	<tr class="first-table-tr">
@@ -61,10 +71,12 @@ $('.create-orders-info-money-limit-info').hide()
 @endif
 
 
-    			{!! Form::submit('Обновить', ['class'=>'btn btn-large btn-success mob']); !!}
+			{!! Form::submit('Обновить', ['class'=>'btn btn-large btn-success mob']); !!}
 
 			{!! Form::close() !!}
-
+</md-card-content>
+</md-card>
+</div>
 			<script>
 			for(let i = 0 ; i < $("[data-sum]").length; i++){
 					$($("[data-sum]")[i]).text((+$($("[data-sum]")[i]).text()).toFixed(2))
@@ -108,4 +120,5 @@ $('.create-orders-info-money-limit-info').hide()
 	    });
 			count();
 			</script>
+
 @endsection
