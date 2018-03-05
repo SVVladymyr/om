@@ -1,9 +1,15 @@
 const mainApp = angular.module('BlankApp', ['ngMaterial', 'ngSanitize' ]);
 
 mainApp.controller('leftSideBar', [
-    '$scope',
-    function($scope){
+    '$scope', '$http',
+    function($scope, $http){
         $scope.navStatus = false;
+        $scope.roleName = function(name){
+          console.log(name)
+          $http.get('/js/ru.json').then(function (data){
+            $scope.role = data.data[name];
+          })
+        }
     }
 ])
 
@@ -36,6 +42,7 @@ mainApp.controller('orders', [
     '$scope', '$timeout', '$mdSidenav', '$log',
     function($scope, $timeout, $mdSidenav, $log){
         $scope.loaded = true;
+
         $scope.toggleRight = buildToggler('right');
         $scope.isOpenRight = function(){
           return $mdSidenav('right').isOpen();
@@ -74,7 +81,15 @@ mainApp.controller('orders', [
 ])
 
 mainApp.controller('RightCtrl', function ($scope, $timeout, $mdSidenav, $log) {
+  $scope.ChangeChechbox = function (name){
+    for(let item in $scope.selectedVegetables){
+      $scope.statuses[+item+1] = !  $scope.statuses[+item+1];
+      console.log($scope.statuses[+item+1])
+    }
+    $scope.name = !$scope.name;
+    }
     $scope.close = function () {
+
       $mdSidenav('right').close()
         .then(function () {
           $log.debug("close RIGHT is done");

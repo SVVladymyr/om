@@ -1,12 +1,26 @@
 <section ng-controller="leftSideBar" class="main" data-layout="column" data-layout-align="space-between stretch">
 <md-toolbar class="main-toolbar" data-layout="row">
         <div class="md-toolbar-tools">
+          <section class="md-toolbar-tools-left">
 					@if(Auth::check())
             <md-button class="md-button md-icon-button md-ink-ripple main-toolbar-btn" data-ng-click="navStatus = !navStatus">
                 <md-icon class="md-ic">&#xE5D2;</md-icon>
             </md-button>
 						@endif
             <span><img  src="{{ url('images/om24-white.png') }}" alt="om-24"></span>
+            </section>
+            <section class="md-toolbar-tools-right">
+            @if (!Auth::guest() )
+                  <span data-ng-init="roleName('{{ Auth::user()->role->name }}')" ng-bind-html="role"></span>
+                  <span style="margin-right: 10px; margin-left: 5px;">  ({{ Auth::user()->email }})</span>
+                  <md-button style="padding: 5px 0!important;" class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-href="{{ url('logout') }}">
+    									<md-icon class="md-ic">&#xE879;</md-icon>
+    									<md-tooltip>
+    										Выход из панели
+    									</md-tooltip>
+    							</md-button>
+            @endif
+            </section>
         </div>
 </md-toolbar>
 

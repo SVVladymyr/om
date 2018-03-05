@@ -33,8 +33,6 @@
       <md-button class="md-primary md-raised" ng-click="OpenModalCreate($event)">
           Создать
       </md-button>
-        <a class="btn btn-large btn-success mob" href="/specifications/create">Создать</a></br>
-
     @endcan
 
 </section>

@@ -5,16 +5,17 @@
         <h1 class="md-toolbar-tools">Фильрация</h1>
       </md-toolbar>
       <md-content ng-controller="RightCtrl" layout-padding="10">
+        {!! Form::open(['route' => 'user_orders']) !!}
 				 <md-card-content flex-gt-md="100">
 					<md-input-container>
 					<label>Фильтрация по статусу заказа</label>
-					<md-select ng-model="selectedVegetables"
+					<md-select  ng-change="ChangeChechbox()" ng-model="selectedVegetables"
 									 md-on-close="clearSearchTerm()"
 									 data-md-container-class="selectdemoSelectHeader"
 									 multiple>
 					<md-optgroup label="Фильтрация по статусу заказа">
-						@foreach($statuses as $status)
-						<md-option >{{$status->name}}</md-option>
+	          @foreach($statuses as $status)
+						<md-option ng-value="'{{$status->name}}'"  >{{$status->name}}</md-option>
 						@endforeach
 					</md-optgroup>
 					</md-select>
@@ -23,6 +24,12 @@
         <md-button flex-gt-md="100" ng-click="close()" class="md-primary">
           Закрыть
         </md-button>
+        <!-- 'class'=>'hidden', -->
+        @foreach($statuses as $status)
+    		{!! Form::checkbox("statuses[$status->id]", $status->name, session()->has("filters.statuses.$status->id"), ['id' => "statuses[$status->id]",  'ng-checked' => "statuses[$status->id]"]); !!}
+    		@endforeach
+        {!! Form::submit('Фильтровать',['class' => 'btn btn-large btn-primary mob']); !!}
+        {!! Form::close() !!}
       </md-content>
 </md-sidenav>
 <div ng-controller="orders" class="main-body ng-scope flex" data-ui-view="" data-flex="">
@@ -44,8 +51,6 @@
         </section>
 				<section class="md-table-body">
 
-
-{!! Form::open(['route' => 'user_orders']) !!}
 
 
 <div style="font-size: 0;">
@@ -147,10 +152,10 @@
 
 @endif
 
-<span class="help-text">{!! Form::submit('Фильтровать',['class' => 'btn btn-large btn-primary mob']); !!}<span data-text="Установите параметры отбора заказов и нажмите кнопку 'фильтровать'. В таблице будут отображены только соответсвующие критериям отбора заказы."></span></span>
+<span class="help-text">фыв<span data-text="Установите параметры отбора заказов и нажмите кнопку 'фильтровать'. В таблице будут отображены только соответсвующие критериям отбора заказы."></span></span>
 
 
-{!! Form::close() !!}
+
 
 
 @if($orders->IsNotEmpty())

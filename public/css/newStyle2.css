@@ -29,3 +29,9 @@ body,html{overflow:hidden;height:100%}.main{position:relative;height:100%}.main-
 a.md-raised.md-accent.md-button.md-ink-ripple {
     color: #fff!important;
 }
+
+section.md-toolbar-tools-right {
+    width: 100%;
+    display:  flex;
+    justify-content: flex-end;
+}
