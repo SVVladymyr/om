@@ -40,8 +40,9 @@
         </div>
         @endif
         @can('create', App\CostItem::class)
-
-                <a class="btn btn-large btn-success mob-xl open-modal-cost-item-create" href="#">Создать</a>
+          <md-button class="md-primary md-raised" ng-click="CostItemsCreatess($event)">
+          Создать
+          </md-button>
 
         @endcan
         <a class="btn btn-large btn-primary mob-xl" href="/set_product_cost_items" style="margin-bottom: 0">Заполнить товары статьями затрат</a></br>

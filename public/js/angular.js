@@ -120,6 +120,27 @@ mainApp.controller('specification', [
            
           
     }])
+mainApp.controller('cost-item', [
+    '$scope', '$timeout', '$mdSidenav', '$log', '$mdDialog', '$http',
+    function($scope, $timeout, $mdSidenav, $log, $mdDialog, $http){
+          $scope.loaded = true;
+//Вызов модалок
+          $scope.CostItemsCreatess = function(ev) {
+            $mdDialog.show({
+              controller: CostItemsCreatess,
+              templateUrl: '/cost_items/create',
+              parent: angular.element(document.body),
+              targetEvent: ev,
+              clickOutsideToClose:true,
+              fullscreen: $scope.customFullscreen
+            })
+            .then(function(answer) {
+              $scope.status = 'You said the information was "' + answer + '".';
+            }, function() {
+              $scope.status = 'You cancelled the dialog.';
+            });
+          };
+    }])
 mainApp.controller('user', [
     '$scope', '$timeout', '$mdSidenav', '$log', '$mdDialog', '$http',
     function($scope, $timeout, $mdSidenav, $log, $mdDialog, $http){
@@ -185,7 +206,21 @@ mainApp.controller('user', [
     };
   }
     function OpenModalClientsCreate($scope, $mdDialog, $http) {
-    $scope.title = 'Создание клиента'
+    $scope.title = 'Создание клиента';
+$scope.hide = function() {
+      $mdDialog.hide();
+    };
+
+    $scope.cancel = function() {
+      $mdDialog.cancel();
+    };
+
+    $scope.answer = function(answer) {
+      $mdDialog.hide(answer);
+    };
+  }
+    function CostItemsCreatess($scope, $mdDialog, $http) {
+    $scope.title = 'Создание статьи затрат';
     $scope.hide = function() {
       $mdDialog.hide();
     };
