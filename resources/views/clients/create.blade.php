@@ -82,8 +82,8 @@
         			{!! Form::select('specification_id', $specifications, null, ['class'=>'form-control', 'placeholder' => 'ID спецификации']); !!}</br>
 
                 @endif
-							</div>
-							<div class="colum-right">
+							<!-- </div> -->
+							<!-- <div class="colum-right"> -->
     			{!! Form::label('phone_number', 'Номер телефона'); !!}
     			{!! Form::text('phone_number', null, array('class'=>'form-control','placeholder' => 'Номер телефона')); !!}</br>
 
@@ -98,8 +98,8 @@
                 {!! Form::label('organization', 'Оргинизация'); !!}
                 {!! Form::text('organization', null, array('class'=>'form-control','placeholder' => 'Оргинизация')); !!}</br>
 </div>
-<md-card-actions layout="row" layout-align="end center">
-	<md-button class="md-raised md-accent" type="submit" ng-disabled="authForm.$invalid">Создать </md-button>
+<md-card-actions layout="row" layout-align="end center" style="justify-content: center; margin-bottom: 15px;">
+	<md-button class="md-primary md-raised" type="submit" ng-disabled="authForm.$invalid">Создать </md-button>
 </md-card-actions>
 
 

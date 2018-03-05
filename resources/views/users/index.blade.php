@@ -39,7 +39,6 @@
       <md-button class="md-primary md-raised" ng-click="OpenModalUserCreate($event)">
           Создать пользователя
       </md-button>
-			<a class="btn btn-large btn-success mob" href="/users/create">Создать пользователя</a></br>
 
         @endcan
 

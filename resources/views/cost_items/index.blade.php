@@ -13,7 +13,6 @@
             </div>
         </section>
         <section class="md-table-body">
-<!-- <h1 class="center-h1">Статьи затрат</h1> -->
         <div class="mobile-toogle">
                 @if(count($cost_items))
 
@@ -23,7 +22,7 @@
                        <thead>
                          <tr class="first-table-tr">
                                  <th><span>Название<span data-text="Название статьи затрат"></span></span></th>
-                                 <!-- <td><span>Изменить статью затрат<span data-text="Открыть страницу для изменения статьи затрат"></span></span></td> -->
+                                 
                          </tr>
                        </thead>
 

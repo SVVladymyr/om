@@ -6567,6 +6567,7 @@ a.list-group-item-danger.active:focus {
 
 .mobile-toogle {
     overflow: auto;
+    margin: 15px 0;
 }
 
 
@@ -7012,7 +7013,7 @@ tr .btn-primary:active {
 }
 
 .create-edit .btn-large {
-    margin-bottom: 40px;
+    margin-bottom: 10px;
     text-align: center;
     width: 100%;
 }
@@ -9026,7 +9027,7 @@ span > span {
     display: block;
     background-repeat: no-repeat;
     background-size: contain;
-    right: 10px;
+    right: 3px;
 }
 
 .help-text{
@@ -9610,3 +9611,24 @@ letter-spacing: -4px;
         display: inline-block!important;
     }
   }
+
+
+.btn-success, .md-primary, .btn-primary, .btn-warning {
+    background: #4197e3 !important;
+    border: 1px solid #4197e3 !important;
+    transition: .3s;
+    -webkit-transition: .3s;
+}
+.md-primary:hover, .md-primary:focus, .md-primary:active, .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-warning:hover, .btn-warning:focus, .btn-warning:active {
+    background: #2072e2 !important;
+    border: 1px solid #2072e2 !important;
+    color: #fff !important;
+    outline: none !important;
+}
+.md-input-has-value label {
+    overflow: visible !important;
+    color: #000 !important;
+}
+.colum-left {
+    margin-bottom: 10px;
+}

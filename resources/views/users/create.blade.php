@@ -13,8 +13,8 @@
   <md-dialog-content>
 
 <!-- END -->
-	<div class="user-edit" style="padding-top: 25px;" class="col-xs-12 col-md-3">
-
+	<div class="user-edit" class="col-xs-12 col-md-3">
+  <div style="padding-top: 25px;width: 115%;min-width: calc(50% + 40px);margin: 0 auto;float: none;display: block;" class="col-xs-12 col-md-3 create-edit user-edit">
 			{!! Form::open(['route' => 'users']) !!}
 
 				<div class="colum-left">
@@ -30,8 +30,8 @@
 
     			{!! Form::label('email', 'E-Mail'); !!}
     			{!! Form::text('email', null, ['class'=>'form-control', 'placeholder'=>'E-mail']); !!}</br>
-				</div>
-				<div class="colum-right">
+				<!-- </div> -->
+				<!-- <div class="colum-right"> -->
 					{!! Form::label('password', 'Пароль'); !!}
     			{!! Form::password('password', ['class'=>'form-control', 'placeholder'=>'Пароль']); !!}</br>
 
@@ -45,18 +45,19 @@
                 {!! Form::select('employer_id', $employers, null, ['placeholder' => 'Свободный', 'class'=>'form-control']); !!}</br>
 					@endif
 
-				</div>
+				
 				{!! Form::submit('Создать', ['class'=>'btn btn-large btn-success']); !!}
-
+</div>
 
 
     			{!! Form::label('show_price_status', 'Отображать цены'); !!}
     			{!! Form::checkbox('show_price_status', '1', true); !!}</br>
 
 
-			{!! Form::close() !!}
+			<!-- {!! Form::close() !!} -->
 
 	</div>
+  </div>  
 
 <script>
 $.ajax({
@@ -73,11 +74,11 @@ $.ajax({
 <!-- футер модалки -->
 
 </md-dialog-content>
-<md-dialog-actions layout="row">
+<!-- <md-dialog-actions layout="row">
   <md-button type="submit" class="md-primary md-raised">
     Создать
   </md-button>
-</md-dialog-actions>
+</md-dialog-actions> -->
     {!! Form::close() !!}
 </md-dialog>
 
