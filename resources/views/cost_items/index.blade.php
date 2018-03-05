@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-<div ng-controller="specification" class="main-body ng-scope flex" data-ui-view="" data-flex="">
+<div ng-controller="cost-item" class="main-body ng-scope flex" data-ui-view="" data-flex="">
     <md-card class="md-table ng-scope _md">
         <md-card-content>
           <div class="md-table-loader" data-ng-if="!loaded">
