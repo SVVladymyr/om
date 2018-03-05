@@ -18,7 +18,6 @@
 
     <table class="table table-bordered">
         <tr class="first-table-tr">
-            {{--<th>ID</th>--}}
             <th><span>Имя<span data-text="Название спецификации"></span></span></th>
             <th><span>Открыть спецификацию<span data-text="Открыть всплывающие окно спецификации"></span></span></th>
         </tr>
@@ -31,17 +30,13 @@
     </div>
     @endif
     @can('create', App\Specification::class)
-
+      <md-button class="md-primary md-raised" ng-click="OpenModalCreate($event)">
+          Создать
+      </md-button>
         <a class="btn btn-large btn-success mob" href="/specifications/create">Создать</a></br>
 
     @endcan
-    <div class="modal">
-        <h2 class="modal-title"></h2>
-        <div class="close" onclick="$('.modal').hide()">X</div>
-        <div class="modal-content mobile-toogle">
 
-        </div>
-    </div>
 </section>
 </md-card-content>
 </md-card>

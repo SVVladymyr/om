@@ -1,20 +1,18 @@
-@extends('layouts.master')
+<!-- шапка модалки -->
+<md-dialog aria-label="Test">
+  	{!! Form::open(['route' => 'specifications']) !!}
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2 ng-bind-html="title"></h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
 
-@section('content')
-<div ng-controller="specification" class="main-body ng-scope flex" data-ui-view="" data-flex="">
-    <md-card class="md-table ng-scope _md">
-    <md-card-content>
-      <div class="md-table-loader" data-ng-if="!loaded">
-            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-        </div>
-                <section class="md-table-header">
-            <div class="md-table-header-title">
-                            <span ng-click="toggleRight()" >Создание спецификации</span>
-                        </div>
-        </section>
-        <section class="md-table-body">
-<div class="col-xs-12 col-md-3 create-edit" style="margin-top: 20px;width: 100%;float: none;font-size: 0;max-width: 100%;">
-			{!! Form::open(['route' => 'specifications']) !!}
+<!-- END -->
 
 			<div class="input-block">
 				{!! Form::label('name', 'Имя'); !!}
@@ -32,9 +30,8 @@
     		{!! Form::number('order_end', null, ['class'=>'form-control', 'placeholder'=>'Последний возможный день для заказа']); !!}
 				</div>
 @endif
-	{!! Form::submit('Создать', ['class'=>'btn btn-large btn-primary btn-margin mob']); !!}
 
-</div>
+
 @if(count($products))
 	<div class="mobile-toogle">
 <table class="table table-bordered">
@@ -65,10 +62,6 @@
 
 @endif
 
-
-{{--    			{!! Form::submit('Создать', ['class'=>'btn btn-large btn-primary btn-margin mob']); !!}--}}
-
-			{!! Form::close() !!}
 			<script>
 			for(let i = 0 ; i < $("[data-sum]").length; i++){
 			    if(!!$($("[data-sum]")[i]).text()) $($("[data-sum]")[i]).text((+$($("[data-sum]")[i]).text()).toFixed(2))
@@ -78,14 +71,16 @@
 			}
 			</script>
 </style>
-</section>
-</md-card-content>
-</md-card>
-</div>
-@endsection
-<style>
-	.create-edit input {
-		font-size: 12px;
-		padding-left: 10px!important;
-	}
 
+<!-- футер модалки -->
+
+</md-dialog-content>
+<md-dialog-actions layout="row">
+  <md-button type="submit" class="md-primary md-raised">
+    Создать
+  </md-button>
+</md-dialog-actions>
+	{!! Form::close() !!}
+</md-dialog>
+
+<!-- END -->

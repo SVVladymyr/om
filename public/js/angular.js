@@ -1,4 +1,4 @@
-const mainApp = angular.module('BlankApp', ['ngMaterial' ]);
+const mainApp = angular.module('BlankApp', ['ngMaterial', 'ngSanitize' ]);
 
 mainApp.controller('leftSideBar', [
     '$scope',
@@ -67,12 +67,43 @@ mainApp.controller('RightCtrl', function ($scope, $timeout, $mdSidenav, $log) {
     };
 })
 mainApp.controller('specification', [
-    '$scope', '$timeout', '$mdSidenav', '$log',
-    function($scope, $timeout, $mdSidenav, $log){
+    '$scope', '$timeout', '$mdSidenav', '$log', '$mdDialog', '$http',
+    function($scope, $timeout, $mdSidenav, $log, $mdDialog, $http){
           $scope.loaded = true;
+//Вызов модалок
+          $scope.OpenModalCreate = function(ev) {
+            $mdDialog.show({
+              controller: OpenModalCreateCtrl,
+              templateUrl: '/specifications/create',
+              parent: angular.element(document.body),
+              targetEvent: ev,
+              clickOutsideToClose:true,
+              fullscreen: $scope.customFullscreen
+            })
+            .then(function(answer) {
+              $scope.status = 'You said the information was "' + answer + '".';
+            }, function() {
+              $scope.status = 'You cancelled the dialog.';
+            });
+          };
     }])
 mainApp.controller('user', [
     '$scope', '$timeout', '$mdSidenav', '$log',
     function($scope, $timeout, $mdSidenav, $log){
           $scope.loaded = true;
     }])
+    // Контроллеры
+    function OpenModalCreateCtrl($scope, $mdDialog, $http) {
+    $scope.title = 'Создание спецификации'
+    $scope.hide = function() {
+      $mdDialog.hide();
+    };
+
+    $scope.cancel = function() {
+      $mdDialog.cancel();
+    };
+
+    $scope.answer = function(answer) {
+      $mdDialog.hide(answer);
+    };
+  }
