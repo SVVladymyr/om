@@ -19,9 +19,30 @@ $('.create-orders-info-money-limit-info').hide()
 			{!! Form::open(['url' => "orders/update/$order->id"]) !!}
 <table class="table table-bordered">
 	<tr class="first-table-tr">
-		<th><span>Название<span data-text="Название статьи затрат"></span></span></th>
-		<th><span>Доступный остаток<span data-text="Доступный остаток лимита"></span></span></th>
-		<th><span>Лимит<span data-text="Общий лимит статьи затрат"></span></span></th>
+		<th><span>Название</span>
+		<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+			<md-icon class="md-ic">&#xE887;</md-icon>
+			<md-tooltip>
+				Название статьи затрат
+			</md-tooltip>
+		</md-button>
+		</th>
+		<th><span>Доступный остаток</span>
+		<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+			<md-icon class="md-ic">&#xE887;</md-icon>
+			<md-tooltip>
+				Доступный остаток лимита
+			</md-tooltip>
+		</md-button>
+		</th>
+		<th><span>Лимит</span>
+		<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+			<md-icon class="md-ic">&#xE887;</md-icon>
+			<md-tooltip>
+				Общий лимит статьи затрат
+			</md-tooltip>
+		</md-button>
+		</th>
 
 	</tr>
 @foreach($limits as $limit)
@@ -46,12 +67,54 @@ $('.create-orders-info-money-limit-info').hide()
 @if(count($products))
 <table class="table table-bordered">
 	<tr  class="first-table-tr">
-		<th><span>Артикул<span data-text="Артикул товара"></span> </span></th>
-		<th><span>Название<span data-text="Название товара"></span> </span></th>
-		<th><span>Цена<span data-text="Цена товара"></span> </span></th>
-		<th><span>Количество<span data-text="Количество товара"></span> </span></th>
-		<th><span>Доступно<span data-text="Доступно товаров для заказа"></span> </span></th>
-		<th><span>Лимит<span data-text="Лимит указаный на товар"></span> </span></th>
+		<th><span>Артикул</span>
+		<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+			<md-icon class="md-ic">&#xE887;</md-icon>
+			<md-tooltip>
+				Артикул товара
+			</md-tooltip>
+		</md-button>
+		</th>
+		<th><span>Название</span>
+		<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+			<md-icon class="md-ic">&#xE887;</md-icon>
+			<md-tooltip>
+				Название товара
+			</md-tooltip>
+		</md-button>
+		</th>
+		<th><span>Цена</span>
+		<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+			<md-icon class="md-ic">&#xE887;</md-icon>
+			<md-tooltip>
+				Цена товара
+			</md-tooltip>
+		</md-button>
+		</th>
+		<th><span>Количество</span>
+		<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+			<md-icon class="md-ic">&#xE887;</md-icon>
+			<md-tooltip>
+				Количество товара
+			</md-tooltip>
+		</md-button>
+		</th>
+		<th><span>Доступно</span>
+		<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+			<md-icon class="md-ic">&#xE887;</md-icon>
+			<md-tooltip>
+				Доступно товаров для заказа
+			</md-tooltip>
+		</md-button>
+		</th>
+		<th><span>Лимит</span>
+		<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+			<md-icon class="md-ic">&#xE887;</md-icon>
+			<md-tooltip>
+				Лимит указаный на товар
+			</md-tooltip>
+		</md-button>
+		</th>
 	</tr>
 @foreach($products as $product)
 

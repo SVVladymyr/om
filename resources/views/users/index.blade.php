@@ -16,13 +16,60 @@
         <div class="mobile-toogle">
         <table class="table table-bordered">
                 <tr class="first-table-tr">
-                        <th><span>E-mail<span data-text="E-mail пользователя"></span></span></th>
-                        <th><span>Имя<span data-text="Имя пользователя"></span></span></th>
-                        <th><span>Фамилия<span data-text="Фамилия пользователя"></span></span></th>
-                        <th><span>Номер телефона<span data-text="Номер телефона пользователя"></span></span></th>
-                        <th><span>Главный<span data-text="Главный адрес подразделения"></span></span></th>
-                        <th><span>Роль<span data-text="Роль выставленная у данного пользователя"></span></span></th>
-                        <th><span>Подразделение<span data-text="Подразделение главного пользователя"></span></span></th>
+                        <th><span>E-mail</span>
+                        <md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+                    <md-icon class="md-ic">&#xE887;</md-icon>
+                    <md-tooltip>
+                        E-mail пользователя
+                    </md-tooltip>
+                </md-button></th>
+                        <th><span>Имя</span>
+                        <md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+                    <md-icon class="md-ic">&#xE887;</md-icon>
+                    <md-tooltip>
+                        Имя пользователя
+                    </md-tooltip>
+                </md-button></th>
+                        <th><span>Фамилия</span>
+                        <md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+                    <md-icon class="md-ic">&#xE887;</md-icon>
+                    <md-tooltip>
+                        Фамилия пользователя
+                    </md-tooltip>
+                </md-button>
+                        </th>
+                        <th><span>Номер телефона</span>
+                        <md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+                    <md-icon class="md-ic">&#xE887;</md-icon>
+                    <md-tooltip>
+                        Номер телефона пользователя
+                    </md-tooltip>
+                </md-button>
+                        </th>
+                        <th><span>Главный</span>
+                        <md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+                    <md-icon class="md-ic">&#xE887;</md-icon>
+                    <md-tooltip>
+                        Главный адрес подразделения
+                    </md-tooltip>
+                </md-button>
+                        </th>
+                        <th><span>Роль</span>
+                        <md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+                    <md-icon class="md-ic">&#xE887;</md-icon>
+                    <md-tooltip>
+                        Роль выставленная у данного пользователя
+                    </md-tooltip>
+                </md-button>
+                        </th>
+                        <th><span>Подразделение</span>
+                        <md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+                    <md-icon class="md-ic">&#xE887;</md-icon>
+                    <md-tooltip>
+                        Подразделение главного пользователя
+                    </md-tooltip>
+                </md-button>
+                    </th>
                         <th></th>
                 </tr>
         @foreach($users as $user)

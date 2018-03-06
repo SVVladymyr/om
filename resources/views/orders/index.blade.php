@@ -110,6 +110,87 @@
 						</div>
         </section>
 				<section class="md-table-body">
+
+<div style="font-size: 0;">
+<div style="margin-right: 2%;" class="select-filter status-order">
+	<label><span class="help-text">Фильтрация по статусу заказа<span data-text="Нажмите на стрелку справа. Отметьте один или несколько статусов заказа в выпадающем списке. Щелкните кнопку 'Фильтровать' и заказы с отмечеными статусом отобразятся в таблице"></span></span></label>
+	<div class="select-filter-dropdown">
+		<label>Не выбраны параметры</label><span class="rotage">></span>
+	</div>
+	<div class="select-filter-dropdown-list">
+		@foreach($statuses as $status)
+		{!! Form::checkbox("statuses[$status->id]", $status->name, session()->has("filters.statuses.$status->id"), ['id' => "statuses[$status->id]"]); !!}{!! Form::label("statuses[$status->id]", $status->name, ['class' => 'translate']); !!} </br>
+		@endforeach
+	</div>
+</div>
+<!-- ПО ТЗ && !Auth::user()->isConsumer() -->
+@if(!empty($clients) && !Auth::user()->isConsumer() )
+<div class="select-filter podr-order">
+	<label><span class="help-text">Фильтрация по подразделениям<span data-text="Выберите подразделения (филиалы), заказы которых Вы хотите увидеть"></span></span></label>
+	<div class="select-filter-dropdown">
+		<label>Не выбраны подразделения</label><span class="rotage"></span>
+	</div>
+	<div class="select-filter-dropdown-list">
+		@foreach($clients as $id => $name)
+		     {!! Form::checkbox("clients[$id]", $id, session()->has("filters.clients.$id"), ['id' => "clients[$id]"]);!!}{!! Form::label("clients[$id]", $name); !!} </br>
+		@endforeach
+	</div>
+</div>
+@endif
+<script>
+    $.ajax({
+        url : '/js/ru.json',
+        type: "GET",
+        success: function (data) {
+            for(let i = 0 ; i < $('.translate').length; i++){
+                let translateResponse = data[$($('.translate')[i]).text()];
+                $($('.translate')[i]).text(translateResponse)
+						}
+						for(let i = 0 ; i < $('tr select').length; i++){
+							for(let q = 0; q < $($('tr select')[i]).find('option').length; q++){
+									$($($('tr select')[i]).find('option')[q]).text(data[$($($('tr select')[i]).find('option')[q]).text()])
+							}
+						}
+        }
+    })
+</script>
+</div>
+
+<div class="filter-dates">
+	<div class="filert-date">
+			<label>Фильтр по дате создания заказа</label>
+			<div class="filter-date-datepicker">
+				c {!! Form::date('created_from', session()->get("filters.created_from")); !!}
+			</div>
+			<div class="filter-date-datepicker">
+				по {!! Form::date('expected_delivery_from', session()->get("filters.expected_delivery_from")); !!}
+			</div>
+	</div>
+	<div class="filert-date">
+		@if(!Auth::user()->isConsumer())
+			<label>Фильтр по ожидаемой дате доставки</label>
+			<div class="filter-date-datepicker">
+				с {!! Form::date('created_to', session()->get("filters.created_to")); !!}
+			</div>
+			<div class="filter-date-datepicker">
+				по {!! Form::date('expected_delivery_to', session()->get("filters.expected_delivery_to")); !!}
+			</div>
+			@endif
+	</div>
+	<div class="filert-date">
+			<label>Фильтр по дате получения заказа</label>
+			<div class="filter-date-datepicker">
+				с {!! Form::date('created_to', session()->get("filters.created_to")); !!}
+			</div>
+			<div class="filter-date-datepicker">
+				по {!! Form::date('expected_delivery_to', session()->get("filters.expected_delivery_to")); !!}
+			</div>
+	</div>
+</div>
+
+<div class="mobile-overflow">
+</div>
+>>>>>>> Stashed changes
 <style>
 	.button-style ~ input:hover {
 		background-color: #ff9e01;
@@ -146,16 +227,31 @@
 	       <colgroup class="slim"></colgroup>
 				 <colgroup class="slim"></colgroup> -->
 		<thead>
-			<tr class="first-table-tr">
+			<tr class="first-table-tr order-table">
 				<th>Подразделение</th>
 				<th>Пользователь</th>
 				<th>Сумма</th>
 				<th style="min-width: 280px;">Статус заказа</th>
-				<th><span>Статус подтверждения<span data-text="Заказ подтвержден менеджером"></span></span></th>
+				<th><span>Статус подтверждения</span><md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+					<md-icon class="md-ic">&#xE887;</md-icon>
+					<md-tooltip>
+						Заказ подтвержден менеджером
+					</md-tooltip>
+				</md-button></th>
 				@if(Auth::user()->isClientAdmin())
 
-					<th style="width: 200px;"><span>Подтверждение потребителем<span data-text="Подтверждения заказа потребителем"></span></span></th>
-					<th style="width: 200px;"><span>Подтверждение администратором<span data-text="Подтверждения заказа администратором"></span></span></th>
+					<th style="width: 200px;"><span>Подтверждение потребителем</span><md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+					<md-icon class="md-ic">&#xE887;</md-icon>
+					<md-tooltip>
+						Подтверждения заказа потребителем
+					</md-tooltip>
+				</md-button></th>
+					<th style="width: 200px;"><span>Подтверждение администратором</span><md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+					<md-icon class="md-ic">&#xE887;</md-icon>
+					<md-tooltip>
+						Подтверждения заказа администратором
+					</md-tooltip>
+				</md-button></th>
 
 				@elseif(Auth::user()->isManager())
 					<th><span>Подтверждение менеджером<span data-text="Подтверждение заказа менеджером"></span></span></th>
@@ -165,9 +261,26 @@
 					<th><span>Подтверждение потребителем<span data-text="Подтвердить заказ как потребитель"></span></span></th>
 					<th><span>Подтверждение руководителем подуровня<span data-text="Подтвердить заказ как руководитель подуровня"></span></span></th>
 				@endif
-				<th><span>Создание заказа<span data-text="Дата/время создания заказа"></span></span></th>
-				<th><span>Ожидаемая дата<span data-text="Ожидаемая дата/время прибытие заказа"></span></span></th>
-				<th><span>Дата доставки<span data-text="Фактическая дата/время прибытия заказа"></span></span></th>
+				<th><span>Создание заказа</span><md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+					<md-icon class="md-ic">&#xE887;</md-icon>
+					<md-tooltip>
+						Дата/время создания заказа
+					</md-tooltip>
+				</md-button></th>
+				<th><span>Ожидаемая дата</span>
+				<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+					<md-icon class="md-ic">&#xE887;</md-icon>
+					<md-tooltip>
+						Ожидаемая дата/время прибытие заказа
+					</md-tooltip>
+				</md-button></th>
+				<th><span>Дата доставки</span>
+				<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+					<md-icon class="md-ic">&#xE887;</md-icon>
+					<md-tooltip>
+						Фактическая дата/время прибытия заказа
+					</md-tooltip>
+				</md-button></th>
 			</tr>
 		</thead>
 		<tbody>

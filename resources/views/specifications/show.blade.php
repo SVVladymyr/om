@@ -48,16 +48,51 @@
 {{--</table>--}}
 
 {{--@endif--}}
-<div style="padding: 20px;" class="mobile-toogle">
+<div style="padding: 0 15px;" class="mobile-toogle">
     @if(count($products))
 
 <table class="table table-bordered">
     <tr class="first-table-tr">
-        <th><span>Артикул<span data-text="Модель данного товара"></span></span></th>
-        <th><span>Имя<span data-text="Название данного товара"></span></span></th>
-        <th><span>Цена<span data-text="Цена за еденицу товара"></span></span></th>
-        <th><span>Лимит<span data-text="Лимит установленный на этот товар"></span></span></th>
-        <th><span>Период<span data-text="Длительность периода обновления лимита"></span></span></th>
+        <th><span>Артикул</span>
+        <md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+            <md-icon class="md-ic">&#xE887;</md-icon>
+            <md-tooltip>
+                Модель данного товара
+            </md-tooltip>
+        </md-button>
+        </th>
+        <th><span>Имя</span>
+        <md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+            <md-icon class="md-ic">&#xE887;</md-icon>
+            <md-tooltip>
+                Название данного товара
+            </md-tooltip>
+        </md-button>
+        </th>
+        <th><span>Цена</span>
+        <md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+            <md-icon class="md-ic">&#xE887;</md-icon>
+            <md-tooltip>
+                Цена за еденицу товара
+            </md-tooltip>
+        </md-button>
+        </th>
+        <th><span>Лимит</span>
+        <md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+            <md-icon class="md-ic">&#xE887;</md-icon>
+            <md-tooltip>
+                Лимит установленный на этот товар
+            </md-tooltip>
+        </md-button>
+        </th>
+        <th><span>Период</span>
+        <md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+            <md-icon class="md-ic">&#xE887;</md-icon>
+            <md-tooltip>
+                Длительность периода обновления лимита
+            </md-tooltip>
+        </md-button>
+        </th>
     </tr>
 
 @foreach($products as $product)

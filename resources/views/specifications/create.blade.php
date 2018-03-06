@@ -10,7 +10,7 @@
       </md-button>
     </div>
   </md-toolbar>
-  <md-dialog-content>
+  <md-dialog-content style="padding: 0 20px;">
 
 <!-- END -->
 
@@ -35,13 +35,55 @@
 @if(count($products))
 	<div class="mobile-toogle">
 <table class="table table-bordered">
-	<tr class="first-table-tr">
-		<th><span>Артикул<span data-text="Артикул товара"></span> </span></th>
-		<th><span>Название<span data-text="Название товара"></span> </span></th>
-		<th><span>Цена<span data-text="Цена товара"></span> </span></th>
-		<th><span>Выбрать<span data-text="Выбрать товар в спецификацию"></span></span></th>
-		<th><span>Лимит<span data-text="Лимит указаный на товар"></span> </span></th>
-		<th><span>Период<span data-text="Период указаный на обноваления лимита"></span></span></th>
+	<tr class="first-table-tr create-specifications-table">
+		<th><span>Артикул</span>
+		<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+			<md-icon class="md-ic">&#xE887;</md-icon>
+			<md-tooltip>
+				Артикул товара
+			</md-tooltip>
+		</md-button>
+		</th>
+		<th><span>Название</span>
+		<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+			<md-icon class="md-ic">&#xE887;</md-icon>
+			<md-tooltip>
+				Название товара
+			</md-tooltip>
+		</md-button>
+		</th>
+		<th><span>Цена</span>
+		<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+			<md-icon class="md-ic">&#xE887;</md-icon>
+			<md-tooltip>
+				Цена товара
+			</md-tooltip>
+		</md-button>
+		</th>
+		<th><span>Выбрать</span>
+		<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+			<md-icon class="md-ic">&#xE887;</md-icon>
+			<md-tooltip>
+				Выбрать товар в спецификацию
+			</md-tooltip>
+		</md-button>
+		</th>
+		<th><span>Лимит</span>
+		<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+			<md-icon class="md-ic">&#xE887;</md-icon>
+			<md-tooltip>
+				Лимит указаный на товар
+			</md-tooltip>
+		</md-button>
+		</th>
+		<th><span>Период</span>
+		<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+			<md-icon class="md-ic">&#xE887;</md-icon>
+			<md-tooltip>
+				Период указаный на обноваления лимита
+			</md-tooltip>
+		</md-button>
+		</th>
 	</tr>
 
 @foreach($products as $product)

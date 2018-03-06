@@ -14,7 +14,7 @@
         </section>
         <section class="md-table-body">
 <h1>{{ $specification->name }}</h1>
-<div class="col-xs-12 col-md-3  edit-spec create-edit" style="margin-top: 20px;width: 100%;float: none;font-size: 0;max-width: 100%;">
+<div class="col-xs-12 col-md-3  edit-spec create-edit" style="margin-top: 15px; width: 100%;float: none;font-size: 0;max-width: 100%;">
 			{!! Form::model($specification, ['url' => ['specifications/update', $specification->id]]); !!}
 
 @if($specification->main_specification != null && Auth::user()->isClientAdmin())
@@ -29,11 +29,11 @@
 
 
 @if(Auth::user()->isClientAdmin())
-<div class="input-block">
+<div class="input-block" style="line-height: 1.2">
 {!! Form::label('order_begin', 'Первый возможный день для заказа'); !!}
 	{!! Form::number('order_begin', null, ['placeholder'=> 'Первый возможный день для заказа', 'class'=>'form-control']); !!}
 </div>
-<div class="input-block">
+<div class="input-block" style="line-height: 1.2">
 	{!! Form::label('order_end', 'Последний возможный день для заказа'); !!}
 	{!! Form::number('order_end', null, ['class'=>'form-control', 'placeholder'=>'Последний возможный день для заказа']); !!}
 	</div>
@@ -42,15 +42,57 @@
 @if(count($products))
 	<div class="mobile-toogle">
 <table class="table table-bordered">
-	<tr class="first-table-tr">
-		<th><span>Артикул<span data-text="Артикул товара"></span> </span></th>
-		<th><span>Название<span data-text="Название товара"></span> </span></th>
-		<th><span>Цена<span data-text="Цена товара"></span> </span></th>
+	<tr class="first-table-tr specification-table">
+		<th><span>Артикул</span>
+		<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+			<md-icon class="md-ic">&#xE887;</md-icon>
+			<md-tooltip>
+				Артикул товара
+			</md-tooltip>
+		</md-button>
+		</th>
+		<th><span>Название</span>
+		<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+			<md-icon class="md-ic">&#xE887;</md-icon>
+			<md-tooltip>
+				Название товара
+			</md-tooltip>
+		</md-button>
+		</th>
+		<th><span>Цена</span>
+		<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+			<md-icon class="md-ic">&#xE887;</md-icon>
+			<md-tooltip>
+				Цена товара
+			</md-tooltip>
+		</md-button>
+		</th>
 	@if($specification->main_specification != null)
-		<th><span>Выбрать<span data-text="Выбрать товар в спецификацию"></span></span></th>
+		<th><span>Выбрать</span>
+		<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+			<md-icon class="md-ic">&#xE887;</md-icon>
+			<md-tooltip>
+				Выбрать товар в спецификацию
+			</md-tooltip>
+		</md-button>
+		</th>
 	@endif
-	<th><span>Лимит<span data-text="Лимит указаный на товар"></span> </span></th>
-	<th><span>Период<span data-text="Период указаный на обноваления лимита"></span></span></th>
+	<th><span>Лимит</span>
+	<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+			<md-icon class="md-ic">&#xE887;</md-icon>
+			<md-tooltip>
+				Лимит указаный на товар
+			</md-tooltip>
+		</md-button>
+		</th>
+	<th><span>Период</span>
+	<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+			<md-icon class="md-ic">&#xE887;</md-icon>
+			<md-tooltip>
+				Период указаный на обноваления лимита
+			</md-tooltip>
+		</md-button>
+		</th>
 	</tr>
 @foreach($products as $product)
 

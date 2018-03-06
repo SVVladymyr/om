@@ -18,8 +18,22 @@
 
     <table class="table table-bordered">
         <tr class="first-table-tr">
-            <th><span>Имя<span data-text="Название спецификации"></span></span></th>
-            <th><span>Открыть спецификацию<span data-text="Открыть всплывающие окно спецификации"></span></span></th>
+            <th><span>Имя</span>
+            <md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+                <md-icon class="md-ic">&#xE887;</md-icon>
+                <md-tooltip>
+                    Название спецификации
+                </md-tooltip>
+            </md-button>
+            </th>
+            <th><span>Открыть спецификацию</span>
+            <md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+                <md-icon class="md-ic">&#xE887;</md-icon>
+                <md-tooltip>
+                    Открыть всплывающие окно спецификации
+                </md-tooltip>
+            </md-button>
+            </th>
         </tr>
     @foreach($specifications as $specification)
 

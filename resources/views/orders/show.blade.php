@@ -19,10 +19,38 @@
     @if(count($products))
 <table class="table table-bordered">
     <tr class="first-table-tr">
-      <th><span>Артикул<span data-text="Артикул товара"></span> </span></th>
-  		<th><span>Название<span data-text="Название товара"></span> </span></th>
-  		<th><span>Цена<span data-text="Цена товара"></span> </span></th>
-  		<th><span>Количество<span data-text="Количество товара"></span> </span></th>
+        <th><span>Артикул</span>
+        <md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+            <md-icon class="md-ic">&#xE887;</md-icon>
+            <md-tooltip>
+                Артикул товара
+            </md-tooltip>
+        </md-button>
+        </th>
+  		<th><span>Название</span>
+        <md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+            <md-icon class="md-ic">&#xE887;</md-icon>
+            <md-tooltip>
+                Название товара
+            </md-tooltip>
+        </md-button>
+        </th>
+  		<th><span>Цена</span>
+        <md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+            <md-icon class="md-ic">&#xE887;</md-icon>
+            <md-tooltip>
+                Цена товара
+            </md-tooltip>
+        </md-button>
+        </th>
+  		<th><span>Количество</span>
+        <md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+            <md-icon class="md-ic">&#xE887;</md-icon>
+            <md-tooltip>
+                Количество товара
+            </md-tooltip>
+        </md-button>
+        </th>
     </tr>
 
 @foreach($products as $product)

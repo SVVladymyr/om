@@ -23,7 +23,7 @@
 <!-- футер модалки -->
 
 </md-dialog-content>
-<md-dialog-actions layout="row">
+<md-dialog-actions layout="row" style="padding: 0 15px;">
   <md-button type="submit" class="md-primary md-raised">
     Создать
   </md-button>

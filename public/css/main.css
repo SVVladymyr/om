@@ -5334,7 +5334,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
     padding: 6px 12px;
     line-height: 1.42857143;
     text-decoration: none;
-    color: #337ab7;
+    color: #4197e3;
     background-color: #ffffff;
     border: 1px solid #dddddd;
     margin-left: -1px;
@@ -5370,8 +5370,8 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination > .active > span:focus {
     z-index: 2;
     color: #ffffff;
-    background-color: #337ab7;
-    border-color: #337ab7;
+    background-color: #4197e3;
+    border-color: #4197e3;
     cursor: default;
 }
 
@@ -9425,7 +9425,9 @@ tbody tr:nth-child(even) {
     position: relative;
     z-index: 100;
 }
-
+.first-table-tr:hover {
+    background: #4197e2 !important;
+}
 body > header {
   position: fixed;
 width: 100%;
@@ -9612,19 +9614,23 @@ letter-spacing: -4px;
     }
   }
 
-<<<<<<< Updated upstream
-
-.btn-success, .md-primary, .btn-primary, .btn-warning {
+.btn-success, .md-primary, .btn-primary, .btn-warning, .btn-info {
     background: #4197e3 !important;
-    border: 1px solid #4197e3 !important;
+    border: none !important;
     transition: .3s;
     -webkit-transition: .3s;
 }
-.md-primary:hover, .md-primary:focus, .md-primary:active, .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-warning:hover, .btn-warning:focus, .btn-warning:active {
+.md-primary:hover, .md-primary:focus, .md-primary:active, .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-warning:hover, .btn-warning:focus, .btn-warning:active, .btn-info:hover, .btn-info:focus, .btn-info:active {
     background: #2072e2 !important;
-    border: 1px solid #2072e2 !important;
+    border: none !important;
     color: #fff !important;
     outline: none !important;
+}
+.btn-danger {
+    margin: 0 10px;
+}
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active {
+    color: #fff !important;
 }
 .md-input-has-value label {
     overflow: visible !important;
@@ -9632,4 +9638,27 @@ letter-spacing: -4px;
 }
 .colum-left {
     margin-bottom: 10px;
+}
+.md-input-has-value {
+    display: block;
+    margin: 35px 0;
+}
+.md-input-has-value label {
+    margin: 0;
+}
+.md-table.ng-scope {
+    padding: 5px;
+}
+.md-table-body h1 {
+    margin: 0;
+    padding: 0 15px;
+}
+#dialogContent_0 {
+    padding: 10px 20px;
+}
+#dialogContent_0 .create-edit {
+    padding: 0;
+}
+.order-table th span, .specification-table th span, .create-specifications-table th span {
+    display: block;
 }

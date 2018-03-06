@@ -13,7 +13,7 @@
   <md-dialog-content>
 
 <!-- END -->
-<div class="col-xs-12 col-md-3 create-edit" style="padding-top: 25px; width: 100%; min-width: 100%; ">
+<div class="col-xs-12 col-md-3 create-edit" style="padding-top: 10px; width: 100%; min-width: 100%; ">
 	
         {{--{!! Form::label('name', 'name'); !!}--}}
         {!! Form::text('name', null, ['placeholder'=>'Имя', 'class'=>'form-control']); !!}</br>
@@ -23,7 +23,7 @@
 <!-- футер модалки -->
 
 </md-dialog-content>
-<md-dialog-actions layout="row">
+<md-dialog-actions layout="row" style="padding: 0 15px;">
   <md-button type="submit" class="md-primary md-raised">
     Создать
   </md-button>

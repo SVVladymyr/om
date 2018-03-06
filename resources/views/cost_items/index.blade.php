@@ -21,7 +21,14 @@
               	       <colgroup class="slim"></colgroup>
                        <thead>
                          <tr class="first-table-tr">
-                                 <th><span>Название<span data-text="Название статьи затрат"></span></span></th>
+                                 <th><span>Название</span>
+                                 <md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+          <md-icon class="md-ic">&#xE887;</md-icon>
+          <md-tooltip>
+            Название статьи затрат
+          </md-tooltip>
+        </md-button>
+        </th>
                                  
                          </tr>
                        </thead>
