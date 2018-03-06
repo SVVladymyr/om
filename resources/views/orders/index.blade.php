@@ -22,11 +22,59 @@
 					</md-select>
 					</md-input-container>
           <!-- end select -->
-          <!-- start date -->
-          <md-datepicker  ng-model="myDate" md-current-view="year" md-placeholder="Enter date"></md-datepicker>
-          {!! Form::date('created_from', session()->get("filters.created_from"), ['ng-value' => 'created_from', 'class'=>'hidden'] ); !!}
-          <!-- end start -->
-				</md-card-content>
+
+          <!-- start select -->
+					<md-input-container>
+					<label> Фильтрация по подразделениям</label>
+					<md-select  ng-change="ChangeChechbox()" ng-model="selectedVegetables"
+									 md-on-close="clearSearchTerm()"
+									 data-md-container-class="selectdemoSelectHeader"
+									 multiple>
+					<md-optgroup label=" Фильтрация по подразделениям">
+	          @foreach($clients as $id => $name)
+						<md-option ng-value="'{{$name}}'">{{$name}}</md-option>
+						@endforeach
+					</md-optgroup>
+					</md-select>
+					</md-input-container>
+          <!-- end select -->
+
+         	<!-- start date -->
+			<label>Фильтр по дате создания заказа</label></br>
+	        C
+	        <md-datepicker  ng-model="myDate" md-current-view="year" md-placeholder="Enter date"></md-datepicker>
+	        {!! Form::date('created_from', session()->get("filters.created_from"), ['ng-value' => 'created_from', 'class'=>'hidden'] ); !!}
+	        по
+	        <md-datepicker  ng-model="myDate" md-current-view="year" md-placeholder="Enter date"></md-datepicker>
+	        {!! Form::date('expected_delivery_from', session()->get("filters.expected_delivery_from"), ['ng-value' => 'created_from', 'class'=>'hidden'] ); !!}
+	        <!-- end start -->
+
+			<!-- start date -->
+			@if(!Auth::user()->isConsumer())
+			<label>Фильтр по ожидаемой дате доставки</label></br>
+	        C
+	        <md-datepicker  ng-model="myDate" md-current-view="year" md-placeholder="Enter date"></md-datepicker>
+	        {!! Form::date('created_from', session()->get("filters.created_from"), ['ng-value' => 'created_from', 'class'=>'hidden'] ); !!}
+	        по
+	        <md-datepicker  ng-model="myDate" md-current-view="year" md-placeholder="Enter date"></md-datepicker>
+	        {!! Form::date('expected_delivery_from', session()->get("filters.expected_delivery_from"), ['ng-value' => 'created_from', 'class'=>'hidden'] ); !!}
+	        @endif
+	        <!-- end start -->
+
+
+			<!-- start date -->
+			@if(!Auth::user()->isConsumer())
+			<label>Фильтр по дате получения заказа</label></br>
+	        C
+	        <md-datepicker  ng-model="myDate" md-current-view="year" md-placeholder="Enter date"></md-datepicker>
+	        {!! Form::date('created_from', session()->get("filters.created_from"), ['ng-value' => 'created_from', 'class'=>'hidden'] ); !!}
+	        по
+	        <md-datepicker  ng-model="myDate" md-current-view="year" md-placeholder="Enter date"></md-datepicker>
+	        {!! Form::date('expected_delivery_from', session()->get("filters.expected_delivery_from"), ['ng-value' => 'created_from', 'class'=>'hidden'] ); !!}
+	        @endif
+	        <!-- end start -->
+
+			</md-card-content>
         <md-button flex-gt-md="100" ng-click="close()" class="md-primary">
           Закрыть
         </md-button>
