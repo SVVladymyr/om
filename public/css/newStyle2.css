@@ -35,3 +35,21 @@ section.md-toolbar-tools-right {
     display:  flex;
     justify-content: flex-end;
 }
+
+.md-datepicker-input-container {
+    width: 100px !important;
+}
+md-sidenav {
+    box-sizing: border-box;
+    position: absolute;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    z-index: 60;
+    width: 400px;
+    max-width: 320px;
+    bottom: 0;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
