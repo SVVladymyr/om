@@ -7,6 +7,18 @@
       <md-content ng-controller="RightCtrl" layout-padding="10">
         {!! Form::open(['route' => 'user_orders']) !!}
 				 <md-card-content flex-gt-md="100">
+
+         	<!-- start date -->
+			<label>Фильтр по дате создания заказа</label></br>
+	        C
+	        <md-datepicker  ng-model="myDate" md-current-view="year" md-placeholder="Enter date"></md-datepicker>
+	        {!! Form::date('created_from', session()->get("filters.created_from"), ['ng-value' => 'created_from', 'class'=>'hidden'] ); !!}
+	        по
+	        <md-datepicker  ng-model="myDate" md-current-view="year" md-placeholder="Enter date"></md-datepicker>
+	        {!! Form::date('expected_delivery_from', session()->get("filters.expected_delivery_from"), ['ng-value' => 'created_from', 'class'=>'hidden'] ); !!}
+	        <!-- end start -->
+
+
            <!-- start select -->
 					<md-input-container>
 					<label>Фильтрация по статусу заказа</label>
@@ -37,16 +49,7 @@
 					</md-select>
 					</md-input-container>
           <!-- end select -->
-         	<!-- start date -->
-			<label>Фильтр по дате создания заказа</label></br>
-	        C
-	        <md-datepicker  ng-model="myDate" md-current-view="year" md-placeholder="Enter date"></md-datepicker>
-	        {!! Form::date('created_from', session()->get("filters.created_from"), ['ng-value' => 'created_from', 'class'=>'hidden'] ); !!}
-	        по
-	        <md-datepicker  ng-model="myDate" md-current-view="year" md-placeholder="Enter date"></md-datepicker>
-	        {!! Form::date('expected_delivery_from', session()->get("filters.expected_delivery_from"), ['ng-value' => 'created_from', 'class'=>'hidden'] ); !!}
-	        <!-- end start -->
-
+          
 			<!-- start date -->
 			@if(!Auth::user()->isConsumer())
 			<label>Фильтр по ожидаемой дате доставки</label></br>

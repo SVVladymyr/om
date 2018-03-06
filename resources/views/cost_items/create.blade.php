@@ -14,9 +14,10 @@
 
 <!-- END -->
 <div class="col-xs-12 col-md-3 create-edit" style="padding-top: 10px; width: 100%; min-width: 100%; ">
-	
-        {{--{!! Form::label('name', 'name'); !!}--}}
-        {!! Form::text('name', null, ['placeholder'=>'Имя', 'class'=>'form-control']); !!}</br>
+	     <md-input-container flex="">
+          <label>Name</label>
+          <input name="name" type="text">
+        </md-input-container>
 </div>
 
 

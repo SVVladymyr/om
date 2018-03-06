@@ -13,7 +13,10 @@
   <md-dialog-content style="padding: 0 20px;">
 
 <!-- END -->
-
+			<md-input-container flex="">
+         		<label>Имя</label>
+          		<input name="name" type="text" value="">
+          	</md-input-container>
 			<div class="input-block">
 				{!! Form::label('name', 'Имя'); !!}
 				{!! Form::text('name', null, ['placeholder'=>'Имя', 'class'=>'form-control']); !!}
@@ -21,10 +24,18 @@
 
 
 @if(Auth::user()->isClientAdmin())
+<md-input-container flex="">
+         		<label>Имя</label>
+          		<input name="name" type="text" value="">
+          	</md-input-container>
 <div class="input-block">
 			{!! Form::label('order_begin', 'Первый возможный день для заказа'); !!}
 				{!! Form::number('order_begin', null, ['placeholder'=> 'Первый возможный день для заказа', 'class'=>'form-control']); !!}
 			</div>
+			<md-input-container flex="">
+         		<label>Имя</label>
+          		<input name="name" type="text" value="">
+          	</md-input-container>
 <div class="input-block">
     		{!! Form::label('order_end', 'Последний возможный день для заказа'); !!}
     		{!! Form::number('order_end', null, ['class'=>'form-control', 'placeholder'=>'Последний возможный день для заказа']); !!}

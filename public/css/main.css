@@ -9662,3 +9662,6 @@ letter-spacing: -4px;
 .order-table th span, .specification-table th span, .create-specifications-table th span {
     display: block;
 }
+md-input-container.flex {
+    width: 100%;
+}
