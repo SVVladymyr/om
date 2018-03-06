@@ -22,7 +22,6 @@
 					</md-select>
 					</md-input-container>
           <!-- end select -->
-
           <!-- start select -->
 					<md-input-container>
 					<label> Фильтрация по подразделениям</label>
@@ -38,7 +37,6 @@
 					</md-select>
 					</md-input-container>
           <!-- end select -->
-
          	<!-- start date -->
 			<label>Фильтр по дате создания заказа</label></br>
 	        C
@@ -60,8 +58,6 @@
 	        {!! Form::date('expected_delivery_from', session()->get("filters.expected_delivery_from"), ['ng-value' => 'created_from', 'class'=>'hidden'] ); !!}
 	        @endif
 	        <!-- end start -->
-
-
 			<!-- start date -->
 			@if(!Auth::user()->isConsumer())
 			<label>Фильтр по дате получения заказа</label></br>
@@ -73,7 +69,6 @@
 	        {!! Form::date('expected_delivery_from', session()->get("filters.expected_delivery_from"), ['ng-value' => 'created_from', 'class'=>'hidden'] ); !!}
 	        @endif
 	        <!-- end start -->
-
 			</md-card-content>
         <md-button flex-gt-md="100" ng-click="close()" class="md-primary">
           Закрыть
@@ -88,6 +83,9 @@
           <span ng-init="defaultClientOrder.push('{{$status->name}}')" class="hidden"></span>
     		     {!! Form::checkbox("clients[$id]", $id, session()->has("filters.clients.$id"), ['id' => "clients[$id]", 'class'=>'hidden']);!!}
     		@endforeach
+        @if(isset($client))
+        	{!! Form::hidden('clients[]', $client->id); !!}
+        @endif
         <md-button class="md-primary md-raised" type="button" ng-click="changedate()">
             Фильтровать
         </md-button>
@@ -112,88 +110,6 @@
 						</div>
         </section>
 				<section class="md-table-body">
-
-
-
-<div style="font-size: 0;">
-<div style="margin-right: 2%;" class="select-filter status-order">
-	<label><span class="help-text">Фильтрация по статусу заказа<span data-text="Нажмите на стрелку справа. Отметьте один или несколько статусов заказа в выпадающем списке. Щелкните кнопку 'Фильтровать' и заказы с отмечеными статусом отобразятся в таблице"></span></span></label>
-	<div class="select-filter-dropdown">
-		<label>Не выбраны параметры</label><span class="rotage">></span>
-	</div>
-	<div class="select-filter-dropdown-list">
-		@foreach($statuses as $status)
-		{!! Form::checkbox("statuses[$status->id]", $status->name, session()->has("filters.statuses.$status->id"), ['id' => "statuses[$status->id]"]); !!}{!! Form::label("statuses[$status->id]", $status->name, ['class' => 'translate']); !!} </br>
-		@endforeach
-	</div>
-</div>
-<!-- ПО ТЗ && !Auth::user()->isConsumer() -->
-@if(!empty($clients) && !Auth::user()->isConsumer() )
-<div class="select-filter podr-order">
-	<label><span class="help-text">Фильтрация по подразделениям<span data-text="Выберите подразделения (филиалы), заказы которых Вы хотите увидеть"></span></span></label>
-	<div class="select-filter-dropdown">
-		<label>Не выбраны подразделения</label><span class="rotage">></span>
-	</div>
-	<div class="select-filter-dropdown-list">
-		@foreach($clients as $id => $name)
-		     {!! Form::checkbox("clients[$id]", $id, session()->has("filters.clients.$id"), ['id' => "clients[$id]"]);!!}{!! Form::label("clients[$id]", $name); !!} </br>
-		@endforeach
-	</div>
-</div>
-@endif
-<script>
-    $.ajax({
-        url : '/js/ru.json',
-        type: "GET",
-        success: function (data) {
-            for(let i = 0 ; i < $('.translate').length; i++){
-                let translateResponse = data[$($('.translate')[i]).text()];
-                $($('.translate')[i]).text(translateResponse)
-						}
-						for(let i = 0 ; i < $('tr select').length; i++){
-							for(let q = 0; q < $($('tr select')[i]).find('option').length; q++){
-									$($($('tr select')[i]).find('option')[q]).text(data[$($($('tr select')[i]).find('option')[q]).text()])
-							}
-						}
-        }
-    })
-</script>
-</div>
-
-<div class="filter-dates">
-	<div class="filert-date">
-			<label>Фильтр по дате создания заказа</label>
-			<div class="filter-date-datepicker">
-				c {!! Form::date('created_from', session()->get("filters.created_from")); !!}
-			</div>
-			<div class="filter-date-datepicker">
-				по {!! Form::date('expected_delivery_from', session()->get("filters.expected_delivery_from")); !!}
-			</div>
-	</div>
-	<div class="filert-date">
-		@if(!Auth::user()->isConsumer())
-			<label>Фильтр по ожидаемой дате доставки</label>
-			<div class="filter-date-datepicker">
-				с {!! Form::date('created_to', session()->get("filters.created_to")); !!}
-			</div>
-			<div class="filter-date-datepicker">
-				по {!! Form::date('expected_delivery_to', session()->get("filters.expected_delivery_to")); !!}
-			</div>
-			@endif
-	</div>
-	<div class="filert-date">
-			<label>Фильтр по дате получения заказа</label>
-			<div class="filter-date-datepicker">
-				с {!! Form::date('created_to', session()->get("filters.created_to")); !!}
-			</div>
-			<div class="filter-date-datepicker">
-				по {!! Form::date('expected_delivery_to', session()->get("filters.expected_delivery_to")); !!}
-			</div>
-	</div>
-</div>
-
-<div class="mobile-overflow">
-</div>
 <style>
 	.button-style ~ input:hover {
 		background-color: #ff9e01;
@@ -207,19 +123,6 @@
 		background-color: #4197e2;
 	}
 </style>
-
-@if(isset($client))
-
-	{!! Form::hidden('clients[]', $client->id); !!}
-
-@endif
-
-<span class="help-text">фыв<span data-text="Установите параметры отбора заказов и нажмите кнопку 'фильтровать'. В таблице будут отображены только соответсвующие критериям отбора заказы."></span></span>
-
-
-
-
-
 @if($orders->IsNotEmpty())
 
 	{!! Form::open(['route' => 'status']) !!}
