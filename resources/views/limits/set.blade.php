@@ -1,19 +1,21 @@
-@extends('layouts.master')
 
-@section('content')
-<div ng-controller="client" class="main-body ng-scope flex" data-ui-view="" data-flex="">
-	<md-card class="md-table ng-scope _md">
-		<md-card-content>
-			<div class="md-table-loader" data-ng-if="!loaded">
-				<md-progress-circular md-mode="indeterminate"></md-progress-circular>
-			</div>
-			<section class="md-table-header">
-				<div class="md-table-header-title">
-					<span ng-click="toggleRight()" >Задать лимит</span>
-				</div>
-			</section>
-			<open-modal>
+		<!-- шапка модалки -->
+<md-dialog aria-label="Test">
+   
 				{!! Form::open(['url' => "clients/$client->id/limits"]) !!}
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2 ng-bind-html="title"></h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+
+
+
 				<table class="table table-bordered">
 					<tr class="first-table-tr">
 						<th>Имя</th>
@@ -24,7 +26,7 @@
 					</tr>
 					<tr>
 						<td>Денежный лимит</td>
-						<td>{!! Form::select("active[]", ['1' => 'Вкл', '0' => 'Выкл'], "$money_limit->active"); !!}</td>
+						<td>{!! Form::select("active[]", ['1' => 'Вкл', '0' => 'Выкл'], "$money_limit->active"); !!}
 						<td  data-lem>{!! Form::number("limit[]", $money_limit->limit, ['placeholder' => 'Без лимита']); !!} грн.</td>
 						<td  data-lem>{!! Form::number("period[]", $money_limit->period); !!}</td>
 						<td  data-lem>{!! Form::number("value[]", $money_limit->current_value, ['placeholder' => 'Без лимита']); !!} грн.</td>
@@ -84,7 +86,6 @@
 
 				{!! Form::submit('Установить лимит', ['class' => "btn btn-large btn-success"]); !!}
 
-				{!! Form::close() !!}
 				<script>
 					for(let i = 0 ; i < $("[data-sum]").length; i++){
 						if(!!$($("[data-sum]")[i]).text()) $($("[data-sum]")[i]).text((+$($("[data-sum]")[i]).text()).toFixed(0))
@@ -93,8 +94,17 @@
 					if(!!$($("[data-lem]")[i]).find('input').val()) $($("[data-lem]")[i]).find('input').val((+$($("[data-lem]")[i]).find('input').val()).toFixed(0))
 				}
 		</script>
-		<close-modal>
-		</md-card-content>
-	</md-card>
-</div>
-@endsection
+
+
+<!-- футер модалки -->
+
+</md-dialog-content>
+<md-dialog-actions layout="row">
+  <md-button type="submit" class="md-primary md-raised">
+    Создать
+  </md-button>
+</md-dialog-actions>
+    {!! Form::close() !!}
+</md-dialog>
+
+<!-- END -->

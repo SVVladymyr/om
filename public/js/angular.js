@@ -36,6 +36,22 @@ mainApp.controller('client', [
               $scope.status = 'You cancelled the dialog.';
             });
           };
+
+          $scope.SetLimits = function(ev, id) {
+            $mdDialog.show({
+              controller: SetLimit,
+              templateUrl: '/clients/'+id+'/limits/set',
+              parent: angular.element(document.body),
+              targetEvent: ev,
+              clickOutsideToClose:true,
+              fullscreen: $scope.customFullscreen
+            })
+            .then(function(answer) {
+              $scope.status = 'You said the information was "' + answer + '".';
+            }, function() {
+              $scope.status = 'You cancelled the dialog.';
+            });
+          };
     }])
 
 mainApp.controller('orders', [
@@ -141,6 +157,7 @@ mainApp.controller('specification', [
               $scope.status = 'You cancelled the dialog.';
             });
           };
+
 
 
     }])
@@ -274,6 +291,20 @@ $scope.hide = function() {
   }
   function EditsItemsCreatess($scope, $mdDialog, $http) {
     $scope.title = 'Редактирование статьи затрат';
+    $scope.hide = function() {
+      $mdDialog.hide();
+    };
+
+    $scope.cancel = function() {
+      $mdDialog.cancel();
+    };
+
+    $scope.answer = function(answer) {
+      $mdDialog.hide(answer);
+    };
+  }
+  function SetLimit($scope, $mdDialog, $http) {
+    $scope.title = 'Установка лимитов';
     $scope.hide = function() {
       $mdDialog.hide();
     };

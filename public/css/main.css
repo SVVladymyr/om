@@ -9665,3 +9665,14 @@ letter-spacing: -4px;
 md-input-container.flex {
     width: 100%;
 }
+.clients-edit-btn {
+    margin-top: 20px;
+}
+.clients-network button {
+    min-height: auto;
+    line-height: 1;
+    padding: 3px 10px 5px 10px !important
+}
+.clients-network .md-button .ng-scope {
+    font-size: 10px;
+}

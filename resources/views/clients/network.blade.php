@@ -12,7 +12,7 @@
 					<span ng-click="toggleRight()" >Сеть клиента</span>
 				</div>
 			</section>
-			<section class="md-table-body">
+			<section class="md-table-body clients-network">
 				<div class="mobile-toogle">
 
 					<div class="table main-table-specification">
@@ -37,7 +37,9 @@
 							</div>
 							<div class="items-colum-specification-item">
 								@can('limits', $client)
-								<a data-id="{{ $client->id }}" class="set-limit-modal" href="#">Установить лимит</a>
+								<md-button class="md-primary md-raised" ng-click="SetLimits($event, {{ $client->id }})">
+									Установить лимит
+								</md-button>
 								@endcan
 							</div>
 							@if($client->specification)
@@ -63,6 +65,7 @@
 							<div class="items-colum-specification-item">
 								@can('update', $client)
 								<a class="btn btn-large btn-primary" style="margin: 0;" href="/clients/edit/{{$client->id}}">Редактировать клиента</a>
+
 								@endcan
 							</div>
 							<div class="items-colum-specification-item">
@@ -79,7 +82,9 @@
 										</div>
 										<div class="items-colum-specification-item">
 											@can('limits', $clientTwo)
-											<a data-id="{{ $clientTwo->id }}" class="set-limit-modal" href="#">Установить лимит</a>
+											<md-button class="md-primary md-raised" ng-click="SetLimits($event, {{ $clientTwo->id }})">
+								          Установить лимит
+								      </md-button>
 											@endcan
 										</div>
 										@if($clientTwo->specification)
@@ -121,7 +126,9 @@
 													</div>
 													<div class="items-colum-specification-item">
 														@can('limits', $clientThree)
-														<a data-id="{{ $clientThree->id }}" class="set-limit-modal" href="#">Установить лимит</a>
+														<md-button class="md-primary md-raised" ng-click="SetLimits($event, {{ $clientThree->id }})">
+															Установить лимит
+														</md-button>
 														@endcan
 													</div>
 													@if($clientThree->specification)
@@ -166,7 +173,9 @@
 																</div>
 																<div class="items-colum-specification-item">
 																	@can('limits', $clientFour)
-																	<a data-id="{{ $clientFour->id }}" class="set-limit-modal" href="#">Установить лимит</a>
+																	<md-button class="md-primary md-raised" ng-click="SetLimits($event, {{ $clientFour->id }})">
+																		Установить лимит
+																	</md-button>
 																	@endcan
 																</div>
 																@if($clientFour->specification)
@@ -211,7 +220,9 @@
 																			</div>
 																			<div class="items-colum-specification-item">
 																				@can('limits', $client)
-																				<a data-id="{{ $clientFive->id }}" class="set-limit-modal" href="#">Установить лимит</a>
+																				<md-button class="md-primary md-raised" ng-click="SetLimits($event, {{ $clientFive->id }})">
+																					Установить лимит
+																				</md-button>
 																				@endcan
 																			</div>
 																			@if($client->specification)
@@ -256,7 +267,9 @@
 																						</div>
 																						<div class="items-colum-specification-item">
 																							@can('limits', $clientSix)
-																							<a data-id="{{ $clientSix->id }}" class="set-limit-modal" href="#">Установить лимит</a>
+																							<md-button class="md-primary md-raised" ng-click="SetLimits($event, {{ $clientSix->id }})">
+																								Установить лимит
+																							</md-button>
 																							@endcan
 																						</div>
 																						@if($client->specification)
