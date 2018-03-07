@@ -14,10 +14,10 @@
 
 <!-- END -->
 <div class="col-xs-12 col-md-3 create-edit" style="padding: 30px 20px 0 20px; width: 100%; min-width: 100%; ">
-	     <md-input-container flex="">
-          <label>Name</label>
-          <input name="name" type="text">
-        </md-input-container>
+  <md-input-container class="md-icon-float md-block" style="margin: 0;">
+  <label>Имя</label>
+  {!! Form::text('cost-create-name', null, array('data-ng-cost-create-name' => 'auth.email', 'required')); !!}
+  </md-input-container>
 </div>
 
 

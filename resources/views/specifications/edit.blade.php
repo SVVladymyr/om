@@ -111,8 +111,16 @@
 	@elseif($specification->main_specification == null)
 		{!! Form::hidden("items[$product->product_id]", $product->product_id); !!}
 	@endif
-		<td data-lem>{!! Form::number("limits[$product->product_id]", $product->limit, ['placeholder' => 'Без лимита']); !!}</td>
-		<td>{!! Form::number("periods[$product->product_id]", $product->period); !!}</td>
+		<td data-lem>
+			<md-input-container class="md-icon-float md-block" style="margin: 0;">
+				{!! Form::number('limits', null, array('data-ng-limits' => 'auth.email', 'required')); !!}
+			</md-input-container>
+		</td>
+		<td>
+			<md-input-container class="md-icon-float md-block" style="margin: 0;">
+				{!! Form::number('periods', null, array('data-ng-periods' => 'auth.email', 'required')); !!}
+			</md-input-container>
+		</td>
 	</tr>
 
 @endforeach
