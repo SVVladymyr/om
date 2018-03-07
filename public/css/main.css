@@ -9665,6 +9665,7 @@ letter-spacing: -4px;
 .order-table th span, .specification-table th span, .create-specifications-table th span {
     display: block;
 }
+<<<<<<< Updated upstream
 md-input-container.flex {
     width: 100%;
 }
@@ -9679,3 +9680,5 @@ md-input-container.flex {
 .clients-network .md-button .ng-scope {
     font-size: 10px;
 }
+=======
+>>>>>>> Stashed changes
