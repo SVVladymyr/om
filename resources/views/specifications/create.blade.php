@@ -10,36 +10,29 @@
       </md-button>
     </div>
   </md-toolbar>
-  <md-dialog-content style="padding: 0 20px;">
+  <md-dialog-content style="padding: 30px 20px;">
 
 <!-- END -->
-			<md-input-container flex="">
-         		<label>Имя</label>
-          		<input name="name" type="text" value="">
-          	</md-input-container>
-			<div class="input-block">
+			<md-input-container class="md-icon-float md-block">
+				<label>Имя</label>
+				{!! Form::text('name-specifications', null, array('data-ng-specifications' => 'auth.email', 'required')); !!}
+			</md-input-container>
+
+			<!-- <div class="input-block">
 				{!! Form::label('name', 'Имя'); !!}
 				{!! Form::text('name', null, ['placeholder'=>'Имя', 'class'=>'form-control']); !!}
-			</div>
+			</div> -->
 
 
 @if(Auth::user()->isClientAdmin())
-<md-input-container flex="">
-         		<label>Имя</label>
-          		<input name="name" type="text" value="">
-          	</md-input-container>
-<div class="input-block">
-			{!! Form::label('order_begin', 'Первый возможный день для заказа'); !!}
-				{!! Form::number('order_begin', null, ['placeholder'=> 'Первый возможный день для заказа', 'class'=>'form-control']); !!}
-			</div>
-			<md-input-container flex="">
-         		<label>Имя</label>
-          		<input name="name" type="text" value="">
-          	</md-input-container>
-<div class="input-block">
-    		{!! Form::label('order_end', 'Последний возможный день для заказа'); !!}
-    		{!! Form::number('order_end', null, ['class'=>'form-control', 'placeholder'=>'Последний возможный день для заказа']); !!}
-				</div>
+	<md-input-container class="md-icon-float md-block">
+		<label>Первый возможный день для заказа</label>
+		{!! Form::number('order_begin', null, array('data-ng-order-begin' => 'auth.email', 'required')); !!}
+	</md-input-container>
+	<md-input-container class="md-icon-float md-block">
+		<label>Последний возможный день для заказа</label>
+		{!! Form::number('order_end', null, array('data-ng-order-end' => 'auth.email', 'required')); !!}
+	</md-input-container>
 @endif
 
 

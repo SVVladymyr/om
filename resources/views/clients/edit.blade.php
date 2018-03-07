@@ -26,30 +26,33 @@
                 {!! Form::text('guid', null, array('class'=>'form-control','placeholder' => 'Уникальный идентификатор клиента 1с')); !!}</br>
 
                 @endif
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Имя</label>
+                        {!! Form::text('name-clients-edit', null, array('data-ng-name-clients-edit' => 'auth.email', 'required')); !!}
+                    </md-input-container>
 
-                {!! Form::label('name', 'Имя'); !!}
-                {!! Form::text('name', null, ['class'=>'form-control', 'placeholder' => 'name']); !!}</br>
-
-              	{!! Form::label('code', 'Код'); !!}
-                {!! Form::text('code', null, ['class'=>'form-control', 'placeholder' => 'code']); !!}</br>
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Код</label>
+                        {!! Form::text('name-code', null, array('data-ng-code' => 'auth.email', 'required')); !!}
+                    </md-input-container>
 
                 @if(Auth::user()->isCompanyAdmin() && $client->ancestor === null)
-
-
-
-                    {!! Form::label('manager_id', 'Менеджер подразделения'); !!}
-                    {!! Form::select('manager_id', $managers, null, ['class'=>'form-control', 'placeholder' => 'empty']); !!}</br>
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Менеджер подразделения</label>
+                        {!! Form::text('name-manager-id', null, array('data-ng-manager-id' => 'auth.email', 'required')); !!}
+                    </md-input-container>
 
                 @endif
-
-                	{!! Form::label('master_id', 'Начальник подразделения'); !!}
-                {!! Form::select('master_id', $masters, null, ['placeholder' => 'empty', 'class'=>'form-control']); !!}</br>
-
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Начальник подразделения</label>
+                        {!! Form::text('name-master-id', null, array('data-ng-master-id' => 'auth.email', 'required')); !!}
+                    </md-input-container>
 
                 @if($client->ancestor()->count())
-
-                {!! Form::label('ancestor_id', 'Вышестоящее подразделение'); !!}
-                {!! Form::select('ancestor_id', $ancestors, null, ['class'=>'form-control']); !!}</br>
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Вышестоящее подразделение</label>
+                        {!! Form::text('name-ancestor-id', null, array('data-ng-ancestor-id' => 'auth.email', 'required')); !!}
+                    </md-input-container>
 
                 @endif
 
@@ -57,21 +60,30 @@
 
 
 @if(Auth::user()->isClientAdmin() || Auth::user()->isManager())
-        {!! Form::label('specification_id', 'ID спецификации    '); !!}
-{!! Form::select('specification_id', $specifications, null, ['placeholder' => 'ID Спецификации', 'class'=>'form-control']); !!}</br>
+
+                {!! Form::label('specification_id', 'ID спецификации    '); !!}
+                {!! Form::select('specification_id', $specifications, null, ['placeholder' => 'ID Спецификации', 'class'=>'form-control']); !!}</br>
 @endif
 @if(Auth::user()->isClientAdmin() || Auth::user()->isCompanyAdmin())
-{!! Form::label('phone_number', 'Номер телефона'); !!}
-{!! Form::text('phone_number', null, ['class'=>'form-control', 'placeholder' => 'Номер телефона']); !!}</br>
+    <md-input-container class="md-icon-float md-block">
+        <label>Номер телефона</label>
+        {!! Form::text('name-phone-number', null, array('data-ng-phone-number' => 'auth.email', 'required')); !!}
+    </md-input-container>
 
-  {!! Form::label('address', 'Адрес'); !!}
-{!! Form::text('address', null, ['class'=>'form-control', 'placeholder' => 'Адрес']); !!}</br>
+    <md-input-container class="md-icon-float md-block">
+        <label>Адрес</label>
+        {!! Form::text('name-address', null, array('data-ng-address' => 'auth.email', 'required')); !!}
+    </md-input-container>
 
-  {!! Form::label('main_contractor', 'Юридическое лицо'); !!}
-{!! Form::text('main_contractor', null, ['class'=>'form-control', 'placeholder' => 'Юр. лицо']); !!}</br>
+    <md-input-container class="md-icon-float md-block">
+        <label>Юридическое лицо</label>
+        {!! Form::text('name-main-contractor', null, array('data-ng-main-contractor' => 'auth.email', 'required')); !!}
+    </md-input-container>
 
-    {!! Form::label('organization', 'Оргинизация'); !!}
-{!! Form::text('organization', null, ['class'=>'form-control', 'placeholder' => 'Организация']); !!}</br>
+    <md-input-container class="md-icon-float md-block">
+        <label>Оргинизация</label>
+        {!! Form::text('name-organization', null, array('data-ng-organization' => 'auth.email', 'required')); !!}
+    </md-input-container>
 
 @endif
 <div class="clients-edit-btn">

@@ -9641,13 +9641,16 @@ letter-spacing: -4px;
 }
 .md-input-has-value {
     display: block;
-    margin: 35px 0;
+    /*margin: 35px 0;*/
 }
 .md-input-has-value label {
     margin: 0;
 }
 .md-table.ng-scope {
     padding: 5px;
+}
+.md-table-body {
+    padding: 0;
 }
 .md-table-body h1 {
     margin: 0;

@@ -15,34 +15,33 @@
 <!-- END -->
 <div style="padding-top: 25px;width: 115%;min-width: calc(50% + 40px);margin: 0 auto;float: none;display: block;" class="col-xs-12 col-md-3 create-edit user-edit">
 			{!! Form::open(['route' => 'clients']) !!}
-			<div class="colum-left">
+			<!-- <div class="colum-left"> -->
 				<md-card-content>
 								@if(Auth::user()->isCompanyAdmin())
 								<md-input-container class="md-icon-float md-block">
 										<label>Идентификатор</label>
-										{!! Form::number('one_c_id', null, array('data-ng-model' => 'auth.email', 'required')); !!}
-										</div>
+										{!! Form::number('one_c_id', null, array('data-ng-model-id' => 'auth.email', 'required')); !!}
+										<!-- </div> -->
 								</md-input-container>
 								<md-input-container class="md-icon-float md-block">
 										<label>GUID</label>
-										{!! Form::text('guid', null, array('data-ng-model' => 'auth.email', 'required')); !!}
-
+										{!! Form::text('guid', null, array('data-ng-model-guid' => 'auth.email', 'required')); !!}
 								</md-input-container>
 
 								@endif
 								<md-input-container class="md-icon-float md-block">
 										<label>GUID</label>
-										{!! Form::text('guid', null, array('data-ng-model' => 'auth.email', 'required')); !!}
+										{!! Form::text('guid', null, array('data-ng-model-guid' => 'auth.email', 'required')); !!}
 
 								</md-input-container>
 								<md-input-container class="md-icon-float md-block">
 										<label>Имя</label>
-										{!! Form::text('name', null, array('data-ng-model' => 'auth.email', 'required')); !!}
+										{!! Form::text('name', null, array('data-ng-model-name' => 'auth.email', 'required')); !!}
 
 								</md-input-container>
 								<md-input-container class="md-icon-float md-block">
 										<label>Код</label>
-										{!! Form::text('code', null, array('data-ng-model' => 'auth.email', 'required')); !!}
+										{!! Form::text('code', null, array('data-ng-model-code' => 'auth.email', 'required')); !!}
 
 								</md-input-container>
 								@if(Auth::user()->isCompanyAdmin())
@@ -67,36 +66,55 @@
 					</md-select>
 				</md-input-container>
 </md-card-content>
-				</div>
-          {!! Form::label('ancestor_id', 'Вышестоящее подразделение'); !!}
-    			<!--{!! Form::select('ancestor_id', $ancestors, null, array('class'=>'form-control','placeholder' => 'Вышестоящее подразделение')); !!}</br>-->
-					<select class="limitedNumbChosen form-control" name="ancestor_id" id="ancestor_id">
-						<option selected="selected" value="">Вышестоящее подразделение</option>
+				<!-- </div> -->
+				<md-input-container>
+					<label>Вышестоящее подразделение</label>
+					<md-select ng-model="selectedVegetables"
+					md-on-close="clearSearchTerm()"
+					data-md-container-class="selectdemoSelectHeader">
+					<md-optgroup label="Вышестоящее подразделение">
 						@foreach($ancestors as $id=>$ancestor)
-						<option value="{{$id}}">{{$ancestor}}</option>
-						@endforeach
-					</select>
+						<md-option value="{{$id}}">{{$ancestor}}</md-option >
+							@endforeach
+						</md-optgroup>
+					</md-select>
+				</md-input-container>
+
     			@if(Auth::user()->isClientAdmin())
-
-                    {!! Form::label('specification_id', 'ID спецификации    '); !!}
-        			{!! Form::select('specification_id', $specifications, null, ['class'=>'form-control', 'placeholder' => 'ID спецификации']); !!}</br>
-
+	    			<md-input-container>
+	    				<label>ID спецификации</label>
+	    				<md-select ng-model="selectedVegetables"
+	    				md-on-close="clearSearchTerm()"
+	    				data-md-container-class="selectdemoSelectHeader">
+	    				<md-optgroup label="ID спецификации">
+	    					@foreach($specifications as $id=>$specification_id)
+	    					<md-option value="{{$id}}">{{$specification_id}}</md-option >
+	    						@endforeach
+	    					</md-optgroup>
+	    				</md-select>
+	    			</md-input-container>
+              <!-- {!! Form::label('specification_id', 'ID спецификации    '); !!}
+        			{!! Form::select('specification_id', $specifications, null, ['class'=>'form-control', 'placeholder' => 'ID спецификации']); !!}</br> -->
                 @endif
-							<!-- </div> -->
-							<!-- <div class="colum-right"> -->
-    			{!! Form::label('phone_number', 'Номер телефона'); !!}
-    			{!! Form::text('phone_number', null, array('class'=>'form-control','placeholder' => 'Номер телефона')); !!}</br>
+                <md-input-container class="md-icon-float md-block">
+                	<label>Номер телефона</label>
+                	{!! Form::text('phone_number', null, array('data-ng-phone-number' => 'auth.email', 'required')); !!}
+                </md-input-container>
 
+                <md-input-container class="md-icon-float md-block">
+                	<label>Адрес</label>
+                	{!! Form::text('address', null, array('data-ng-address' => 'auth.email', 'required')); !!}
+                </md-input-container>
 
+                <md-input-container class="md-icon-float md-block">
+                	<label>Юридическое лицо</label>
+                	{!! Form::text('main_contractor', null, array('data-ng-main-contractor' => 'auth.email', 'required')); !!}
+                </md-input-container>
 
-                {!! Form::label('address', 'Адрес'); !!}
-                {!! Form::text('address', null, array('class'=>'form-control','placeholder' => 'Адрес')); !!}</br>
-
-                {!! Form::label('main_contractor', 'Юридическое лицо'); !!}
-    			{!! Form::text('main_contractor', null, array('class'=>'form-control','placeholder' => 'Юр. лицо')); !!}</br>
-
-                {!! Form::label('organization', 'Оргинизация'); !!}
-                {!! Form::text('organization', null, array('class'=>'form-control','placeholder' => 'Оргинизация')); !!}</br>
+               	<md-input-container class="md-icon-float md-block">
+                	<label>Оргинизация</label>
+                	{!! Form::text('organization', null, array('data-ng-organization' => 'auth.email', 'required')); !!}
+                </md-input-container>
 </div>
 <md-card-actions layout="row" layout-align="end center" style="justify-content: center; margin-bottom: 15px;">
 	<md-button class="md-primary md-raised" type="submit" ng-disabled="authForm.$invalid">Создать </md-button>

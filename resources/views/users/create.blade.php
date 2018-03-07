@@ -18,25 +18,35 @@
 			{!! Form::open(['route' => 'users']) !!}
 
 				<div class="colum-left">
-					{!! Form::label('first_name', 'Имя'); !!}
-    			{!! Form::text('first_name', null, ['class'=>'form-control', 'placeholder'=>'Имя']); !!}</br>
+          <md-input-container class="md-icon-float md-block">
+            <label>Имя</label>
+            {!! Form::text('first_name', null, array('data-ng-first-name' => 'auth.email', 'required')); !!}
+          </md-input-container>
 
-    			{!! Form::label('last_name', 'Фамилия'); !!}
-    			{!! Form::text('last_name', null, ['class'=>'form-control', 'placeholder'=>'Фамилия']); !!}</br>
+          <md-input-container class="md-icon-float md-block">
+            <label>Фамилия</label>
+            {!! Form::text('last_name', null, array('data-ng-last-name' => 'auth.email', 'required')); !!}
+          </md-input-container>
 
-    			{!! Form::label('phone_number', 'Номер телефона'); !!}
-    			{!! Form::text('phone_number', null, ['class'=>'form-control', 'placeholder'=>'Номер телефона']); !!}</br>
+          <md-input-container class="md-icon-float md-block">
+            <label>Номер телефона</label>
+            {!! Form::text('phone_number', null, array('data-ng-phone-number' => 'auth.email', 'required')); !!}
+          </md-input-container>
 
+          <md-input-container class="md-icon-float md-block">
+            <label>E-Mail</label>
+            {!! Form::text('email', null, array('data-ng-email' => 'auth.email', 'required')); !!}
+          </md-input-container>
+				
+          <md-input-container class="md-icon-float md-block">
+            <label>Пароль</label>
+            {!! Form::password('password', null, array('data-ng-password' => 'auth.email', 'required')); !!}
+          </md-input-container>
 
-    			{!! Form::label('email', 'E-Mail'); !!}
-    			{!! Form::text('email', null, ['class'=>'form-control', 'placeholder'=>'E-mail']); !!}</br>
-				<!-- </div> -->
-				<!-- <div class="colum-right"> -->
-					{!! Form::label('password', 'Пароль'); !!}
-    			{!! Form::password('password', ['class'=>'form-control', 'placeholder'=>'Пароль']); !!}</br>
-
-    			{!! Form::label('password_confirmation', 'Подтверждение пароля'); !!}
-    			{!! Form::password('password_confirmation',['class'=>'form-control', 'placeholder'=>'Подтверждение пароля']); !!}</br>
+          <md-input-container class="md-icon-float md-block">
+            <label>Подтверждение пароля</label>
+            {!! Form::password('password_confirmation', null, array('data-ng-password-confirmation' => 'auth.email', 'required')); !!}
+          </md-input-container>
 
 	   			{!! Form::label('role_id', 'Роль'); !!}
                 {!! Form::select('role_id', $roles, null, ['class'=>'form-control']); !!}</br>

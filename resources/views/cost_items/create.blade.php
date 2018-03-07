@@ -13,7 +13,7 @@
   <md-dialog-content>
 
 <!-- END -->
-<div class="col-xs-12 col-md-3 create-edit" style="padding-top: 10px; width: 100%; min-width: 100%; ">
+<div class="col-xs-12 col-md-3 create-edit" style="padding: 30px 20px 0 20px; width: 100%; min-width: 100%; ">
 	     <md-input-container flex="">
           <label>Name</label>
           <input name="name" type="text">
