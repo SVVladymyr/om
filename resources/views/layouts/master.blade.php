@@ -22,7 +22,13 @@
     <title>OM24: CRM system</title>
   </head>
     <body  ng-app="BlankApp">
-
+      <div id="p_prldr">
+        <div class="preloader">
+        <div class="preloader__clock">
+          <div class="preloader__arrow"></div>
+        </div>
+      </div>
+      </div>
     @include('layouts.mast_nav')
   <!--  <div class="content-right">
       <div class="container-fluid">
