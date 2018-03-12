@@ -21,7 +21,7 @@
   <!-- Angular Material Library -->
   <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
   <script src="/js/format.js"></script>
-      <script src="/js/angular.js"></script>
+  <script src="/js/angular.js"></script>
   <!--    <script src="/js/angular-material.min.js"></script>
     <script src="/js/angular.js"></script>
 <script src="/js/newScript.js"></script>-->
