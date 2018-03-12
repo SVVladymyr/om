@@ -48,11 +48,31 @@
             {!! Form::password('password_confirmation', null, array('data-ng-password-confirmation' => 'auth.email', 'required')); !!}
           </md-input-container>
 
-	   			{!! Form::label('role_id', 'Роль'); !!}
-                {!! Form::select('role_id', $roles, null, ['class'=>'form-control']); !!}</br>
+          <md-input-container style="display: block; margin-top: 20px">
+            <label>Роль</label>
+            <md-select ng-model="selectedVegetables"
+            md-on-close="clearSearchTerm()"
+            data-md-container-class="selectdemoSelectHeader">
+            <md-optgroup label="Роль">
+              @foreach($roles as $id=>$role_id)
+              <md-option value="{{$id}}">{{$role_id}}</md-option >
+                @endforeach
+              </md-optgroup>
+            </md-select>
+          </md-input-container>
 					@if(Auth::user()->isCompanyAdmin())
-                {!! Form::label('employer_id', 'Работодатель'); !!}
-                {!! Form::select('employer_id', $employers, null, ['placeholder' => 'Свободный', 'class'=>'form-control']); !!}</br>
+            <md-input-container style="display: block; margin-top: 40px">
+              <label>Работодатель</label>
+              <md-select ng-model="selectedVegetables"
+              md-on-close="clearSearchTerm()"
+              data-md-container-class="selectdemoSelectHeader">
+              <md-optgroup label="Работодатель">
+                @foreach($employers as $id=>$employer_id)
+                <md-option value="{{$id}}">{{$employer_id}}</md-option >
+                  @endforeach
+                </md-optgroup>
+              </md-select>
+            </md-input-container>
 					@endif
 
 				

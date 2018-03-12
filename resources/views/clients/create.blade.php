@@ -45,18 +45,20 @@
 
 								</md-input-container>
 								@if(Auth::user()->isCompanyAdmin())
-								<md-input-container>
-									<label>Менеджер подразделения</label>
-									<md-select ng-model="selectedVegetables"
-									md-on-close="clearSearchTerm()"
-									data-md-container-class="selectdemoSelectHeader">
-									<md-optgroup label="Менеджер подразделения">
-										@foreach($managers as $id=>$manager_id)
-										<md-option value="{{$id}}">{{$manager_id}}</md-option >
-											@endforeach
-										</md-optgroup>
-									</md-select>
-								</md-input-container>
+								<md-card-content flex-gt-md="100">
+									<md-input-container style="display: block">
+										<label>Менеджер подразделения</label>
+										<md-select ng-model="selectedVegetables"
+										md-on-close="clearSearchTerm()"
+										data-md-container-class="selectdemoSelectHeader">
+										<md-optgroup label="Менеджер подразделения">
+											@foreach($managers as $id=>$manager_id)
+											<md-option value="{{$id}}">{{$manager_id}}</md-option >
+												@endforeach
+											</md-optgroup>
+										</md-select>
+									</md-input-container>
+								</md-card-content>
 								@endif
 				</md-card-content>
 				<md-card-content flex-gt-md="100">
@@ -73,18 +75,20 @@
 						</md-select>
 					</md-input-container>
 				</md-card-content>
-				<md-input-container>
-					<label>Вышестоящее подразделение</label>
-					<md-select ng-model="selectedVegetables"
-					md-on-close="clearSearchTerm()"
-					data-md-container-class="selectdemoSelectHeader">
-					<md-optgroup label="Вышестоящее подразделение">
-						@foreach($ancestors as $id=>$ancestor)
-						<md-option value="{{$id}}">{{$ancestor}}</md-option >
-							@endforeach
-						</md-optgroup>
-					</md-select>
-				</md-input-container>
+				<md-card-content flex-gt-md="100">
+					<md-input-container>
+						<label>Вышестоящее подразделение</label>
+						<md-select ng-model="selectedVegetables"
+						md-on-close="clearSearchTerm()"
+						data-md-container-class="selectdemoSelectHeader">
+						<md-optgroup label="Вышестоящее подразделение">
+							@foreach($ancestors as $id=>$ancestor)
+							<md-option value="{{$id}}">{{$ancestor}}</md-option >
+								@endforeach
+							</md-optgroup>
+						</md-select>
+					</md-input-container>
+				</md-card-content>
 
     			@if(Auth::user()->isClientAdmin())
 	    			<md-input-container>
