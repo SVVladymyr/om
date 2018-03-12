@@ -18,12 +18,16 @@
 @if(Auth::user()->isClientAdmin() || Auth::user()->isCompanyAdmin())
 
                 @if(Auth::user()->isCompanyAdmin() && $client->ancestor === null)
+                
+                <md-input-container class="md-icon-float md-block">
+                    <label>Идентификатор</label>
+                    {!! Form::text('name-one-c-id', null, array('data-ng-name-one-c-id' => 'auth.email', 'required')); !!}
+                </md-input-container>
 
-                {!! Form::label('one_c_id', 'Идентификатор'); !!}
-                {!! Form::number('one_c_id', null, array('class'=>'form-control','placeholder' => 'ОКПО')); !!}</br>
-
-                {!! Form::label('guid', 'GUID'); !!}
-                {!! Form::text('guid', null, array('class'=>'form-control','placeholder' => 'Уникальный идентификатор клиента 1с')); !!}</br>
+                <md-input-container class="md-icon-float md-block">
+                    <label>GUID</label>
+                    {!! Form::text('name-guid', null, array('data-ng-name-guid' => 'auth.email', 'required')); !!}
+                </md-input-container>
 
                 @endif
                     <md-input-container class="md-icon-float md-block">

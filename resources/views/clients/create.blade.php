@@ -45,28 +45,34 @@
 
 								</md-input-container>
 								@if(Auth::user()->isCompanyAdmin())
-								<md-input-container class="md-icon-float md-block">
-										<label>Менеджер подразделения</label>
-										{!! Form::select('manager_id', $managers, null, array('data-ng-model' => 'auth.email', 'required')); !!}
-
+								<md-input-container>
+									<label>Менеджер подразделения</label>
+									<md-select ng-model="selectedVegetables"
+									md-on-close="clearSearchTerm()"
+									data-md-container-class="selectdemoSelectHeader">
+									<md-optgroup label="Менеджер подразделения">
+										@foreach($managers as $id=>$manager_id)
+										<md-option value="{{$id}}">{{$manager_id}}</md-option >
+											@endforeach
+										</md-optgroup>
+									</md-select>
 								</md-input-container>
 								@endif
 				</md-card-content>
 				<md-card-content flex-gt-md="100">
-				<md-input-container>
-					<label>Начальник подразделения</label>
-					<md-select ng-model="selectedVegetables"
-									 md-on-close="clearSearchTerm()"
-									 data-md-container-class="selectdemoSelectHeader">
-					<md-optgroup label="Начальник подразделения">
-						@foreach($masters as $id=>$master)
-						<md-option value="{{$id}}">{{$master}}</md-option >
-						@endforeach
-					</md-optgroup>
-					</md-select>
-				</md-input-container>
-</md-card-content>
-				<!-- </div> -->
+					<md-input-container>
+						<label>Начальник подразделения</label>
+						<md-select ng-model="selectedVegetables"
+						md-on-close="clearSearchTerm()"
+						data-md-container-class="selectdemoSelectHeader">
+						<md-optgroup label="Начальник подразделения">
+							@foreach($masters as $id=>$master)
+							<md-option value="{{$id}}">{{$master}}</md-option >
+								@endforeach
+							</md-optgroup>
+						</md-select>
+					</md-input-container>
+				</md-card-content>
 				<md-input-container>
 					<label>Вышестоящее подразделение</label>
 					<md-select ng-model="selectedVegetables"
