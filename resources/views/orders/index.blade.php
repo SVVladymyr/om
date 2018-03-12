@@ -1,3 +1,10 @@
+<div id="p_prldr">
+  <div class="preloader">
+  <div class="preloader__clock">
+    <div class="preloader__arrow"></div>
+  </div>
+</div>
+</div>
 @extends('layouts.master')
 @section('content')
 <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">

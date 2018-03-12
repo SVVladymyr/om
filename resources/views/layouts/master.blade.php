@@ -22,6 +22,7 @@
     <title>OM24: CRM system</title>
   </head>
     <body  ng-app="BlankApp">
+
     @include('layouts.mast_nav')
   <!--  <div class="content-right">
       <div class="container-fluid">
