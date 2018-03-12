@@ -17,12 +17,16 @@
 
          	<!-- start date -->
 			<label>Фильтр по дате создания заказа</label></br>
-	        C
 	        <md-datepicker  ng-model="createdFrom" md-current-view="year" md-placeholder="Enter date"></md-datepicker>
 	        {!! Form::date('created_from', session()->get("filters.created_from"), ['ng-value' => 'created_from', 'class'=>'hidden'] ); !!}
 	        по
 	        <md-datepicker  ng-model="expectedDeliveryFrom" md-current-view="year" md-placeholder="Enter date"></md-datepicker>
 	        {!! Form::date('expected_delivery_from', session()->get("filters.expected_delivery_from"), ['ng-value' => 'expected_delivery_from', 'class'=>'hidden'] ); !!}
+	        <md-datepicker  ng-model="myDate" md-current-view="year" md-placeholder="Введите дату"></md-datepicker>
+	        {!! Form::date('created_from', session()->get("filters.created_from"), ['ng-value' => 'created_from', 'class'=>'hidden'] ); !!}
+	        по
+	        <md-datepicker  ng-model="myDate" md-current-view="year" md-placeholder="Введите дату"></md-datepicker>
+	        {!! Form::date('expected_delivery_from', session()->get("filters.expected_delivery_from"), ['ng-value' => 'created_from', 'class'=>'hidden'] ); !!}
 	        <!-- end start -->
 
 
@@ -60,18 +64,23 @@
 			<!-- start date -->
 			@if(!Auth::user()->isConsumer())
 			<label>Фильтр по ожидаемой дате доставки</label></br>
-	        C
+
 	        <md-datepicker  ng-model="createdToDel" md-current-view="year" md-placeholder="Enter date"></md-datepicker>
 	        {!! Form::date('created_to', session()->get("filters.created_to"), ['ng-value' => 'created_toDel', 'class'=>'hidden'] ); !!}
 	        по
 	        <md-datepicker  ng-model="expectedDeliveryToDel" md-current-view="year" md-placeholder="Enter date"></md-datepicker>
 	        {!! Form::date('expected_delivery_to', session()->get("filters.expected_delivery_to"), ['ng-value' => 'expected_delivery_toDel', 'class'=>'hidden'] ); !!}
+
+	        <md-datepicker  ng-model="myDate" md-current-view="year" md-placeholder="Введите дату"></md-datepicker>
+	        {!! Form::date('created_from', session()->get("filters.created_from"), ['ng-value' => 'created_from', 'class'=>'hidden'] ); !!}
+	        по
+	        <md-datepicker  ng-model="myDate" md-current-view="year" md-placeholder="Введите дату"></md-datepicker>
+	        {!! Form::date('expected_delivery_from', session()->get("filters.expected_delivery_from"), ['ng-value' => 'created_from', 'class'=>'hidden'] ); !!}
 	        @endif
 	        <!-- end start -->
 			<!-- start date -->
 			@if(!Auth::user()->isConsumer())
 			<label>Фильтр по дате получения заказа</label></br>
-	        C
 	        <md-datepicker  ng-model="createdToOrd" md-current-view="year" md-placeholder="Enter date"></md-datepicker>
 	        {!! Form::date('created_to', session()->get("filters.created_to"), ['ng-value' => 'created_toOrd', 'class'=>'hidden'] ); !!}
 	        по
@@ -81,6 +90,18 @@
 	        <!-- end start -->
 			</md-card-content>
         <span ng-init="defaultStatusOrder = []"> </span>
+	        <md-datepicker  ng-model="myDate" md-current-view="year" md-placeholder="Введите дату"></md-datepicker>
+	        {!! Form::date('created_from', session()->get("filters.created_from"), ['ng-value' => 'created_from', 'class'=>'hidden'] ); !!}
+	        по
+	        <md-datepicker  ng-model="myDate" md-current-view="year" md-placeholder="Введите дату"></md-datepicker>
+	        {!! Form::date('expected_delivery_from', session()->get("filters.expected_delivery_from"), ['ng-value' => 'created_from', 'class'=>'hidden'] ); !!}
+	        @endif
+	        <!-- end start -->
+			</md-card-content>
+        <md-button flex-gt-md="100" ng-click="close()" class="md-danger">
+          Закрыть
+        </md-button>
+          <span ng-init="defaultStatusOrder = []"> </span>
         @foreach($statuses as $status)
         <span ng-init="defaultStatusOrder.push('{{$status->name}}')" class="hidden"></span>
     		{!! Form::checkbox("statuses[$status->id]", $status->name, session()->has("filters.statuses.$status->id"), ['id' => "$status->name", 'class'=>'hidden']); !!}

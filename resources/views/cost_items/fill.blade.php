@@ -60,7 +60,8 @@
 		<td>{{ $product->model }}</td>
 		<td>{{ $product->description->name }}</td>
 		<td data-sum>{{ $product->price }}</td>
-		<td>{!! Form::select("items[$product->product_id]", $cost_items, $product->cost_item, ['placeholder' => 'empty']); !!}</td>
+		<td>{!! Form::select("items[$product->product_id]", $cost_items, $product->cost_item, ['placeholder' => 'empty']); !!}
+		</td>
 	</tr>
 
 @endforeach

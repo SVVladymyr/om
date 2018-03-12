@@ -64,9 +64,18 @@
 
 
 @if(Auth::user()->isClientAdmin() || Auth::user()->isManager())
-
-                {!! Form::label('specification_id', 'ID спецификации    '); !!}
-                {!! Form::select('specification_id', $specifications, null, ['placeholder' => 'ID Спецификации', 'class'=>'form-control']); !!}</br>
+    <md-input-container style="display: block">
+        <label>ID спецификации</label>
+        <md-select ng-model="selectedVegetables"
+        md-on-close="clearSearchTerm()"
+        data-md-container-class="selectdemoSelectHeader">
+        <md-optgroup label="ID спецификации">
+            @foreach($specifications as $id=>$specification_id)
+                <md-option value="{{$id}}">{{$specification_id}}</md-option >
+            @endforeach
+            </md-optgroup>
+        </md-select>
+    </md-input-container>
 @endif
 @if(Auth::user()->isClientAdmin() || Auth::user()->isCompanyAdmin())
     <md-input-container class="md-icon-float md-block">

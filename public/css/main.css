@@ -9632,6 +9632,11 @@ letter-spacing: -4px;
 .btn-danger:hover, .btn-danger:focus, .btn-danger:active {
     color: #fff !important;
 }
+.md-danger {
+    background: #de3641 !important;
+    color: #fff !important;
+    border: none !important;
+}
 .md-input-has-value label {
     overflow: visible !important;
     color: #000 !important;
@@ -9679,7 +9684,7 @@ md-input-container.flex {
 .clients-network .md-button .ng-scope {
     font-size: 10px;
 }
-
+/* Preloader */
 #p_prldr{
 position: fixed;
 left: 0;
@@ -9722,3 +9727,5 @@ z-index: 9999;}
         transform: rotate(360deg);
     }
 }
+/* End preloader */
+

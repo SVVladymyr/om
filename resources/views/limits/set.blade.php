@@ -26,7 +26,7 @@
 					</tr>
 					<tr>
 						<td>Денежный лимит</td>
-						<td>{!! Form::select("active[]", ['1' => 'Вкл', '0' => 'Выкл'], "$money_limit->active"); !!}
+						<td>{!! Form::select("active[]", ['1' => 'Вкл', '0' => 'Выкл'], "$money_limit->active"); !!}</td>
 						<td  data-lem>
 						{!! Form::number("limit[]", $money_limit->limit, ['placeholder' => 'Без лимита']); !!} грн.</td>
 						<td  data-lem>{!! Form::number("period[]", $money_limit->period); !!}</td>
