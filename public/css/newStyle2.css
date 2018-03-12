@@ -43,3 +43,6 @@ md-sidenav {
     width: 400px!important;
     max-width: 400px!important;
 }
+
+md-list-item .md-list-item-inner>md-icon:first-child:not(.md-avatar-icon),md-list-item>md-icon:first-child:not(.md-avatar-icon){    margin-right: 16px;
+   margin-left: 16px;}

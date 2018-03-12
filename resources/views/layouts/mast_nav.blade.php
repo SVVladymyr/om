@@ -33,12 +33,10 @@
 						<md-divider data-ng-if="item.divider"></md-divider>
 						<a href="/orders">
 						<md-list-item class="md-2-line" ng-click="null" >
-							<md-icon class="md-ic" data-ng-bind-html="item.icon"></md-icon>
+							<md-icon class="md-ic" >&#xE89B;</md-icon>
 								<div class="md-list-item-text" data-layout="column">
 									<h3>
-
 											Заказы
-
 									</h3>
 								</div>
 						</md-list-item>
@@ -47,12 +45,10 @@
 				<div>
 						<md-divider data-ng-if="item.divider"></md-divider><a href="/clients">
 						<md-list-item class="md-2-line" ng-click="null" >
-								<md-icon class="md-ic" data-ng-bind-html="item.icon"></md-icon>
+								<md-icon class="md-ic" >&#xE853;</md-icon>
 								<div class="md-list-item-text" data-layout="column">
 									<h3>
-
 											Клиенты
-
 									</h3>
 								</div>
 						</md-list-item></a>
@@ -63,7 +59,7 @@
               <md-divider data-ng-if="item.divider"></md-divider>
 							<a href="/users">
               <md-list-item class="md-2-line" ng-click="null" >
-                  <md-icon class="md-ic" data-ng-bind-html="item.icon"></md-icon>
+                  <md-icon class="md-ic" >&#xE7FD;</md-icon>
                   <div class="md-list-item-text" data-layout="column"><h3>Пользователи</h3></div>
               </md-list-item>
 							</a>
@@ -73,7 +69,7 @@
               <md-divider data-ng-if="item.divider"></md-divider>
 							<a href="/specifications">
               <md-list-item class="md-2-line" ng-click="null" >
-                  <md-icon class="md-ic" data-ng-bind-html="item.icon"></md-icon>
+                  <md-icon class="md-ic" >&#xE3F5;</md-icon>
                   <div class="md-list-item-text" data-layout="column"><h3>Спецификации</h3></div>
               </md-list-item>
 							</a>
@@ -83,7 +79,7 @@
               <md-divider data-ng-if="item.divider"></md-divider>
 							<a href="/users">
               <md-list-item class="md-2-line" ng-click="null" >
-                  <md-icon class="md-ic" data-ng-bind-html="item.icon"></md-icon>
+                  <md-icon class="md-ic" >&#xE7FD;</md-icon>
                   <div class="md-list-item-text" data-layout="column"><h3>Пользователи</h3></div>
               </md-list-item>
 							</a>
@@ -92,7 +88,7 @@
 							<md-divider data-ng-if="item.divider"></md-divider>
 							<a href="/specifications">
 							<md-list-item class="md-2-line" ng-click="null" >
-									<md-icon class="md-ic" data-ng-bind-html="item.icon"></md-icon>
+									  <md-icon class="md-ic" >&#xE3F5;</md-icon>
 									<div class="md-list-item-text" data-layout="column"><h3>Спецификации</h3></div>
 							</md-list-item>
 							</a>
@@ -101,7 +97,7 @@
 							<md-divider data-ng-if="item.divider"></md-divider>
 							<a href="/cost_items">
 							<md-list-item class="md-2-line" ng-click="null" >
-									<md-icon class="md-ic" data-ng-bind-html="item.icon"></md-icon>
+									<md-icon class="md-ic" >&#xE06D;</md-icon>
 									<div class="md-list-item-text" data-layout="column"><h3>Статьи затрат</h3></div>
 							</md-list-item>
 							</a>
@@ -111,7 +107,7 @@
 				<div>
 						<md-divider data-ng-if="item.divider"></md-divider><a href="/clients/{{ Auth::user()->subject->id}}/orders/create">
 						<md-list-item class="md-2-line" ng-click="null" >
-								<md-icon class="md-ic" data-ng-bind-html="item.icon"></md-icon>
+								<md-icon class="md-ic" >&#xE2CC;</md-icon>
 								<div class="md-list-item-text" data-layout="column"><h3>Создать заказ</h3></div>
 						</md-list-item></a>
 				</div>
