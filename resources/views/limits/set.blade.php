@@ -1,7 +1,7 @@
 
 		<!-- шапка модалки -->
 <md-dialog aria-label="Test">
-   
+
 				{!! Form::open(['url' => "clients/$client->id/limits"]) !!}
   <md-toolbar>
     <div class="md-toolbar-tools">
@@ -85,7 +85,7 @@
 
 
 
-				{!! Form::submit('Установить лимит', ['class' => "btn btn-large btn-success"]); !!}
+
 
 				<script>
 					for(let i = 0 ; i < $("[data-sum]").length; i++){
@@ -101,9 +101,7 @@
 
 </md-dialog-content>
 <md-dialog-actions layout="row">
-  <md-button type="submit" class="md-primary md-raised">
-    Создать
-  </md-button>
+  {!! Form::submit('Установить лимит', ['class' => "btn btn-large btn-success"]); !!}
 </md-dialog-actions>
     {!! Form::close() !!}
 </md-dialog>

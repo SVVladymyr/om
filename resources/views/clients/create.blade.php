@@ -48,7 +48,7 @@
 								<md-card-content flex-gt-md="100">
 									<md-input-container style="display: block">
 										<label>Менеджер подразделения</label>
-										<md-select ng-model="selectedVegetables"
+										<md-select ng-model="selectedVegetablesMeneger"
 										md-on-close="clearSearchTerm()"
 										data-md-container-class="selectdemoSelectHeader">
 										<md-optgroup label="Менеджер подразделения">
@@ -66,7 +66,7 @@
 						<label>Начальник подразделения</label>
 						<md-select ng-model="selectedVegetables"
 						md-on-close="clearSearchTerm()"
-						data-md-container-class="selectdemoSelectHeader">
+						data-md-container-class="selectdemoSelectHeaderMain">
 						<md-optgroup label="Начальник подразделения">
 							@foreach($masters as $id=>$master)
 							<md-option value="{{$id}}">{{$master}}</md-option >
@@ -78,7 +78,7 @@
 				<md-card-content flex-gt-md="100">
 					<md-input-container>
 						<label>Вышестоящее подразделение</label>
-						<md-select ng-model="selectedVegetables"
+						<md-select ng-model="selectedVegetablesTop"
 						md-on-close="clearSearchTerm()"
 						data-md-container-class="selectdemoSelectHeader">
 						<md-optgroup label="Вышестоящее подразделение">
@@ -93,7 +93,7 @@
     			@if(Auth::user()->isClientAdmin())
 	    			<md-input-container>
 	    				<label>ID спецификации</label>
-	    				<md-select ng-model="selectedVegetables"
+	    				<md-select ng-model="selectedVegetablesId"
 	    				md-on-close="clearSearchTerm()"
 	    				data-md-container-class="selectdemoSelectHeader">
 	    				<md-optgroup label="ID спецификации">
