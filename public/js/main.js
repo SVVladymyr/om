@@ -2,7 +2,14 @@ $('.authorization-container-title').click(function () {
    $('.authorization-container-title').removeClass('tabs-active');
    $(this).addClass('tabs-active');
 });
+let sesStOpen = sessionStorage.getItem('open-tree');
+if(!sesStOpen){
+  $("[data-open-id]").each(function(){
+    let sesStOpen = sessionStorage.getItem('open-tree');
+    sessionStorage.setItem('open-tree', sesStOpen + '.' +$(this).attr('data-open-id') + '.')
+  })
 
+}
 
   //Chosen
   $(".limitedNumbChosen").chosen({

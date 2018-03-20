@@ -1,24 +1,21 @@
-@extends('layouts.master')
+<!-- шапка модалки -->
+<md-dialog aria-label="Test">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2 ng-bind-html="title"></h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content style="text-align: center;">
 
-@section('content')
-<open-modal>
-    <div ng-controller="user" class="main-body ng-scope flex" data-ui-view="" data-flex="">
-    <md-card class="md-table ng-scope _md">
-    <md-card-content>
-      <div class="md-table-loader" data-ng-if="!loaded">
-            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-        </div>
-                <section class="md-table-header">
-            <div class="md-table-header-title">
-                            <span ng-click="toggleRight()" >Редактирование пользователя</span>
-                        </div>
-        </section>
-        <section class="md-table-body">
-	<div class="user-edit" style="padding-top: 25px;" class="col-xs-12 col-md-3">
+<!-- END -->
 
 {!! Form::model($user, ['url' => ['users/update', $user->id]]); !!}
 
-<div class="colum-left">
+<div  class="colum-left">
     			{!! Form::label('first_name', 'Имя'); !!}
     			{!! Form::text('first_name', null, ['class'=>'form-control', 'placeholder'=>'Имя']); !!}</br>
 
@@ -27,8 +24,6 @@
 
     			{!! Form::label('phone_number', 'Номер телефона'); !!}
     			{!! Form::text('phone_number', null, ['class'=>'form-control', 'placeholder'=>'Номер телефона']); !!}</br>
-				</div>
-				<div class="colum-right">
 
     			{!! Form::label('email', 'E-Mail'); !!}
     			{!! Form::text('email', null, ['class'=>'form-control', 'placeholder'=>'E-Mail']); !!}</br>
@@ -50,10 +45,12 @@
 			{!! Form::close() !!}
 
 	</div>
-  @include('layouts.errors')
-<close-modal>
-</section>
-</md-card-content>
-</md-card>
-</div>
-@endsection
+  <end-table-specification />
+<!-- футер модалки -->
+
+</md-dialog-content>
+<md-dialog-actions layout="row">
+</md-dialog-actions>
+</md-dialog>
+
+<!-- END -->

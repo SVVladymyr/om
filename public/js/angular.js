@@ -249,7 +249,21 @@ mainApp.controller('user', [
     '$scope', '$timeout', '$mdSidenav', '$log', '$mdDialog', '$http',
     function($scope, $timeout, $mdSidenav, $log, $mdDialog, $http){
           $scope.loaded = true;
-
+          $scope.OpenModalShowUser = function(ev, id) {
+            $mdDialog.show({
+              controller: OpenModalUserCtrl,
+              templateUrl: '/users/edit/'+id,
+              parent: angular.element(document.body),
+              targetEvent: ev,
+              clickOutsideToClose:true,
+              fullscreen: $scope.customFullscreen
+            })
+            .then(function(answer) {
+              $scope.status = 'You said the information was "' + answer + '".';
+            }, function() {
+              $scope.status = 'You cancelled the dialog.';
+            });
+          };
           $scope.OpenModalUserCreate = function(ev) {
             $mdDialog.show({
               controller: OpenModalUserCreate,
@@ -281,6 +295,20 @@ mainApp.controller('user', [
       $mdDialog.hide(answer);
     };
   }
+  function OpenModalUserCtrl($scope, $mdDialog, $http) {
+  $scope.title = 'Редактирование пользователя'
+  $scope.hide = function() {
+    $mdDialog.hide();
+  };
+
+  $scope.cancel = function() {
+    $mdDialog.cancel();
+  };
+
+  $scope.answer = function(answer) {
+    $mdDialog.hide(answer);
+  };
+}
     function OpenModalShow($scope, $mdDialog, $http) {
     $scope.title = 'Спецификация'
     $scope.hide = function() {

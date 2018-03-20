@@ -17,7 +17,9 @@
     <td style="text-align: center;">
     @can('update', $user)
         @if(Auth::user()->id != $user->id)
-            <a style="margin: 0px" class="btn btn-large btn-primary edit-togle edit-user-modal" data-id="{{ $user->id }}" href="#">Изменить</a>
+        <md-button class="md-primary md-raised" style="right: 0" ng-click="OpenModalShowUser($event, {{ $user->id }})">
+          <md-icon class="md-ic">&#xE254;</md-icon>
+         </md-button>
         @endif
     @endcan
     </td>

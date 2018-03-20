@@ -29,8 +29,11 @@
 									 multiple>
 					<md-optgroup label="Фильтрация по статусу заказа">
 	          @foreach($statuses as $status)
-						<md-option  ng-selected="defaultStatusOrderOnload['{{$status->name}}']" ng-value="'{{$status->name}}'">{{$status->name}}</md-option>
-						@endforeach
+
+            <!-- {{ $status->name == 'new' ? $name["new"] = 'Новые' : $status->name == 'client_admin_confirm' ? $name["client_admin_confirm"] = 'Подтвержден администратором клиента' : $status->name == 'manager_comfirm' ? $name["manager_comfirm"] = 'Подтвержден менеджером ' : $status->name == 'delivered' ? $name["delivered"] = 'Доставлено'  : null }} -->
+            <md-option  ng-selected="defaultStatusOrderOnload['{{$status->name}}']" ng-value="'{{$status->name}}'">{{$name[$status->name]}}</md-option>
+
+            @endforeach
 					</md-optgroup>
 					</md-select>
 					</md-input-container>
@@ -154,50 +157,86 @@
 				<th>Подразделение</th>
 				<th>Пользователь</th>
 				<th>Сумма</th>
-				<th style="min-width: 280px;">Статус заказа</th>
-				<th><span>Статус подтверждения</span><md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+				<th style="min-width: 190px;">Статус заказа</th>
+				<th style="min-width: 210px;">
+          <span>Статус подтверждения</span>
+          <md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
 					<md-icon class="md-ic">&#xE887;</md-icon>
 					<md-tooltip>
 						Заказ подтвержден менеджером
 					</md-tooltip>
-				</md-button></th>
+				</md-button>
+      </th>
 				@if(Auth::user()->isClientAdmin())
 
-					<th style="width: 200px;"><span>Подтверждение потребителем</span><md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+					<th style="min-width: 260px;">
+            <span>Подтверждение потребителем</span><md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
 					<md-icon class="md-ic">&#xE887;</md-icon>
 					<md-tooltip>
 						Подтверждения заказа потребителем
 					</md-tooltip>
 				</md-button></th>
-					<th style="width: 200px;"><span>Подтверждение администратором</span><md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
-					<md-icon class="md-ic">&#xE887;</md-icon>
-					<md-tooltip>
-						Подтверждения заказа администратором
-					</md-tooltip>
-				</md-button></th>
+					<th style="min-width: 280px;">
+            <span>Подтверждение администратором</span>
+            <md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+			        <md-icon class="md-ic">&#xE887;</md-icon>
+    					<md-tooltip>
+    						Подтверждения заказа администратором
+    					</md-tooltip>
+				     </md-button>
+        </th>
 
 				@elseif(Auth::user()->isManager())
-					<th><span>Подтверждение менеджером<span data-text="Подтверждение заказа менеджером"></span></span></th>
+					<th style="min-width: 280px;" >
+            <span>Подтверждение менеджером</span>
+            <md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+			        <md-icon class="md-ic">&#xE887;</md-icon>
+    					<md-tooltip>
+    						Подтверждение заказа менеджером
+    					</md-tooltip>
+				     </md-button>
+          </th>
 				@elseif(Auth::user()->isConsumer())
-					<th><span>Подтверждение потребителем<span data-text="Подтвердить заказ как потребитель"></span></span></th>
+					<th style="min-width: 280px;" ><span>Подтверждение потребителем</span>
+            <md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+              <md-icon class="md-ic">&#xE887;</md-icon>
+              <md-tooltip>
+                Подтвердить заказ как потребитель
+              </md-tooltip>
+             </md-button>
+          </th>
 				@elseif(Auth::user()->isSublevel())
-					<th><span>Подтверждение потребителем<span data-text="Подтвердить заказ как потребитель"></span></span></th>
-					<th><span>Подтверждение руководителем подуровня<span data-text="Подтвердить заказ как руководитель подуровня"></span></span></th>
+					<th style="min-width: 280px;"><span>Подтверждение потребителем </span>
+            <md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+              <md-icon class="md-ic">&#xE887;</md-icon>
+              <md-tooltip>
+                Подтвердить заказ как потребитель
+              </md-tooltip>
+             </md-button>
+          </th>
+					<th style="min-width: 280px;"><span>Подтверждение руководителем подуровня</span>
+            <md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+              <md-icon class="md-ic">&#xE887;</md-icon>
+              <md-tooltip>
+                Подтвердить заказ как руководитель подуровня
+              </md-tooltip>
+             </md-button>
+          </th>
 				@endif
-				<th><span>Создание заказа</span><md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+				<th style="min-width: 170px;"><span>Создание заказа</span><md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
 					<md-icon class="md-ic">&#xE887;</md-icon>
 					<md-tooltip>
 						Дата/время создания заказа
 					</md-tooltip>
 				</md-button></th>
-				<th><span>Ожидаемая дата</span>
+				<th style="min-width: 170px;"><span>Ожидаемая дата</span>
 				<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
 					<md-icon class="md-ic">&#xE887;</md-icon>
 					<md-tooltip>
 						Ожидаемая дата/время прибытие заказа
 					</md-tooltip>
 				</md-button></th>
-				<th><span>Дата доставки</span>
+				<th style="min-width: 170px;"><span>Дата доставки</span>
 				<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
 					<md-icon class="md-ic">&#xE887;</md-icon>
 					<md-tooltip>
