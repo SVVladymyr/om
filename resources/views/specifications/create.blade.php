@@ -13,28 +13,6 @@
   <md-dialog-content style="padding: 30px 20px;">
 
 <!-- END -->
-			<md-input-container class="md-icon-float md-block">
-				<label>Имя</label>
-				{!! Form::text('name-specifications', null, array('data-ng-specifications' => 'auth.email', 'required')); !!}
-			</md-input-container>
-
-			<!-- <div class="input-block">
-				{!! Form::label('name', 'Имя'); !!}
-				{!! Form::text('name', null, ['placeholder'=>'Имя', 'class'=>'form-control']); !!}
-			</div> -->
-
-
-@if(Auth::user()->isClientAdmin())
-	<md-input-container class="md-icon-float md-block">
-		<label>Первый возможный день для заказа</label>
-		{!! Form::number('order_begin', null, array('data-ng-order-begin' => 'auth.email', 'required')); !!}
-	</md-input-container>
-	<md-input-container class="md-icon-float md-block">
-		<label>Последний возможный день для заказа</label>
-		{!! Form::number('order_end', null, array('data-ng-order-end' => 'auth.email', 'required')); !!}
-	</md-input-container>
-@endif
-
 
 @if(count($products))
 	<div class="mobile-toogle">
@@ -115,6 +93,28 @@
 	</div>
 
 @endif
+<md-input-container class="md-icon-float md-block">
+  <label>Имя</label>
+  {!! Form::text('name-specifications', null, array('data-ng-specifications' => 'auth.email', 'required')); !!}
+</md-input-container>
+
+<!-- <div class="input-block">
+  {!! Form::label('name', 'Имя'); !!}
+  {!! Form::text('name', null, ['placeholder'=>'Имя', 'class'=>'form-control']); !!}
+</div> -->
+
+
+@if(Auth::user()->isClientAdmin())
+<md-input-container class="md-icon-float md-block">
+<label>Первый возможный день для заказа</label>
+{!! Form::number('order_begin', null, array('data-ng-order-begin' => 'auth.email', 'required')); !!}
+</md-input-container>
+<md-input-container class="md-icon-float md-block">
+<label>Последний возможный день для заказа</label>
+{!! Form::number('order_end', null, array('data-ng-order-end' => 'auth.email', 'required')); !!}
+</md-input-container>
+@endif
+
 
 			<script>
 			for(let i = 0 ; i < $("[data-sum]").length; i++){
