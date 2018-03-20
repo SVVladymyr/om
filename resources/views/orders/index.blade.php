@@ -28,12 +28,14 @@
 									 data-md-container-class="selectdemoSelectHeader"
 									 multiple>
 					<md-optgroup label="Фильтрация по статусу заказа">
+
 	          @foreach($statuses as $status)
+				 <!-- {{ $status->name == 'requires_confirmation' ? $name["requires_confirmation"] = 'Ждет подтверждение' : $status->name == 'client_admin_confirm' ? $name["client_admin_confirm"] = 'Подтвержден администратором клиента' : $status->name == 'manager_comfirm' ? $name["manager_comfirm"] = 'Подтвержден менеджером ' : $status->name == 'delivered' ? $name["delivered"] = 'Доставлено'  : $status->name == 'cancelled' ? $name["cancelled"] = 'Отменено'  : null }} -->
 
-            <!-- {{ $status->name == 'new' ? $name["new"] = 'Новые' : $status->name == 'client_admin_confirm' ? $name["client_admin_confirm"] = 'Подтвержден администратором клиента' : $status->name == 'manager_comfirm' ? $name["manager_comfirm"] = 'Подтвержден менеджером ' : $status->name == 'delivered' ? $name["delivered"] = 'Доставлено'  : null }} -->
-            <md-option  ng-selected="defaultStatusOrderOnload['{{$status->name}}']" ng-value="'{{$status->name}}'">{{$name[$status->name]}}</md-option>
+					    <md-option  ng-selected="defaultStatusOrderOnload['{{$status->name}}']" ng-value="'{{$status->name}}'">{{$name[$status->name]}}</md-option>
 
-            @endforeach
+				  @endforeach
+
 					</md-optgroup>
 					</md-select>
 					</md-input-container>
