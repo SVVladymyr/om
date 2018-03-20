@@ -212,6 +212,7 @@
 			{!! Form::open(['route' => 'status']) !!}
 
 		@endif
+		{{--{{dump($orders)}}--}}
         @foreach($orders as $order)
 
 			@include('orders.order')

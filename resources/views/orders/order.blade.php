@@ -6,9 +6,9 @@
 		<td onclick="location.href ='/orders/{{ $order->id }}'" data-id="{{ $order->id }}">{{ $order->status->name }}</td>
 		<td onclick="location.href ='/orders/{{ $order->id }}'">{{ $order->subs }}</td>
 
-	@if(Auth::user()->isClientAdmin() && ($order->status_id == 1 || $order->status_id == 2))
+	@if(Auth::user()->isClientAdmin() && ($order->status_id == 1 || $order->status_id == 2 || $order->status_id == 5))
 		<td onclick="location.href ='/orders/{{ $order->id }}'"></td>
-		<td>{!! Form::select("statuses[$order->id]", ['2' => 'Confirmed', '1' => 'Canceled'], $order->status_id); !!}</td>
+		<td>{!! Form::select("statuses[$order->id]", ['2' => 'Confirmed', '1' => 'Requires confirmation','5'=>'Cancelled'], $order->status_id); !!}</td>
 
 	@elseif(Auth::user()->isClientAdmin() && ($order->status_id == 3 || $order->status_id == 4))
 		<td>{!! Form::select("statuses[$order->id]", ['4' => 'Delivered', '3' => 'Waiting'], $order->status_id); !!}</td>
@@ -16,8 +16,8 @@
 
 	@elseif(Auth::user()->isManager())
 
-		@if($order->status_id == 2)
-		<td>{!! Form::select("statuses[$order->id]", ['3' => 'Confirmed', '2' => 'Canceled'], $order->status_id); !!}</td>
+		@if($order->status_id == 2||$order->status_id == 5)
+		<td>{!! Form::select("statuses[$order->id]", ['3' => 'Confirmed', '2' => 'Requires confirmation','5'=>'Cancelled'], $order->status_id); !!}</td>
 		@else
 		<td onclick="location.href ='/orders/{{ $order->id }}'"></td>
 		@endif
@@ -31,7 +31,7 @@
 
 	@elseif(Auth::user()->isSublevel() && $order->status_id == 1)
 		<td onclick="location.href ='/orders/{{ $order->id }}'"></td>
-		<td>{!! Form::select("statuses[$order->id]", ['true' => 'Confirmed', 'false' => 'Canceled'], $order->sublevel_confirm); !!}</td>
+			<td>{!! Form::select("statuses[$order->id]", ['true' => 'Confirmed', 'false' => 'Requires confirmation'], $order->sublevel_confirm); !!}</td>
 
 	@elseif(Auth::user()->isSublevel() && ($order->status_id == 3 || $order->status_id == 4))
 		<td>{!! Form::select("statuses[$order->id]", ['4' => 'Delivered', '3' => 'Waiting'], $order->status_id); !!}</td>

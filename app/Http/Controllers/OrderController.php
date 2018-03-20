@@ -90,6 +90,7 @@ class OrderController extends Controller//refactor todo
             }
         }
 
+//        dump($orders);
         $orders = CustomPaginator::paginate($orders, 20)->setPath(route('user_orders'));
         
         return view('orders.index', compact('orders', 'clients'));
