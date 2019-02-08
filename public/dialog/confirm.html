@@ -1,0 +1,26 @@
+<md-dialog aria-label="Settings">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>{{data.title}}</h2>
+            <span data-flex></span>
+            <md-button class="md-icon-button" data-ng-click="cancel()">
+                <md-icon class="md-ic">&#xE5CD;</md-icon>
+                <md-tooltip>Закрыть</md-tooltip>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <form>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <h2 data-ng-bind-html="data.message"></h2>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions data-layout="row">
+            <span data-flex></span>
+            <md-button class="md-raised md-primary" style="margin-right: 10px!important;" data-ng-click="sendOk()">{{data.buttonName}}</md-button>
+            <md-button class="md-raised md-accent" data-ng-click="cancel()">Отменить</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

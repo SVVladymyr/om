@@ -31,7 +31,7 @@ class CostItemController extends Controller
         if(Auth::user()->subject) {
             $cost_items = Auth::user()->employer->cost_items->pluck('name', 'id')->all();
             if(empty($cost_items)) {
-                return back()->with('message', 'Cant fill specification with cost_items. No cost_items');
+                return back()->with('message', 'Невозможно заполнить спецификацию с cost_items. Отсуствуют cost_items');
             }
 
             $specification = Auth::user()->employer->specification;
@@ -44,12 +44,12 @@ class CostItemController extends Controller
             }
 
             if($products->isEmpty()) {
-                return back()->with('message', 'Cant fill specification with cost_items. No specification or empty specification');
+                return back()->with('message', 'Невозможно заполнить спецификацию с cost_items. Нет спецификации или пустая спецификация');
             }
 
             $products = $products->sortBy('cost_item');
         }else {
-            return back()->with('message', 'Cant fill specification with cost_items. No permission');
+            return back()->with('message', 'Невозможно заполнить спецификацию с cost_items. Нет доступа');
         }
 
         
@@ -93,7 +93,7 @@ class CostItemController extends Controller
             $cost_items = Auth::user()->employer->cost_items()->get();
         }else {
             $cost_items = [];
-            session()->flash('message', 'No cost_items');
+            session()->flash('message', 'Отсутствуют cost_items');
         }
 
         
@@ -118,6 +118,7 @@ class CostItemController extends Controller
      */
     public function store(CostItemRequest $request)
     {
+        //dd($request->all());
         $this->authorize('create', CostItem::class);
 
         $client_id = Auth::user()->employer->id;
@@ -129,7 +130,7 @@ class CostItemController extends Controller
         ]);
 
 
-        return redirect('cost_items')->with('message', 'New cost_item has been created');
+        return redirect('cost_items')->with('message', 'Новый cost_item был создан ');
     }
 
     /**
@@ -201,6 +202,6 @@ class CostItemController extends Controller
         });
              
 
-        return redirect('cost_items')->with('message', 'Cost_item has been deleted');
+        return redirect('cost_items')->with('message', 'Cost_item был удален');
     }
 }

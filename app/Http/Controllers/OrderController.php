@@ -92,7 +92,7 @@ class OrderController extends Controller//refactor todo
 
 //        dump($orders);
         $orders = CustomPaginator::paginate($orders, 20)->setPath(route('user_orders'));
-        
+
         return view('orders.index', compact('orders', 'clients'));
     }
 
@@ -107,6 +107,9 @@ class OrderController extends Controller//refactor todo
 
         $orders = Order::where('client_id', '=', $client->id )->get()->sortByDesc('created_at');
 
+        $clients = [0=>$client];
+        
+
         if($orders->isNotEmpty()) {
             foreach ($orders as $order) {
                 $this->show_sublevel_confirmation($order);
@@ -117,7 +120,7 @@ class OrderController extends Controller//refactor todo
 
         $orders = CustomPaginator::paginate($orders, 20)->setPath(route('orders', [$client->id]));
 
-        return view('orders.index', compact('orders', 'client'));
+        return view('orders.index', compact('orders', 'clients','client'));
     }
 
     /**
@@ -137,7 +140,7 @@ class OrderController extends Controller//refactor todo
             $products = Specification::products($specification);
             
         }else {
-            return back()->with('message', 'Cant create order, client has no specification');
+            return back()->with('message', 'Невозможно создать заказ, клиент не имеет спецификации');
         }
 
         if($products->isNotEmpty()) {
@@ -150,7 +153,7 @@ class OrderController extends Controller//refactor todo
             }
             
         }else {
-            return back()->with('message', 'Cant create order, fill specification');
+            return back()->with('message', 'Невозможно создать заказ, заполните спецификацию');
         }          
 
         return view('orders.create', compact('client', 'limits', 'products'));
@@ -164,10 +167,11 @@ class OrderController extends Controller//refactor todo
      */
     public function store(OrderRequest $request, Client $client)
     {
+//        dd($request);
         $this->authorize('create_order', $client);
 
         if(array_sum($request['amounts']) === 0) {
-            return back()->withInput()->with('message', 'Cant create empty order');
+            return back()->withInput()->with('message', 'Невозможно создать пустой заказ');
         }
 
         $amounts = array_filter($request['amounts'], "is_numeric");//amount values are not null
@@ -178,18 +182,18 @@ class OrderController extends Controller//refactor todo
         $end = (int)$specification->order_end;
 
         if(!$this->check_order_window($begin, $end)) {
-            return back()->with('message', 'Sorry, not today');
+            return back()->with('message', 'Извините, не сегодня');
         }
 
         if($specification != null) {
             $products = Specification::products($specification);
 
         }else {
-            return back()->withInput()->with('message', 'Cant create order, create and fill specification');
+            return back()->withInput()->with('message', 'Невозможно создать заказ, создайте и заполните спецификацию');
         }
 
         if($products->isEmpty()) {
-            return back()->withInput()->with('message', 'Cant create order, fill specification');
+            return back()->withInput()->with('message', 'Невозможно создать заказ, заполните спецификацию');
         }
 
         $products = $products->whereIn('product_id', array_keys($amounts));
@@ -207,7 +211,7 @@ class OrderController extends Controller//refactor todo
 
         if(!empty($exceed_messages)) {
             $exceed_messages = array_unique($exceed_messages);
-            $message = 'Cant create order. Following limits exceeded: ' . implode(', ', $exceed_messages);
+            $message = 'Невозможно создать. Превышены лимиты: ' . implode(', ', $exceed_messages);
             return back()->withInput()->with('message', $message);
         }
 
@@ -244,7 +248,7 @@ class OrderController extends Controller//refactor todo
                 
         });
 
-        session()->flash('message', 'New order has been created');
+        session()->flash('message', 'Новый заказ был отменен');
         
         return redirect()->route('orders', [$client]);
     }
@@ -298,7 +302,7 @@ class OrderController extends Controller//refactor todo
                 ($order->status_id != 1 || strripos($order->sublevel_confirm, 'true') !== false)) || 
             (Auth::user()->isSublevel() && $order->status_id != 1) ||
             (Auth::user()->isClientAdmin() && $order->status_id != 1)) {
-            return back()->with('message', 'Order is confirmed, you can not edit it');
+            return back()->with('message', 'Заказ подтвержден, теперь вы можете изменить его');
         }
 
         $limits= $order->client->limits->where('active', 1);
@@ -310,7 +314,7 @@ class OrderController extends Controller//refactor todo
             $products = Specification::products($specification);
 
         }else {
-            return back()->with('message', 'Cant edit order, client has no specification');
+            return back()->with('message', 'Невозможно изменить заказ, у клиента нет спецификации');
         }
 
         $rows = DB::table('order_product')
@@ -326,7 +330,7 @@ class OrderController extends Controller//refactor todo
         $diff = array_diff($order_product_ids, $product_ids);
 
         if(!empty($diff)) {
-            return back()->with('message', 'Cant edit order, specification has been changed');
+            return back()->with('message', 'Невозможно изменить заказ, спецификация была изменена');
         }
 
         if($products->isNotEmpty()) {
@@ -343,7 +347,7 @@ class OrderController extends Controller//refactor todo
             }
             
         }else {
-            return back()->with('message', 'Cant edit order, fill specification');
+            return back()->with('message', 'Невозможно изменить заказ, заполните спецификацию');
         }
 
         $this->temporary_rollback_limits($limits, $products, $order);
@@ -374,13 +378,13 @@ class OrderController extends Controller//refactor todo
                 ($order->status_id != 1 || strripos($order->sublevel_confirm, 'true') !== false)) || 
             (Auth::user()->isSublevel() && $order->status_id != 1) ||
             (Auth::user()->isClientAdmin() && $order->status_id != 1)) {
-            return back()->with('message', 'Order is confirmed, you can not update it');
+            return back()->with('message', 'Заказ подтвержден, теперь вы можете обновить его');
         }
 
         $client = $order->client;
 
         if(array_sum($request['amounts']) === 0) {
-            return back()->withInput()->with('message', 'Cant empty order');
+            return back()->withInput()->with('message', 'Невозможно создать пустой заказ');
         }
 
         $amounts = array_filter($request['amounts'], "is_numeric");//amount values are not null
@@ -391,18 +395,18 @@ class OrderController extends Controller//refactor todo
         $end = (int)$specification->order_end;
         
         if(!$this->check_order_window($begin, $end)) {
-            return back()->with('message', 'Sorry, not today');
+            return back()->with('message', 'Извините, не сегодня');
         }
 
         if($specification != null) {
             $products = Specification::products($specification);
 
         }else {
-            return back()->withInput()->with('message', 'Cant update order, create and fill specification');
+            return back()->withInput()->with('message', 'Невозможно обновить заказ, создайте и заполните спецификацию');
         }
 
         if($products->isEmpty()) {
-            return back()->withInput()->with('message', 'Cant update order, fill specification');
+            return back()->withInput()->with('message', 'Невозможно создать заказ, заполните спецификацию');
         }
         
         $limits= $client->limits->where('active', 1);
@@ -429,7 +433,7 @@ class OrderController extends Controller//refactor todo
             }
             
         }else {
-            return back()->with('message', 'Cant update order, fill specification');
+            return back()->with('message', 'Невозможно обновить заказ, заполните спецификацию');
         }
 
         $this->temporary_rollback_limits($limits, $old_products, $order);
@@ -449,7 +453,7 @@ class OrderController extends Controller//refactor todo
         if(!empty($exceed_messages)) {
 
             $exceed_messages = array_unique($exceed_messages);
-            $message = 'Cant update order. Following limits exceeded: ' . implode(', ', $exceed_messages);
+            $message = 'Невозможно обновить заказ. Превышены лимиты: ' . implode(', ', $exceed_messages);
             return back()->withInput()->with('message', $message);
         }
     
@@ -489,7 +493,7 @@ class OrderController extends Controller//refactor todo
                 
         });
 
-        session()->flash('message', 'Order has been updated');
+        session()->flash('message', 'Заказ был изменен');
         
         return redirect()->route('orders', [$client]);
     }
@@ -553,14 +557,13 @@ class OrderController extends Controller//refactor todo
                 $sublevel_id = Auth::user()->subject->id;
                 $sublevel_id_string= '"'.$sublevel_id.'"';
                 $status = $statuses[$order->id];
-                
+
                 if(!$order->sublevel_confirm) {
                     $order->sublevel_confirm = json_encode([$sublevel_id => $status]);
-                    $order->save();
                 }else {
-                    DB::table('orders')
-                    ->where('id', $order->id)
-                    ->update(["sublevel_confirm->$sublevel_id_string" => $status]);
+                    $sublevelConfirm = json_decode($order->sublevel_confirm, true);
+                    $sublevelConfirm[$sublevel_id] = $status;
+                    $order->sublevel_confirm = json_encode($sublevelConfirm);
                 }
 
             }elseif(Auth::user()->isManager()) {
@@ -660,7 +663,7 @@ class OrderController extends Controller//refactor todo
             $messages = '';
         }
 
-        $message = 'Satuses updated'.$messages;
+        $message = 'Статусы обновлены'.$messages;
 
         session()->flash('message', $message);
         

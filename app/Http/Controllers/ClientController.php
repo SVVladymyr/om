@@ -39,14 +39,14 @@ class ClientController extends Controller
             $clients = $clients->doesntHave('ancestor')->get();
 
         }else {
-            session()->flash('message', 'Something went wrong');
+            session()->flash('message', 'Что то пошло не так');
             return redirect('back');
         }
 
         $clients = $clients->sortBy('name');
 
         if($clients->isEmpty()) {
-            session()->flash('message', 'No clients');
+            session()->flash('message', 'Нет клиентов');
         }
 
         return view('clients.index', compact('clients'));
@@ -73,7 +73,7 @@ class ClientController extends Controller
         $clients = $clients->sortBy('ancestor_id');
 
         if($clients->isEmpty()) {
-            session()->flash('message', 'No clients');
+            session()->flash('message', 'Нет клиентов');
         }
 
         return view('clients.network', compact('clients'));
@@ -97,7 +97,16 @@ class ClientController extends Controller
             $roots =  collect();
             $ancestors = Auth::user()->employer->network()->pluck('name', 'id')->all();
             $masters = Auth::user()->employer->hired()->doesntHave('subject')->pluck('email', 'id')->all();
-            $specifications = Auth::user()->employer->specification->sub_specifications()->pluck('name', 'id')->all();
+//            $specifications = Auth::user()->employer->specification->sub_specifications()->pluck('name', 'id')->all();
+
+           $specifications = Auth::user()->employer->specification;
+           if($specifications){
+               $specifications = $specifications->sub_specifications()->pluck('name', 'id')->all();
+           }
+           else{
+               $specifications = [];
+           }
+
             $managers = collect();
         }
 
@@ -114,9 +123,9 @@ class ClientController extends Controller
     {
         if(Auth::user()->isClientAdmin()) {
             if(!$request->has('ancestor_id')) {
-                return back()->withInput()->with('message', 'You can not create root, please enter ancestor');
+                return back()->withInput()->with('message', 'Вы не можете создать root, пожалуйста введите начальника');
             }elseif($request->has('manager_id')) {
-                return back()->withInput()->with('message', 'You can not appoint a manager');
+                return back()->withInput()->with('message', 'Вы не можете назначить менеджера');
             }
 
             $ancestors = Auth::user()->employer->network->pluck('id')->all();
@@ -132,12 +141,12 @@ class ClientController extends Controller
         }
 
         if($request['ancestor_id'] != null && !in_array(request('ancestor_id'), $ancestors)) {
-                return back()->withInput()->with('message', 'This user can not be ancestor');
+                return back()->withInput()->with('message', 'Этот пользователь не может быть начальником');
 
         }elseif($request['master_id'] != null && !in_array(request('master_id'), $masters)) {
-                return back()->withInput()->with('message', 'This user can not be master');
+                return back()->withInput()->with('message', 'Этот пользователь не может быть master');
         }elseif($request['manager_id'] != null && !in_array(request('manager_id'), $managers)) {
-                return back()->withInput()->with('message', 'User must be a manager');
+                return back()->withInput()->with('message', 'Пользователь должен быть менеджером');
         }
 
         $client = Client::create([
@@ -166,7 +175,7 @@ class ClientController extends Controller
 
         $client->save();
 
-        return redirect('clients')->with('message', 'New client has been created');
+        return redirect('clients')->with('message', 'Новый клиент был создан');
     }
 
     /**
@@ -262,16 +271,16 @@ class ClientController extends Controller
         }
 
         if($client->id == request('ancestor_id')) {
-            return back()->withInput()->with('message', 'The client can not be ancestor for itself, clear ancestor field');
+            return back()->withInput()->with('message', 'Клиент не может быть начальником для самого себя, очистите поле начальника');
 
         }elseif($client->id == $client->root->id && $request['ancestor_id'] != null) {
-            return back()->withInput()->with('message', 'The client is root and can not have ancestor');
+            return back()->withInput()->with('message', 'У клиент root не может быть начальника');
 
         }elseif($client->id != $client->root->id && $request['ancestor_id'] == null) {
-            return back()->withInput()->with('message', 'The client can not be root, fill ancestor field');
+            return back()->withInput()->with('message', 'Клиент не может быть root, заполните поле начальника');
 
         }elseif($request['manager_id'] != null && $client->ancestor !== null){
-                return back()->withInput()->with('message', 'Not root client can not have manager');
+                return back()->withInput()->with('message', 'У root клиента не может быть менеджера');
 
         }else {
             $ancestors_exceptions = ($client->expand_network()->push($client))
@@ -284,17 +293,17 @@ class ClientController extends Controller
             $managers = $users->where('role_id', 3)->pluck('id')->all();
 
             if($request['ancestor_id'] != null && in_array(request('ancestor_id'), $ancestors_exceptions)){
-                return back()->withInput()->with('message', 'The given value can not be ancestor for the client');
+                return back()->withInput()->with('message', 'Переданное значение не может быть начальником для клиента');
 
             }elseif($request['master_id'] != null && !in_array(request('master_id'), $masters)){
-                return back()->withInput()->with('message', 'This user can not be master');
+                return back()->withInput()->with('message', 'Этот пользователь не может быть master');
 
             }elseif($request['manager_id'] != null && !in_array(request('manager_id'), $managers)){
-                return back()->withInput()->with('message', 'This user can not be manager');
+                return back()->withInput()->with('message', 'Этот пользователь не может быть менеджером');
             }
 
             if($request['manager_id'] != null && Auth::user()->isClientAdmin()){
-                return back()->withInput()->with('message', 'You can not appoint a manager');
+                return back()->withInput()->with('message', 'Вы не можете назначать менеджера');
 
             }
         }
@@ -303,7 +312,7 @@ class ClientController extends Controller
             $specifications = Auth::user()->employer->specification->sub_specifications()->pluck('id')->all();
 
             if($request->has('specification_id') && !in_array(request('specification_id'), $specifications)){
-                    return back()->withInput()->with('message', 'This is not specification, created by you');
+                    return back()->withInput()->with('message', 'Эта спецификация не создана вами');
             }else {
                 $specification_id = $request['specification_id'];
             }
@@ -314,13 +323,13 @@ class ClientController extends Controller
             }
 
                 if($request->has('specification_id') && !in_array(request('specification_id'), $specifications)){
-                    return back()->withInput()->with('message', 'This is not specification, created by you or specification already belongs to another client');
+                    return back()->withInput()->with('message', 'Эта спецификация не была создана вами или уже пренадлежит другому клиенту');
 
                 }else{
                     if($client->specification && 
                         $client->specification->main_specification == null &&
                         $client->specification->id != $request['specification_id']) {
-                        $client->specification->delete();
+//                        $client->specification->delete();
                     }
 
                     $client->specification_id = $request['specification_id'];

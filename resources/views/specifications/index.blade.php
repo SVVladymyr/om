@@ -35,6 +35,7 @@
             </md-button>
             </th>
         </tr>
+     
     @foreach($specifications as $specification)
 
         @include('specifications.specification')

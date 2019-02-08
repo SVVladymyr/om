@@ -16,13 +16,15 @@
 
         @can('update', $cost_item)
 
-            <a  class="btn btn-large btn-warning" href="/cost_items/edit/{{ $cost_item->id }}">Изменить</a>
-
+                <md-button class="md-primary md-raised" ng-click="EditsItemsCreates($event,'{{ $cost_item->id }}')" style="margin: 0;">
+                    Редактировать
+                </md-button>
         @endcan
 
     	@can('delete', $cost_item)
-
-            <a  class="btn btn-large btn-danger" onclick="deleteItem('/cost_items/delete/{{ $cost_item->id }}')" href="#">Удалить</a>
+                <md-button class="md-warn md-raised" ng-click="DeleteItemsCreates($event,'{{ $cost_item->id }}')" style="margin: 0;">
+                    Удалить
+                </md-button>
 
         @endcan
 </md-card-content>

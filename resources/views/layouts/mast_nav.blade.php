@@ -1,13 +1,23 @@
 <section ng-controller="leftSideBar" class="main" data-layout="column" data-layout-align="space-between stretch">
 <md-toolbar class="main-toolbar" data-layout="row">
         <div class="md-toolbar-tools">
-          <section class="md-toolbar-tools-left">
+          <section style="display: flex;" class="md-toolbar-tools-left">
 					@if(Auth::check())
             <md-button class="md-button md-icon-button md-ink-ripple main-toolbar-btn" data-ng-click="navStatus = !navStatus">
                 <md-icon class="md-ic">&#xE5D2;</md-icon>
             </md-button>
+
+					  @if( Route::getCurrentRoute()->getActionName()  == 'App\Http\Controllers\OrderController@create' || Route::getCurrentRoute()->getActionName()  == 'App\Http\Controllers\OrderController@edit' )
+						  <div class="create-orders-info">
+							  <span class="create-orders-info-money-limit-info">Доступный лимит:</span>
+							  <span class="create-orders-info-money-limit"></span> ||
+							  Сумма заказа:
+							  <span class="create-orders-info-money-total">0.00 грн</span>
+						  </div>
+					  @endif
+
 						@endif
-            <span><img  src="{{ url('images/om24-white.png') }}" alt="om-24"></span>
+            <span><a href="/"><img  src="{{ url('images/om24-white.png') }}" alt="om-24"></a></span>
             </section>
             <section class="md-toolbar-tools-right">
             @if (!Auth::guest() )
@@ -116,7 +126,7 @@
       </md-list>
 </nav>
 @endif
-</section>
+
 <!--	<header>
 		<nav class="navbar navbar-default main-menu">
 			<a class="navigation" href="{{ url('/home') }}">
@@ -250,9 +260,10 @@
 				@endif
 			</div>
 		</div>
-    @endif
+    @endif-->
     @if($flash = session('message'))
 		<script>
+/*
             $.ajax({
 				url : '/js/ru.json',
 				type: "GET",
@@ -261,14 +272,16 @@
 					translateResponse != undefined ?  $('.error').text(translateResponse) : $('.error').text("{{$flash}}")
 					$('.modal').show()
 				}
-			})
+			})*/
 		</script>
-		<div class="modal">
+		<div  ng-init="showCustomToast('{{$flash}}')"></div>
+		<!--<div class="modal">
 				<h2 class="modal-title"></h2>
 				<div class="close" onclick="$('.modal').hide()">X</div>
 				<div style="color: #000" class="error modal-content mobile-toogle">
 
 				</div>
-		</div>
+		</div> -->
 	@endif
-@include('layouts.errors')-->
+</section>
+@include('layouts.errors')

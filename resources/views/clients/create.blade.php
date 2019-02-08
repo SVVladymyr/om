@@ -1,6 +1,6 @@
 <!-- шапка модалки -->
 <md-dialog aria-label="Test">
-    {!! Form::open(['route' => 'users']) !!}
+	{!! Form::open(['route' => 'clients']) !!}
   <md-toolbar>
     <div class="md-toolbar-tools">
       <h2 ng-bind-html="title"></h2>
@@ -13,8 +13,8 @@
   <md-dialog-content>
 
 <!-- END -->
-<div style="padding-top: 25px;width: 115%;min-width: calc(50% + 40px);margin: 0 auto;float: none;display: block;" class="col-xs-12 col-md-3 create-edit user-edit">
-			{!! Form::open(['route' => 'clients']) !!}
+<div  class="user-edit">
+	<div class="colum-left">
 			<!-- <div class="colum-left"> -->
 				<md-card-content>
 								@if(Auth::user()->isCompanyAdmin())
@@ -30,11 +30,6 @@
 
 								@endif
 								<md-input-container class="md-icon-float md-block">
-										<label>GUID</label>
-										{!! Form::text('guid', null, array('data-ng-model-guid' => 'auth.email', 'required')); !!}
-
-								</md-input-container>
-								<md-input-container class="md-icon-float md-block">
 										<label>Имя</label>
 										{!! Form::text('name', null, array('data-ng-model-name' => 'auth.email', 'required')); !!}
 
@@ -45,70 +40,49 @@
 
 								</md-input-container>
 								@if(Auth::user()->isCompanyAdmin())
-								<md-card-content flex-gt-md="100">
-									<md-input-container style="display: block">
-										<label>Менеджер подразделения</label>
-										<md-select ng-model="selectedVegetablesMeneger"
-										md-on-close="clearSearchTerm()"
-										data-md-container-class="selectdemoSelectHeader">
-										<md-optgroup label="Менеджер подразделения">
-											@foreach($managers as $id=>$manager_id)
-											<md-option value="{{$id}}">{{$manager_id}}</md-option >
-												@endforeach
-											</md-optgroup>
-										</md-select>
-									</md-input-container>
-								</md-card-content>
-								@endif
-				</md-card-content>
-				<md-card-content flex-gt-md="100">
-					<md-input-container>
-						<label>Начальник подразделения</label>
-						<md-select ng-model="selectedVegetables"
-						md-on-close="clearSearchTerm()"
-						data-md-container-class="selectdemoSelectHeaderMain">
-						<md-optgroup label="Начальник подразделения">
-							@foreach($masters as $id=>$master)
-							<md-option value="{{$id}}">{{$master}}</md-option >
-								@endforeach
-							</md-optgroup>
-						</md-select>
-					</md-input-container>
-				</md-card-content>
-				<md-card-content flex-gt-md="100">
-					<md-input-container>
-						<label>Вышестоящее подразделение</label>
-						<md-select ng-model="selectedVegetablesTop"
-						md-on-close="clearSearchTerm()"
-						data-md-container-class="selectdemoSelectHeader">
-						<md-optgroup label="Вышестоящее подразделение">
-							@foreach($ancestors as $id=>$ancestor)
-							<md-option value="{{$id}}">{{$ancestor}}</md-option >
-								@endforeach
-							</md-optgroup>
-						</md-select>
-					</md-input-container>
-				</md-card-content>
+										<div style="margin-top: 0px; margin-bottom: 27px;">
+										{!! Form::label('manager_id', 'Менеджер подразделения'); !!}
+										{!! Form::select('manager_id', $managers, null, ['class'=>'form-control', 'placeholder' => 'Пусто']); !!}</br>
+										</div>
+									@endif
 
+									<div style="margin-top: 0px; margin-bottom: 27px;">
+									{!! Form::label('master_id', 'Начальник подразделения'); !!}
+									<!--  {!! Form::select('master_id', $masters, null, array('class'=>'form-control','placeholder' => 'Начальник подразделения', 'keydown'=>'filterClientCreate()')); !!}</br>-->
+
+										<select class="limitedNumbChosen form-control" name="master_id" id="master_id">
+											<option selected="selected" value="">Начальник подразделения</option>
+											@foreach($masters as $id=>$master)
+												<option value="{{$id}}">{{$master}}</option>
+											@endforeach
+										</select>
+
+									</div>
+									<div style="margin-top: 0px; margin-bottom: 27px;">
+									{!! Form::label('ancestor_id', 'Вышестоящее подразделение'); !!}
+									<!--{!! Form::select('ancestor_id', $ancestors, null, array('class'=>'form-control','placeholder' => 'Вышестоящее подразделение')); !!}</br>-->
+										<select class="limitedNumbChosen form-control" name="ancestor_id" id="ancestor_id">
+											<option selected="selected" value="">Вышестоящее подразделение</option>
+											@foreach($ancestors as $id=>$ancestor)
+												<option value="{{$id}}">{{$ancestor}}</option>
+											@endforeach
+										</select>
+
+									</div>
+
+				</md-card-content>
+	</div>
+	<div class="colum-right">
     			@if(Auth::user()->isClientAdmin())
-	    			<md-input-container>
-	    				<label>ID спецификации</label>
-	    				<md-select ng-model="selectedVegetablesId"
-	    				md-on-close="clearSearchTerm()"
-	    				data-md-container-class="selectdemoSelectHeader">
-	    				<md-optgroup label="ID спецификации">
-	    					@foreach($specifications as $id=>$specification_id)
-	    					<md-option value="{{$id}}">{{$specification_id}}</md-option >
-	    						@endforeach
-	    					</md-optgroup>
-	    				</md-select>
-	    			</md-input-container>
-              <!-- {!! Form::label('specification_id', 'ID спецификации    '); !!}
-        			{!! Form::select('specification_id', $specifications, null, ['class'=>'form-control', 'placeholder' => 'ID спецификации']); !!}</br> -->
-                @endif
+					<div style="margin-top: 0px; margin-bottom: 27px;">
+						{!! Form::label('specification_id', 'ID спецификации    '); !!}
+						{!! Form::select('specification_id', $specifications, null, ['class'=>'form-control', 'placeholder' => 'ID спецификации']); !!}
+
+					</div>
+					@endif
                 <md-input-container class="md-icon-float md-block">
                 	<label>Номер телефона</label>
-                	{!! Form::text('phone_number', null, array('data-ng-phone-number' => 'auth.email', 'required')); !!}
+                	{!! Form::text('phone_number', null, array('data-ng-phone-number' => 'auth.email', 'required', 'id'=>'phone_number')); !!}
                 </md-input-container>
 
                 <md-input-container class="md-icon-float md-block">
@@ -122,24 +96,28 @@
                 </md-input-container>
 
                	<md-input-container class="md-icon-float md-block">
-                	<label>Оргинизация</label>
+                	<label>Организация</label>
                 	{!! Form::text('organization', null, array('data-ng-organization' => 'auth.email', 'required')); !!}
                 </md-input-container>
 </div>
-<md-card-actions layout="row" layout-align="end center" style="justify-content: center; margin-bottom: 15px;">
-	<md-button class="md-primary md-raised" type="submit" ng-disabled="authForm.$invalid">Создать </md-button>
-</md-card-actions>
-
-
 </div>
 <!-- футер модалки -->
-
 </md-dialog-content>
 <md-dialog-actions layout="row">
-  <md-button type="submit" class="md-primary md-raised">
-    Создать
-  </md-button>
+	<md-card-actions layout="row" layout-align="end center" style="justify-content: center; margin-bottom: 15px;">
+		<md-button class="md-primary md-raised" type="submit" ng-disabled="authForm.$invalid">Создать </md-button>
+	</md-card-actions>
 </md-dialog-actions>
+	<script>
+        $(".limitedNumbChosen").chosen({
+            max_selected_options: 2,
+            placeholder_text_multiple: "Which are two of most productive days of your week"
+        })
+            .bind("chosen:maxselected", function (){
+                window.alert("You reached your limited number of selections which is 2 selections!");
+            })
+        $("input#phone_number").mask("+38(999) 999-99-99");
+	</script>
     {!! Form::close() !!}
 </md-dialog>
 

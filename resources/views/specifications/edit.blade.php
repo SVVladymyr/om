@@ -23,7 +23,7 @@
 				<div class="input-block">
 					<md-input-container class="md-icon-float md-block">
 					<label>Имя</label>
-						{!! Form::text('name-specification-edit', null, array('data-ng-name-specification-edit' => 'auth.email', 'required')); !!}
+						{!! Form::text('name', null, array('data-ng-name' => 'auth.email', 'required')); !!}
 					</md-input-container>
 				</div>
 
@@ -35,13 +35,13 @@
 <div class="input-block" style="line-height: 1.2">
 	<md-input-container class="md-icon-float md-block">
 		<label>Первый возможный день для заказа</label>
-		{!! Form::number('order_begin', null, array('data-ng-order-begin' => 'auth.email', 'required')); !!}
+		{!! Form::number('order_begin', null, array('data-ng-order-begin' => 'auth.email')); !!}
 	</md-input-container>
 </div>
 <div class="input-block" style="line-height: 1.2">
 	<md-input-container class="md-icon-float md-block">
 		<label>Последний возможный день для заказа</label>
-		{!! Form::number('order_end', null, array('data-ng-order-end' => 'auth.email', 'required')); !!}
+		{!! Form::number('order_end', null, array('data-ng-order-end' => 'auth.email')); !!}
 	</md-input-container>
 	</div>
 @endif
@@ -102,7 +102,6 @@
 		</th>
 	</tr>
 @foreach($products as $product)
-
 	<tr>
 		<td>{{ $product->model }}</td>
 		<td>{{ $product->description->name }}</td>
@@ -113,14 +112,14 @@
 		{!! Form::hidden("items[$product->product_id]", $product->product_id); !!}
 	@endif
 		<td data-lem>
-			<md-input-container class="md-icon-float md-block" style="margin: 0;">
-				{!! Form::number('limits', null, array('data-ng-limits' => 'auth.email', 'required')); !!}
-			</md-input-container>
+		<!--	<md-input-container class="md-icon-float md-block" style="margin: 0;"> -->
+				{!! Form::number("limits[$product->product_id]", $product->limit, array('data-ng-limits' => 'auth.email')); !!}
+		<!--	</md-input-container> -->
 		</td>
 		<td>
-			<md-input-container class="md-icon-float md-block" style="margin: 0;">
-				{!! Form::number('periods', null, array('data-ng-periods' => 'auth.email', 'required')); !!}
-			</md-input-container>
+			<!--<md-input-container class="md-icon-float md-block" style="margin: 0;"> -->
+				{!! Form::number("periods[$product->product_id]", $product->period, array('data-ng-periods' => 'auth.email')); !!}
+			<!--</md-input-container> -->
 		</td>
 	</tr>
 

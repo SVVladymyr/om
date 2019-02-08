@@ -121,7 +121,6 @@
 
     @endcan
 
-    
 <script>
 for(let i = 0 ; i < $("[data-sum]").length; i++){
     $($("[data-sum]")[i]).text((+$($("[data-sum]")[i]).text()).toFixed(2))
@@ -129,15 +128,20 @@ for(let i = 0 ; i < $("[data-sum]").length; i++){
 for(let i = 0 ; i < $("[data-lem]").length; i++){
     $($("[data-lem]")[i]).text((+$($("[data-lem]")[i]).text()).toFixed(0))
 }
+$("#my-awesome-dropzone").dropzone();
 </script>
-    <end-table-specification />
 <!-- футер модалки -->
 
 </md-dialog-content>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.1.1/min/dropzone.min.css" />
+
 <md-dialog-actions layout="row">
     <a class="btn btn-large btn-warning mob-xl" href="/specifications/edit/{{ $specification->id }}">Изменить</a>
     @can('delete', $specification)
-        <a class="btn btn-large btn-danger mob-xl" href="#" onclick="deleteItem('/specifications/delete/{{ $specification->id }}')" >Удалить</a>
+        <md-button style="margin-left: 15px!important;" class="md-warn md-raised" ng-click="DeleteItemsCreates($event,'{{ $specification->id }}')" style="margin: 0;">
+            Удалить
+        </md-button>
+       <!-- <a class="btn btn-large btn-danger mob-xl" href="#" onclick="deleteItem('/specifications/delete/{{ $specification->id }}')" >Удалить</a> -->
     @endcan
 </md-dialog-actions>
 </md-dialog>

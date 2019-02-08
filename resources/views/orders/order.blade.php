@@ -1,5 +1,6 @@
 
   	<tr style="color: #000; cursor: pointer;" class="table-td">
+		<td><input name="select-items" type="checkbox"></td>
 		<td onclick="location.href ='/orders/{{ $order->id }}'">{{ $order->client->name }}</td>
 		<td onclick="location.href ='/orders/{{ $order->id }}'">{{ $order->customer->first_name }}</td>
 		<td onclick="location.href ='/orders/{{ $order->id }}'" data-sum >{{ $order->sum }}</td>
@@ -8,7 +9,7 @@
 
 	@if(Auth::user()->isClientAdmin() && ($order->status_id == 1 || $order->status_id == 2 || $order->status_id == 5))
 		<td onclick="location.href ='/orders/{{ $order->id }}'"></td>
-		<td>{!! Form::select("statuses[$order->id]", ['2' => 'Confirmed', '1' => 'Requires confirmation','5'=>'Cancelled'], $order->status_id); !!}</td>
+		<td>{!! Form::select("statuses[$order->id]", ['2' => 'Confirmed', '1' => 'Ждет подтверждение','5'=>'Отменено'], $order->status_id); !!}</td>
 
 	@elseif(Auth::user()->isClientAdmin() && ($order->status_id == 3 || $order->status_id == 4))
 		<td>{!! Form::select("statuses[$order->id]", ['4' => 'Delivered', '3' => 'Waiting'], $order->status_id); !!}</td>
@@ -17,7 +18,7 @@
 	@elseif(Auth::user()->isManager())
 
 		@if($order->status_id == 2||$order->status_id == 5)
-		<td>{!! Form::select("statuses[$order->id]", ['3' => 'Confirmed', '2' => 'Requires confirmation','5'=>'Cancelled'], $order->status_id); !!}</td>
+		<td>{!! Form::select("statuses[$order->id]", ['3' => 'Confirmed', '2' => 'Ждет подтверждение','5'=>'Отменено'], $order->status_id); !!}</td>
 		@else
 		<td onclick="location.href ='/orders/{{ $order->id }}'"></td>
 		@endif
@@ -31,7 +32,7 @@
 
 	@elseif(Auth::user()->isSublevel() && $order->status_id == 1)
 		<td onclick="location.href ='/orders/{{ $order->id }}'"></td>
-			<td>{!! Form::select("statuses[$order->id]", ['true' => 'Confirmed', 'false' => 'Requires confirmation'], $order->sublevel_confirm); !!}</td>
+			<td>{!! Form::select("statuses[$order->id]", ['true' => 'Confirmed', 'false' => 'Ждет подтверждение'], $order->sublevel_confirm); !!}</td>
 
 	@elseif(Auth::user()->isSublevel() && ($order->status_id == 3 || $order->status_id == 4))
 		<td>{!! Form::select("statuses[$order->id]", ['4' => 'Delivered', '3' => 'Waiting'], $order->status_id); !!}</td>

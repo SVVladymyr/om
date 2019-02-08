@@ -13,11 +13,8 @@
   <md-dialog-content>
 
 <!-- END -->
-	<div class="user-edit" class="col-xs-12 col-md-3">
-  <div style="padding-top: 25px;width: 115%;min-width: calc(50% + 40px);margin: 0 auto;float: none;display: block;" class="col-xs-12 col-md-3 create-edit user-edit">
-			{!! Form::open(['route' => 'users']) !!}
-
-				<div class="colum-left">
+      <div  class="user-edit">
+            <div class="colum-left">
           <md-input-container class="md-icon-float md-block">
             <label>Имя</label>
             {!! Form::text('first_name', null, array('data-ng-first-name' => 'auth.email', 'required')); !!}
@@ -30,14 +27,15 @@
 
           <md-input-container class="md-icon-float md-block">
             <label>Номер телефона</label>
-            {!! Form::text('phone_number', null, array('data-ng-phone-number' => 'auth.email', 'required')); !!}
+            {!! Form::text('phone_number', null, array('data-ng-phone-number' => 'auth.email', 'required', 'id'=>'phone_number')); !!}
           </md-input-container>
 
           <md-input-container class="md-icon-float md-block">
             <label>E-Mail</label>
             {!! Form::text('email', null, array('data-ng-email' => 'auth.email', 'required')); !!}
           </md-input-container>
-				
+            </div>
+          <div class="colum-right">
           <md-input-container class="md-icon-float md-block">
             <label>Пароль</label>
             {!! Form::password('password', null, array('data-ng-password' => 'auth.email', 'required')); !!}
@@ -47,49 +45,30 @@
             <label>Подтверждение пароля</label>
             {!! Form::password('password_confirmation', null, array('data-ng-password-confirmation' => 'auth.email', 'required')); !!}
           </md-input-container>
-
-          <md-input-container style="display: block; margin-top: 20px">
-            <label>Роль</label>
-            <md-select ng-model="selectedVegetables"
-            md-on-close="clearSearchTerm()"
-            data-md-container-class="selectdemoSelectHeader">
-            <md-optgroup label="Роль">
-              @foreach($roles as $id=>$role_id)
-              <md-option value="{{$id}}">{{$role_id}}</md-option >
-                @endforeach
-              </md-optgroup>
-            </md-select>
-          </md-input-container>
-					@if(Auth::user()->isCompanyAdmin())
-            <md-input-container style="display: block; margin-top: 40px">
-              <label>Работодатель</label>
-              <md-select ng-model="selectedVegetables"
-              md-on-close="clearSearchTerm()"
-              data-md-container-class="selectdemoSelectHeader">
-              <md-optgroup label="Работодатель">
-                @foreach($employers as $id=>$employer_id)
-                <md-option value="{{$id}}">{{$employer_id}}</md-option >
-                  @endforeach
-                </md-optgroup>
-              </md-select>
-            </md-input-container>
-					@endif
-
-				
+                    <div style="margin-top: -18px; margin-bottom: 18px;">
+              {!! Form::label('role_id', 'Роль'); !!}
+              {!! Form::select('role_id', $roles, null, ['class'=>'form-control']); !!}
+                    </div>
+                    @if(Auth::user()->isCompanyAdmin())
+                        <div style="margin-top: -18px; margin-bottom: 18px;">
+                            {!! Form::label('employer_id', 'Работодатель'); !!}
+                            {!! Form::select('employer_id', $employers, null, ['placeholder' => 'free', 'class'=>'form-control']); !!}</br>
+                        </div>
+                    @endif
+                    {!! Form::label('show_price_status', 'Отображать цены'); !!}
+                    {!! Form::checkbox('show_price_status', '1', true); !!}</br>
+            </div>
 				{!! Form::submit('Создать', ['class'=>'btn btn-large btn-success']); !!}
-</div>
 
 
-    			{!! Form::label('show_price_status', 'Отображать цены'); !!}
-    			{!! Form::checkbox('show_price_status', '1', true); !!}</br>
 
 
-			<!-- {!! Form::close() !!} -->
+
 
 	</div>
-  </div>  
 
 <script>
+    $("input#phone_number").mask("+38(999) 999-99-99");
 $.ajax({
 		url : '/js/ru.json',
 		type: "GET",

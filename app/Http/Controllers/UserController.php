@@ -27,16 +27,108 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+
         $this->authorize('index', User::class);
 
         if(Auth::user()->isClientAdmin()) {
             $users = Auth::user()->employer->hired->sortBy('email');
 
-        }elseif(Auth::user()->isCompanyAdmin()) {  
+        }elseif(Auth::user()->isCompanyAdmin()) {
             $users = User::get()->sortBy('email');
         }
+
+        if(!empty($request->all())){
+
+            $search_arr = $request->all();
+
+            foreach ($search_arr as $key=>$value){
+                if($key=='role'&&!empty($value)){
+                    $role_ids = Role::where('name','like','%'.$value.'%')->pluck('id')->toArray();
+
+                    if(empty($role_ids))
+                        $search_arr[$key] = ['empty'];
+                    else
+                        $search_arr[$key] = $role_ids;
+
+                }
+                else if($key=='main'&&!empty($value)){
+                    $employer_ids = Client::where('name','like','%'.$value.'%')->pluck('id')->toArray();
+
+                    if(empty($employer_ids))
+                        $search_arr[$key] = ['empty'];
+                    else
+                        $search_arr[$key] = $employer_ids;
+
+                }
+                else if($key =='subdivision'&&!empty($value)){
+                    $user_ids = Client::where('name','like','%'.$value.'%')->pluck('master_id')->toArray();
+
+                    if(empty($user_ids))
+                        $search_arr[$key] = ['empty'];
+                    else
+                        $search_arr[$key] = $user_ids;
+                }
+                else if($key=='email'&&!empty($value)){
+
+                }
+                else
+                    unset($search_arr[$key]);
+            }
+
+
+            if(Auth::user()->isClientAdmin()) {
+
+                $employer = Auth::user()->employer;
+
+                $users = User::where('employer_id','=',$employer->id)
+
+                    ->where(function($query) use ($search_arr){
+
+                        foreach($search_arr as $key=>$value){
+
+                            if($key=='email'&&!empty($value))
+                                $query->Where($key, 'LIKE', '%'.$value.'%');
+
+                            else if($key=='role'&&!empty($value))
+                                $query->WhereIn('role_id', $value);
+
+                            else if($key=='main'&&!empty($value))
+                                $query->WhereIn('employer_id', $value);
+
+                            else if($key=='subdivision'&&!empty($value))
+                                $query->WhereIn('id',$value);
+
+                        }
+                    })
+                    ->get()
+                    ->sortBy('email');
+
+            }elseif(Auth::user()->isCompanyAdmin()) {
+
+                $users = User::where(function($query) use($search_arr){
+
+                    foreach($search_arr as $key=>$value){
+
+                        if($key=='email'&&!empty($value))
+                            $query->Where($key, 'LIKE', '%'.$value.'%');
+
+                        else if($key=='role'&&!empty($value))
+                            $query->WhereIn('role_id', $value);
+
+                        else if($key=='main'&&!empty($value))
+                            $query->WhereIn('employer_id', $value);
+
+                        else if($key=='subdivision'&&!empty($value))
+                            $query->WhereIn('id',$value);
+
+                    }
+
+                })->get()->sortBy('email');
+            }
+        }
+//        dump($users[0]);
 
         $users = CustomPaginator::paginate($users, 10)->setPath(route('users'));
 
@@ -50,6 +142,7 @@ class UserController extends Controller
      */
     public function create(Client $clients, Role $roles)
     {
+
         $this->authorize('create', User::class);
 
         if(Auth::user()->isClientAdmin()) {
@@ -72,6 +165,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request, Client $clients, Role $roles)
     {
+//        dd($request);
         $this->authorize('create', User::class);
 
         if(Auth::user()->isClientAdmin()) {
@@ -86,24 +180,24 @@ class UserController extends Controller
         }
 
         if($request['employer_id'] != null && !in_array(request('employer_id'),$employers)) {
-            return back()->withInput()->with('message', 'This client can not be employer');
+            return back()->withInput()->with('message', 'Этот клиент не может быть работодателем');
 
         }elseif($request['employer_id'] != null && $request['role_id'] == 3) {
-            return back()->withInput()->with('message', 'Manger can not be hired by client');
+            return back()->withInput()->with('message', 'Менеджер не может быть нанятым клиентом');
 
         }elseif($request['employer_id'] != null) {
             $root = $clients->where('id', request('employer_id'))->has('master')->first();
             if($root !== null && $request['role_id'] == 2) {
-                return back()->withInput()->with('message', 'Admin already exists in this network, change users role or select another employer');
+                return back()->withInput()->with('message', 'Admin уже существует, измените роль пользователя или выберите другого работодателя');
             }
 
         }elseif(!in_array(request('role_id'),$roles)) {
-            return back()->withInput()->with('message', 'Yuo can not create user with this role');
+            return back()->withInput()->with('message', 'Вы не можете создать пользователя с этой ролью');
 
         }elseif(!in_array(request('role_id'),$roles)) {
-            return back()->withInput()->with('message', 'Yuo can not create user with this role');
-        }    
-        
+            return back()->withInput()->with('message', 'Вы не можете создать пользователя с этой ролью');
+        }
+
         User::create([
             'first_name' => request('first_name'),
             'last_name' => request('last_name'),
@@ -118,7 +212,7 @@ class UserController extends Controller
         $email = $request['email'];
         Mail::to($email)->send(new UserCreated($request));
 
-        return redirect('users')->with('message', 'New user has been created');
+        return redirect('users')->with('message', 'Новый пользователь был создан');
     }
 
     /**
@@ -142,10 +236,11 @@ class UserController extends Controller
      */
     public function edit(User $user, Role $roles, Client $clients)
     {
+
         $this->authorize('update', $user);
 
         if(Auth::user()->id == $user->id) {
-            return back()->withInput()->with('message', 'You can not edit this user (yourself)');
+            return back()->withInput()->with('message', 'Вы не можете изменить этого пользователя');
         }
 
         if(Auth::user()->isClientAdmin()) {
@@ -168,8 +263,9 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user, Role $roles, Client $clients)
     {
+//        dd($request);
         if(Auth::user()->id == $user->id) {
-            return back()->withInput()->with('message', 'You can not update this user (yourself)');
+            return back()->withInput()->with('message', 'Вы не можете изменить этого пользователя');
         }
 
         if(Auth::user()->isClientAdmin()) {
@@ -181,21 +277,21 @@ class UserController extends Controller
         }
 
         if(!in_array(request('role_id'), $roles)) {
-            return back()->withInput()->with('message', 'You can not give this role to user');
+            return back()->withInput()->with('message', 'Вы не можете назначить эту роль пользователю');
         }elseif($request['employer_id'] != null && !in_array(request('employer_id'),$employers)) {
-            return back()->withInput()->with('message', 'This client can not be employer');
+            return back()->withInput()->with('message', 'Этот клиент не может быть работодателем');
 
         }elseif($request['employer_id'] != null && $request['role_id'] == 3) {
-            return back()->withInput()->with('message', 'Manager can not be hired by client');
+            return back()->withInput()->with('message', 'Менеджер не может быть нанятым клиентом');
 
         }elseif($request['employer_id'] != null) {
             $root = $clients->where('id', request('employer_id'))->has('master')->first();
             if($root !== null && $request['role_id'] == 2) {
-                return back()->withInput()->with('message', 'Admin already exists in this network, change users role or select another employer');
+                return back()->withInput()->with('message', 'Admin уже существует, измените роль пользователя или выберите другого работодателя');
             }
 
         }elseif($request['employer_id'] != null && Auth::user()->isClientAdmin()) {
-            return back()->withInput()->with('message', 'You can not change employer');
+            return back()->withInput()->with('message', 'Вы не можете изменить работодателя');
         }       
 
         
@@ -212,7 +308,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect('users')->with('message', 'User has been updated');
+        return redirect('users')->with('message', 'Пользователь был обновлен');
     }
 
     /**

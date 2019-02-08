@@ -164,10 +164,10 @@ class LimitIncreaseController extends Controller
 
             Mail::to($client->root->master->email)->send(new LimitIncreaseRequested($client));
 
-            return back()->with('message', 'Request sent');
+            return back()->with('message', 'Запрос отправлен');
 
         }else {
-            return back()->with('message', 'Empty request, please fill');
+            return back()->with('message', 'Пустой запрос, пожалуйста заполните его');
         }
     }
 }

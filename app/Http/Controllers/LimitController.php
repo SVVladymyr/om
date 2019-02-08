@@ -20,7 +20,7 @@ class LimitController extends Controller
         $this->middleware('auth');
     }
 
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -50,7 +50,7 @@ class LimitController extends Controller
                 $product_limit->period = ($products
                                         ->where('product_id', '=', $product_limit->limitable_id)
                                         ->pluck('period'))[0];
-                
+
                 $product_limit->product_name = $products
                                                 ->where('product_id', '=', $product_limit->limitable_id)
                                                 ->first()
@@ -69,17 +69,17 @@ class LimitController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function set_limits(Client $client)
-    {         
+    {
         $this->authorize('limits', $client);
 
         $specification = $client->real_specification;
 
         if($specification) {
             $products = Specification::products($specification);
-            
+
         }else {
             $products = collect();
-            session()->flash('message', 'To set limits for products you must create or apoint specification');
+            session()->flash('message', 'Что бы назначить лимиты для продуктов вы должны создать или назначить спецификацию');
         }
 
         $cost_items = $client->root->cost_items;
@@ -88,6 +88,9 @@ class LimitController extends Controller
         if($limits->isNotEmpty()) {
             if($cost_items->isNotEmpty()) {
                 foreach ($cost_items as $cost_item) {
+                    if(!$cost_item->class_name)
+                    $cost_item->class_name = CostItem::class;
+
                     $cost_item->active = $limits->where('limitable_type', CostItem::class)
                                                     ->where('limitable_id', $cost_item->id)
                                                     ->pluck('active')->first();
@@ -105,13 +108,16 @@ class LimitController extends Controller
                                                     ->pluck('period')->first();
                 }
             }else {
-                session()->flash('message', 'To set limits for cost_items you must create cost_items');
+                session()->flash('message', 'Что бы назначить лимиты для cost_items вы должны создать cost_items');
             }
 
             foreach ($products as $product) {
+                if(!$product->class_name)
+                    $product->class_name = Product::class;
+                
                 $product->active = $limits->where('limitable_type', Product::class)
                                                     ->where('limitable_id', $product->product_id)
-                                                    ->pluck('active')->first();  
+                                                    ->pluck('active')->first();
                 $product->current_value = $limits->where('limitable_type', Product::class)
                                                     ->where('limitable_id', $product->product_id)
                                                     ->pluck('current_value')->first();
@@ -119,7 +125,7 @@ class LimitController extends Controller
                                                     ->where('limitable_id', $product->product_id)
                                                     ->pluck('id')->first();
             }
-                
+
             $money_limit = $limits->where('limitable_type', 'Money')->first();
 
             if($money_limit == null) {
@@ -129,7 +135,7 @@ class LimitController extends Controller
         }else {
             $money_limit = new Limit();
             if($cost_items->isEmpty()) {
-                session()->flash('message', 'To set limits for cost_items you must create cost_items');
+                session()->flash('message', 'Что бы назначить лимиты для cost_items вы должны создать cost_items');
             }
         }
 
@@ -147,7 +153,7 @@ class LimitController extends Controller
     public function fill_limits(Request $request, Client $client)//touch limit_increase table in future todo
     {
         $this->authorize('limits', $client);
-//dd($request->all());
+//        dd($request->all());
         $types = $request['type'];
         $limits = $request['limit'];
         $periods = $request['period'];
@@ -160,9 +166,9 @@ class LimitController extends Controller
 
         if($specification != null) {
             $products = Specification::products($specification);
-            
+
         }else {
-            return back()->with('message', 'Cant set limits, client has no specification');
+            return back()->with('message', 'Невозможно назначить лимиты, у клиента нет спецификации');
         }
 
         $product_limits_exist = $products->pluck('limit', 'product_id')->all();
@@ -174,7 +180,7 @@ class LimitController extends Controller
                 $limits[$key] = $product_limits_exist[$value];
             }
 
-            if($limits[$key] == 0 
+            if($limits[$key] == 0
                 || ($limits[$key] == null && $types[$key] != 'App\Product')
                 || ($values[$key] == null && $types[$key] == 'App\Product')) {
                 unset($ids[$key]);
@@ -182,10 +188,10 @@ class LimitController extends Controller
             }elseif($limits[$key] < $values[$key] || $values[$key] == null) {
                 $values[$key] = $limits[$key];
             }
-            
-            if(($periods[$key] == 0 || $periods[$key] == null) && 
+
+            if(($periods[$key] == 0 || $periods[$key] == null) &&
                 ($limits[$key] != 0 || $limits[$key] != null)) {
-                return back()->withInput()->with('message', 'Fill up periods');
+                return back()->withInput()->with('message', 'Заполните периоды');
             }
 
             /*if($types[$key] == 'App\Product') {
@@ -216,8 +222,8 @@ class LimitController extends Controller
                     }
 
                     $data_update[] = array('id' => $limit_ids[$key],
-                                'limitable_id' => (int)$value, 
-                                'limitable_type' => $types[$key], 
+                                'limitable_id' => (int)$value,
+                                'limitable_type' => $types[$key],
                                 'client_id' => $client->id,
                                 'current_value' => (int)$values[$key],
                                 'limit' => $limits[$key],
@@ -229,8 +235,8 @@ class LimitController extends Controller
                             );
 
                 } else {
-                    $data_insert[] = array('limitable_id' => (int)$value, 
-                                'limitable_type' => $types[$key], 
+                    $data_insert[] = array('limitable_id' => (int)$value,
+                                'limitable_type' => $types[$key],
                                 'client_id' => $client->id,
                                 'current_value' => (int)$values[$key],
                                 'limit' => $limits[$key],
@@ -239,9 +245,9 @@ class LimitController extends Controller
                                 'cron_last_update' => null,
                                 'created_at' => \Carbon\Carbon::now(),
                             );
-                }            
-                
-                
+                }
+
+
             }
 
         DB::transaction(function() use($client, $data_insert, $data_update){
@@ -258,17 +264,17 @@ class LimitController extends Controller
                 DB::table('limits')
                 ->insert($data_update);
             }
-                
+
         });
 
         return redirect("clients/$client->id/limits");
     }
 
-  public static function reset_product_limits(Client $client, $specification)//for refactoring 
+  public static function reset_product_limits(Client $client, $specification)//for refactoring
   {
     //
   }
 
-  
+
 
 }

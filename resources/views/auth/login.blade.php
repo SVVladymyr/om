@@ -13,20 +13,40 @@
         }
     </style>
     <div class="main-auth">
+        <div class="main-video">
+            <div class="main-text">
+                <div class="main-text_main">
+                    <h2>Преимущества</h2>
+                    <p>Зарегистрируйтесь в системе OM24.com.ua у менеджера компании и получите возможность заказывать продукцию быстро и эффективно.</p>
+                    <ul>
+                        <li>Уникальная возможность совершить заказ в несколько кликов как индивидуальному, так и сетевому клиенту.</li>
+                        <li>Контроль и корректива заказов на разных уровнях управления.</li>
+                        <li>Формирование заказов в рамках установленных лимитов.</li>
+                        <li>Развернутая аналитика.</li>
+                        <li>Прием заказов 24/7 с компьютера и мобильного телефона.</li>
+                    </ul>
+                    <p>OM24.com.ua - автоматизированная on-line ситема обслуживания клиентов предприятия OOO 'ОфисМенеджер'</p>
+
+                </div>
+
+                <div class="om-24-yb-video">
+                    <iframe style="max-width: 100%;height: 37vh;top: 35%;left: 5%;" width="1280" height="720" src="https://www.youtube.com/embed/8IFTH_n6NDQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>                </div>
+            </div>
+        </div>
       <md-card class="main-auth-container">
         <md-tabs md-dynamic-height md-border-bottom>
            <md-tab label="Вход">
              <md-content class="md-padding">
                {!! Form::open(['route' => 'login']) !!}
                    <md-card-content>
-                           <md-input-container class="md-icon-float md-block">
+                           <md-input-container class="md-icon-float md-block md-icon-left md-input-focused md-input-has-value">
                                <label>E-mail</label>
                                <md-icon class="md-ic">&#xE7FD;</md-icon>
                                {!! Form::text('email', null, array('data-ng-model' => 'auth.email', 'required')); !!}
                                <div ng-messages="authForm.login.$error">
                                </div>
                            </md-input-container>
-                           <md-input-container class="md-icon-float md-block">
+                           <md-input-container class="md-icon-float md-block md-icon-left md-input-focused md-input-has-value">
                              <label>Пароль</label>
                                <md-icon class="md-ic">&#xE897;</md-icon>
                                 {!! Form::password('password', array('required', 'data-ng-model' => 'auth.password')); !!}

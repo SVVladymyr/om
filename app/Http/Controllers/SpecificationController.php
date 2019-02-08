@@ -47,15 +47,14 @@ class SpecificationController extends Controller
                 $specifications = $specification->merge($specifications);
             }else {
                 $specifications = collect();
-                session()->flash('message', 'No specifications');
+                session()->flash('message', 'Нет спецификаций');
             }
 
         }elseif (Auth::user()->isManager()) {
             $specifications = Auth::user()->specifications;
-
         }else {
             $specifications = collect();
-            session()->flash('message', 'No specifications');
+            session()->flash('message', 'Нет спецификаций');
         }       
         
         return view('specifications.index', compact('specifications'));
@@ -75,7 +74,7 @@ class SpecificationController extends Controller
                 $products = Specification::products($specification);
             }else {
                 $products = collect();
-                session()->flash('message', 'To fill specification with products your employer must have one');
+                session()->flash('message', 'Что бы заполнить спецификацию продуктами у вашего работодателя должна быть спецификация');
             }
         }elseif(Auth::user()->isManager()) {
             $products = collect();
@@ -102,12 +101,12 @@ class SpecificationController extends Controller
 
         $file = $request->file('file')->getRealPath();
         
-        $data = Excel::selectSheetsByIndex(0)->load($file, function($reader) {
+        $dataHash = Excel::selectSheetsByIndex(0)->load($file, function($reader) {
             $reader->select(array('model', 'price'));
             })->toArray();
 
-        foreach ($data as $key => $value) {
-            unset($data[$key]);
+	$data = [];
+        foreach ($dataHash as $key => $value) {
             $data[$value['model']] = $value['price'];
         }
 
@@ -185,7 +184,7 @@ class SpecificationController extends Controller
 
         $products = Specification::products($specification);
 
-        session()->flash('message', 'This view is temporary and shown only once');
+        session()->flash('message', 'Эта страница временная и показывается только один раз');
 
         return view('specifications.show', compact('products', 'specification', 'affected_clients'));
 
@@ -292,7 +291,8 @@ class SpecificationController extends Controller
                 ->insert($data);
         }
 
-        return redirect("specifications/$specification->id")->with('message', 'New specification has been created');
+//        return redirect("specifications/$specification->id")->with('message', 'New specification has been created');
+        return redirect()->back()->with('message', 'Новая спецификация была создана');
     }
 
     
@@ -359,7 +359,7 @@ class SpecificationController extends Controller
         }
 
         if($specification->main_specification == null) {
-            session()->flash('message', 'You are editing main specification');
+            session()->flash('message', 'Вы редактирует главную спецификацию');
         }
 
         return view('specifications.edit', compact('specification', 'products'));
@@ -532,8 +532,8 @@ class SpecificationController extends Controller
                 DB::table('product_specification')
                     ->insert($data); 
             });
-        
-                        
+
+
         }
 
         if($request['name'] != null) {
@@ -547,8 +547,9 @@ class SpecificationController extends Controller
         }
 
         $specification->save();
-
-        return redirect("specifications/$specification->id")->with('message', 'Specification has been updated');
+//        dump($specification);
+//        return redirect("specifications/$specification->id")->with('message', 'Specification has been updated');
+        return redirect()->back()->with('message', 'Спецификация была обновлена');
     }
 
     /**
@@ -563,6 +564,7 @@ class SpecificationController extends Controller
 
         $specification->delete();
 
-        return redirect('specifications')->with('message', 'Specification has been deleted');
+//        return redirect('specifications')->with('message', 'Specification has been deleted');
+        return redirect()->back()->with('message', 'Спецификация была удалена');
     }
 }

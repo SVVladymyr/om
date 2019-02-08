@@ -14,16 +14,53 @@
         </section>
 {!! Form::open(['route' => ['orders', $client->id]]) !!}
 
+@if(session('message'))
+			<div class="alert alert-info">
+				{{session('message')}}
+			</div>
+@endif
 @if(count($products))
 <table class="table table-bordered">
 	<tr class="first-table-tr">
 		<th>Артикул</th>
 		<th>Название</th>
 		<th>Цена</th>
-		<th><span>Количество<span data-text="Укажите количество, которое хотите заказать. После того как укажите количество по всем товарам - щелкните кнопку 'Создать товар' "></span> </span></th>
-		<th><span>Доступно<span data-text="В этой колонке отображается доступное для заказа количество товара. Изначально доступное количество товара равно лимиту, и уменьшается по мере создания Вами заказов. С периодичностью, указаной в столбце 'Период' это значение восстанавливается"></span> </span></th>
-		<th><span>Лимит<span data-text="Лимит - заданное руководителем Вашей сети количество товара, которое Вы сможете заказать за указанное в соседней колонке 'Период' количество месяцев"></span> </span></th>
-		<th><span>Период<span data-text="В этой колонке отображается периодичность в месяцах с которой доступное к заказу лимита, заданного Вашим руководителем"></span></span></th>
+		<th><span>Количество
+				<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+									<md-icon class="md-ic">&#xE887;</md-icon>
+									<md-tooltip>
+
+				Укажите количество, которое хотите заказать. После того как укажите количество по всем товарам - щелкните кнопку 'Создать товар'
+									</md-tooltip>
+							</md-button>
+			</span></th>
+		<th><span>Доступно
+				<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+									<md-icon class="md-ic">&#xE887;</md-icon>
+									<md-tooltip>
+				В этой колонке отображается доступное для заказа количество товара.
+
+									</md-tooltip>
+							</md-button>
+			</span></th>
+		<th><span>Лимит
+				<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+									<md-icon class="md-ic">&#xE887;</md-icon>
+									<md-tooltip>
+
+				Лимит - заданное руководителем Вашей сети количество товара, которое Вы сможете заказать за указанное в соседней колонке 'Период' количество месяцев
+									</md-tooltip>
+							</md-button>
+			</span></th>
+		<th><span>Период
+				<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+									<md-icon class="md-ic">&#xE887;</md-icon>
+									<md-tooltip>
+
+				В этой колонке отображается периодичность в месяцах с которой доступное к заказу лимита, заданного Вашим руководителе
+									</md-tooltip>
+							</md-button>
+			</span></th>
 	</tr>
 
 @foreach($products as $product)
@@ -55,15 +92,53 @@
 
 	@endcan
 
-<h2 class="center-h1"><span class="help-text">Лимиты и доступные остатки<span data-text="В этой таблице Вы можете видеть лимиты по суммам и количеству товаров, которые установлены для Вашего подразделения администратором сети"></span></span></h2>
+		<section class="md-table-header">
+			<div class="md-table-header-title">
+				<span >Лимиты и доступные остатки</span>
+				<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+					<md-icon class="md-ic">&#xE887;</md-icon>
+					<md-tooltip>
+						В этой таблице Вы можете видеть лимиты по суммам и количеству товаров, которые установлены для Вашего подразделения администратором сети
+					</md-tooltip>
+				</md-button>
+			</div>
+		</section>
 			<table style="margin-top:15px;" class="table table-bordered">
 				<tr class="first-table-tr">
 					<th>Название</th>
-					<th><span>Доступый остаток<span data-text="В этой колонке отображается доступное для заказа количество товара. Изначально доступное количество товара равно лимиту, и уменьшается по мере создания Вами заказов. С периодичностью, указаной в столбце 'Период' это значение восстанавливается"></span></span></th>
-					<th><span>Лимит<span data-text="Лимит - заданное руководителем Вашей сети количество товара, которое Вы сможете заказать за указанное в соседней колонке 'Период' количество месяцев"></span></span></th>
-					<th><span>Период<span data-text="В этой колонке отображается периодичность в месяцах с которой доступное к заказу лимита, заданного Вашим руководителем"></span></span></th>
+					<th><span>Доступый остаток
+							<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+									<md-icon class="md-ic">&#xE887;</md-icon>
+									<md-tooltip>
+							В этой колонке отображается доступное для заказа количество товара.
+									</md-tooltip>
+							</md-button>
+						</span></th>
+					<th><span>Лимит
+							<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+									<md-icon class="md-ic">&#xE887;</md-icon>
+									<md-tooltip>
+							Лимит - заданное руководителем Вашей сети количество товара, которое Вы сможете заказать за указанное в соседней колонке 'Период' количество месяцев
+									</md-tooltip>
+							</md-button>
+						</span></th>
+					<th><span>Период
+							<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+									<md-icon class="md-ic">&#xE887;</md-icon>
+									<md-tooltip>
+							В этой колонке отображается периодичность в месяцах с которой доступное к заказу лимита, заданного Вашим руководителем
+									</md-tooltip>
+							</md-button>
+						</span></th>
 					@can('limit_increase_request', $client)
-					<th><span>Запрос на лимит<span data-text="Если доступный остаток равен нулю, а необходимо заказать товары, Вы можете заполнить значение напротив соответствующих товаров или лимитов и щелкнуть 'Запросить повышение лимитов'. Ваш руководитель получит этот вопрос и сможет увеличить для Вас доступный остаток " ></span></span></th>
+					<th><span>Запрос на лимит
+							<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+									<md-icon class="md-ic">&#xE887;</md-icon>
+									<md-tooltip>
+							Если доступный остаток равен нулю, а необходимо заказать товары, Вы можете заполнить значение напротив соответствующих товаров или лимитов и щелкнуть 'Запросить повышение лимитов'.
+									</md-tooltip>
+							</md-button>
+						</span></th>
 					@endcan
 				</tr>
 				<script type="text/javascript">
@@ -113,7 +188,14 @@
 			</table>
 			@can('limit_increase_request', $client)
 
-			<span class="help-text">{!! Form::submit('Запросить повышение лимита', ['class'=>'btn btn-large btn-primary mob']); !!}<span data-text="Нажмите эту кнопку после заполнения стобца 'Запрос на лимит'"></span></span>
+			<span class="help-text">{!! Form::submit('Запросить повышение лимита', ['class'=>'btn btn-large btn-primary mob']); !!}
+				<md-button class="md-button md-icon-button md-ink-ripple md-table-header-filter-btn" data-ng-click="searchUserDialog()">
+					<md-icon class="md-ic">&#xE887;</md-icon>
+					<md-tooltip>
+						Нажмите эту кнопку после заполнения стобца 'Запрос на лимит'
+					</md-tooltip>
+				</md-button>
+			</span>
 
 
 			{!! Form::close() !!}

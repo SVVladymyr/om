@@ -50,7 +50,7 @@
 							</div>
 							<div class="items-colum-specification-item">
 								@can('update', $client)
-								<a class="btn btn-large btn-primary" style="margin: 0;" href="/clients/edit/{{$client->id}}">Редактировать клиента</a>
+								<a class="btn btn-large btn-primary" style="margin: 0;" href="/clients/edit/{{$client->id}}">Редактировать</a>
 								@endcan
 							</div>
 							<div class="items-colum-specification-item">
@@ -64,7 +64,7 @@
 							</div>
 							<div class="items-colum-specification-item">
 								@can('update', $client)
-								<a class="btn btn-large btn-primary" style="margin: 0;" href="/clients/edit/{{$client->id}}">Редактировать клиента</a>
+								<a class="btn btn-large btn-primary" style="margin: 0;" href="/clients/edit/{{$client->id}}">Редактировать</a>
 
 								@endcan
 							</div>
@@ -95,7 +95,7 @@
 										</div>
 										<div class="items-colum-specification-item">
 											@can('update', $clientTwo)
-											<a class="btn btn-large btn-primary" style="margin: 0;" href="/clients/edit/{{$clientTwo->id}}">Редактировать клиента</a>
+											<a class="btn btn-large btn-primary" style="margin: 0;" href="/clients/edit/{{$clientTwo->id}}">Редактировать</a>
 											@endcan
 										</div>
 										<div class="items-colum-specification-item">
@@ -109,7 +109,7 @@
 										</div>
 										<div class="items-colum-specification-item">
 											@can('update', $clientTwo)
-											<a class="btn btn-large btn-primary" style="margin: 0;" href="/clients/edit/{{$clientTwo->id}}">Редактировать клиента</a>
+											<a class="btn btn-large btn-primary" style="margin: 0;" href="/clients/edit/{{$clientTwo->id}}">Редактировать</a>
 											@endcan
 										</div>
 										<div class="items-colum-specification-item">
@@ -141,7 +141,7 @@
 													</div>
 													<div class="items-colum-specification-item">
 														@can('update', $clientThree)
-														<a class="btn btn-large btn-primary" style="margin: 0;" href="/clients/edit/{{$clientThree->id}}">Редактировать клиента</a>
+														<a class="btn btn-large btn-primary" style="margin: 0;" href="/clients/edit/{{$clientThree->id}}">Редактировать</a>
 														@endcan
 													</div>
 													<div class="items-colum-specification-item">
@@ -156,7 +156,7 @@
 													</div>
 													<div class="items-colum-specification-item">
 														@can('update', $clientThree)
-														<a class="btn btn-large btn-primary" style="margin: 0;" href="/clients/edit/{{$clientThree->id}}">Редактировать клиента</a>
+														<a class="btn btn-large btn-primary" style="margin: 0;" href="/clients/edit/{{$clientThree->id}}">Редактировать</a>
 														@endcan
 													</div>
 													<div class="items-colum-specification-item">
@@ -188,7 +188,7 @@
 																</div>
 																<div class="items-colum-specification-item">
 																	@can('update', $clientFour)
-																	<a class="btn btn-large btn-primary" style="margin: 0;" href="/clients/edit/{{$clientFour->id}}">Редактировать клиента</a>
+																	<a class="btn btn-large btn-primary" style="margin: 0;" href="/clients/edit/{{$clientFour->id}}">Редактировать</a>
 																	@endcan
 																</div>
 																<div class="items-colum-specification-item">
@@ -203,7 +203,7 @@
 																</div>
 																<div class="items-colum-specification-item">
 																	@can('update', $clientFour)
-																	<a class="btn btn-large btn-primary" style="margin: 0;" href="/clients/edit/{{$clientFour->id}}">Редактировать клиента</a>
+																	<a class="btn btn-large btn-primary" style="margin: 0;" href="/clients/edit/{{$clientFour->id}}">Редактировать</a>
 																	@endcan
 																</div>
 																<div class="items-colum-specification-item">
@@ -235,7 +235,7 @@
 																			</div>
 																			<div class="items-colum-specification-item">
 																				@can('update', $clientFive)
-																				<a class="btn btn-large btn-primary" style="margin: 0;" href="/clients/edit/{{$clientFive->id}}">Редактировать клиента</a>
+																				<a class="btn btn-large btn-primary" style="margin: 0;" href="/clients/edit/{{$clientFive->id}}">Редактировать</a>
 																				@endcan
 																			</div>
 																			<div class="items-colum-specification-item">
@@ -250,7 +250,7 @@
 																			</div>
 																			<div class="items-colum-specification-item">
 																				@can('update', $clientFive)
-																				<a class="btn btn-large btn-primary" style="margin: 0;" href="/clients/edit/{{$clientFive->id}}">Редактировать клиента</a>
+																				<a class="btn btn-large btn-primary" style="margin: 0;" href="/clients/edit/{{$clientFive->id}}">Редактировать</a>
 																				@endcan
 																			</div>
 																			<div class="items-colum-specification-item">
@@ -280,7 +280,7 @@
 																						</div>
 																						<div class="items-colum-specification-item">
 																							@can('update', $clientSix)
-																							<a class="btn btn-large btn-primary" style="margin: 0;" href="/clients/edit/{{$clientSix->id}}">Редактировать клиента</a>
+																							<a class="btn btn-large btn-primary" style="margin: 0;" href="/clients/edit/{{$clientSix->id}}">Редактировать</a>
 																							@endcan
 																						</div>
 																						<div class="items-colum-specification-item">
@@ -294,7 +294,7 @@
 																						</div>
 																						<div class="items-colum-specification-item">
 																							@can('update', $clientSix)
-																							<a class="btn btn-large btn-primary" style="margin: 0;" href="/clients/edit/{{$clientSix->id}}">Редактировать клиента</a>
+																							<a class="btn btn-large btn-primary" style="margin: 0;" href="/clients/edit/{{$clientSix->id}}">Редактировать</a>
 																							@endcan
 																						</div>
 																						<div class="items-colum-specification-item">

@@ -17,7 +17,7 @@
     <div class="col-xs-12 col-md-3 create-edit" style="padding-top: 25px;  width: 100%; min-width: 100%;">
       <md-input-container class="md-icon-float md-block">
         <label>Имя</label>
-        {!! Form::text('name-cost', null, array('data-ng-name-cost' => 'auth.email', 'required')); !!}
+        {!! Form::text('name', null, array('data-ng-name' => 'name', 'required')); !!}
       </md-input-container>
 
     </div>
@@ -26,7 +26,7 @@
 </md-dialog-content>
 <md-dialog-actions layout="row" style="padding: 0 15px;">
   <md-button type="submit" class="md-primary md-raised">
-    Создать
+    Изменить
   </md-button>
 </md-dialog-actions>
     {!! Form::close() !!}

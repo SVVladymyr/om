@@ -3,7 +3,7 @@
 @section('content')
 
 @if(count($limits))
-<div ng-controller="client" class="main-body ng-scope flex" data-ui-view="" data-flex="">
+<div ng-controller="limits" class="main-body ng-scope flex" data-ui-view="" data-flex="">
 	<md-card class="md-table ng-scope _md">
 		<md-card-content>
 			<div class="md-table-loader" data-ng-if="!loaded">
@@ -73,12 +73,15 @@
 
 			@can('limits', $client)
 
-			<a class="btn btn-large btn-primary" href="/clients/{{ $client->id }}/limits/set">Задать лимит</a>
+			<!--<a class="btn btn-large btn-primary" href="/clients/{{ $client->id }}/limits/set">Задать лимит</a> -->
+				<md-button class="md-primary md-raised" ng-click="SetLimits($event, {{ $client->id }})">
+					Задать лимит
+				</md-button>
+			@endcan
 
 		</md-card-content>
 	</md-card>
 </div>
-@endcan
 
 <script>
 	for(let i = 0 ; i < $("[data-sum]").length; i++){

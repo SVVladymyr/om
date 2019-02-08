@@ -76,14 +76,14 @@
 		<td data-sum>  {{ $product->price }}</td>
 		<td style="    text-align: center;">{!! Form::checkbox("items[$product->product_id]", $product->product_id, $product->selected); !!}</td>
 		<td data-lem>
-			<md-input-container class="md-icon-float md-block" style="margin: 0;">
-				{!! Form::number('limits', null, array('data-ng-limits' => 'auth.email', 'required')); !!}
-			</md-input-container>
+			<!--<md-input-container class="md-icon-float md-block" style="margin: 0;"> -->
+				{!! Form::number("limits[$product->product_id]", null, array('data-ng-limits' => 'auth.email')); !!}
+			<!--</md-input-container> -->
 		</td>
 		<td>
-			<md-input-container class="md-icon-float md-block" style="margin: 0;">
-				{!! Form::number('periods', null, array('data-ng-periods' => 'auth.email', 'required')); !!}
-			</md-input-container>
+			<!--<md-input-container class="md-icon-float md-block" style="margin: 0;"> -->
+				{!! Form::number("periods[$product->product_id]", null, array('data-ng-periods' => 'auth.email')); !!}
+			<!--</md-input-container> -->
 		</td>
 	</tr>
 
@@ -95,7 +95,7 @@
 @endif
 <md-input-container class="md-icon-float md-block">
   <label>Имя</label>
-  {!! Form::text('name-specifications', null, array('data-ng-specifications' => 'auth.email', 'required')); !!}
+  {!! Form::text('name', null, array('data-ng-name' => 'auth.email', 'required')); !!}
 </md-input-container>
 
 <!-- <div class="input-block">
