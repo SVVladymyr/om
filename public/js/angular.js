@@ -183,6 +183,8 @@ mainApp.controller('RightUserCtrl', function ($scope, $timeout, $mdSidenav, $log
     }
 })
 mainApp.controller('RightCtrl', function ($scope, $timeout, $mdSidenav, $log, $element, $mdDateLocale, $filter) {
+    $scope.root = null;
+
     $scope.dateState = function(q, w){
         if(q == 'created_from') $scope.createdFrom = new Date(w);
         if(q == 'expected_delivery_from') $scope.expectedDeliveryFrom = new Date(w);
@@ -208,6 +210,7 @@ mainApp.controller('RightCtrl', function ($scope, $timeout, $mdSidenav, $log, $e
 
         $scope.createdFrom = null;
         $scope.createdToOrd = null;
+        $scope.root = null;
         $scope.expectedDeliveryFrom = null;
         $scope.createdToDel = null;
         $scope.expectedDeliveryToDel = null;
@@ -221,7 +224,8 @@ mainApp.controller('RightCtrl', function ($scope, $timeout, $mdSidenav, $log, $e
             document.querySelectorAll('input')[i].checked = false;
         }
         $scope.ChangeChechbox();
-
+        document.getElementById('root').value = "";
+        document.getElementsByClassName('filter-form')[0].submit();
     }
 
 
@@ -231,7 +235,6 @@ mainApp.controller('RightCtrl', function ($scope, $timeout, $mdSidenav, $log, $e
     $scope.changedate = function(){
       let createdFrom = $scope.createdFrom;
       if(!!createdFrom){
-          console.log(createdFrom)
         let createdFromformated_date = createdFrom.format("yyyy-mm-dd");
         $scope.created_from =  createdFromformated_date;
       }
@@ -284,12 +287,11 @@ mainApp.controller('RightCtrl', function ($scope, $timeout, $mdSidenav, $log, $e
     for(let item in $scope.selectedVegetablesClient){
         document.getElementById($scope.selectedVegetablesClient[item]).checked=true;
       }
-      for(let item in $scope.selectedRoles){
+    for(let item in $scope.selectedRoles){
         console.log($scope.selectedVegetablesClient[item])
-      }
-
-
+    }
   }
+
   $scope.defaultClientOrderOnload = function(){
     $scope.defaultStatusOrderOnload = {};
     $scope.defaultClientOrderOnload = {};

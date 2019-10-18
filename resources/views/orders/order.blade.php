@@ -3,6 +3,9 @@
 		<td><input name="select-items" type="checkbox"></td>
 		<td onclick="location.href ='/orders/{{ $order->id }}'">{{ $order->client->name }}</td>
 		<td onclick="location.href ='/orders/{{ $order->id }}'">{{ $order->customer->first_name }}</td>
+		@if(Auth::user()->isManager())
+			<td onclick="location.href ='/orders/{{ $order->id }}'">{{ $order->client->root->name }}</td>
+		@endif
 		<td onclick="location.href ='/orders/{{ $order->id }}'" data-sum >{{ $order->sum }}</td>
 		<td onclick="location.href ='/orders/{{ $order->id }}'" data-id="{{ $order->id }}">{{ $order->status->name }}</td>
 		<td onclick="location.href ='/orders/{{ $order->id }}'">{{ $order->subs }}</td>

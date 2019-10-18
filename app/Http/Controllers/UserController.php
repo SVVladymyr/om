@@ -286,7 +286,7 @@ class UserController extends Controller
 
         }elseif($request['employer_id'] != null) {
             $root = $clients->where('id', request('employer_id'))->has('master')->first();
-            if($root !== null && $request['role_id'] == 2) {
+            if($root !== null && $request['role_id'] == 2 && $user->id != $root->master_id) {
                 return back()->withInput()->with('message', 'Admin уже существует, измените роль пользователя или выберите другого работодателя');
             }
 

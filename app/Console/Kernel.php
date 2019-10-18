@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Order;
 use App\Specification;
+use App\Limit;
 
 class Kernel extends ConsoleKernel
 {
@@ -34,28 +35,32 @@ class Kernel extends ConsoleKernel
                         ->distinct()
                         ->pluck('period')
                         ->toArray();
-        
+
         foreach ($periods as $period) {
             $cron_last_update = ($month_number - $period > 0) ?
                                 ($month_number - $period) :
                                 ($month_number - $period + 12);
 
-            $schedule->call(function () use($period, $cron_last_update){
-                DB::table('limits')
-                    ->where([['cron_last_update', $cron_last_update],
-                            ['period', $period]])
-                    ->update([['current_value' => DB::raw("`limit`")],
-                                ['cron_last_update' => $month_number]]);
-            })->cron("30 3 1 $month_number * *");
+            $schedule->call(function () use($period, $cron_last_update, $month_number){
+                DB::table('limits')->where('period', $period)
+                    ->where('cron_last_update', '<=', $cron_last_update)
+                    ->whereNotNull('limit')
+                    ->update([
+                        'current_value' => DB::raw("`limit`"),
+                        'cron_last_update' => $month_number
+                    ]);
+            })->cron("* * * $month_number *");
+
         }
+
 //--------------------------------------------------------------------------------
+   /*
         $day_number = date('d');
 
         $specification_ids = DB::table('specifications')
                                         ->where('order_begin', '=', $day_number + 1)
                                         ->pluck('id', 'id')
                                         ->toArray();
-
         if(!empty($specification_ids)) {
             $client_ids =  DB::table('clients')
                             ->whereIn('specification_id', $specification_ids)
@@ -78,7 +83,7 @@ class Kernel extends ConsoleKernel
                 }
             }
         }
-        
+  
         if(!empty($clients)) {
             $orders_delete = Order::whereIn('client_id', $clients)
                                     ->whereIn('status_id', [1, 2])//new and client_admin confirmed
@@ -149,8 +154,9 @@ class Kernel extends ConsoleKernel
                     ->where('order_id', '=', $orders_delete)
                     ->delete();
                 
-            })->cron("30 3 $day_number * * *");
+            })->cron("30 3 $day_number * *");
         }
+        */
     }
 
     /**

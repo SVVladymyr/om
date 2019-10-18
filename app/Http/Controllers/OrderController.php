@@ -64,9 +64,7 @@ class OrderController extends Controller//refactor todo
                 $filters = [];
             }
 
-            if(empty($filters) &&
-                empty($request->input() &&
-                session()->has('filters'))) {
+            if(empty($filters) && empty($request->input() && session()->has('filters'))) {
                 $filters = session()->get('filters');
             }else {
                 session()->forget('filters');
@@ -83,17 +81,19 @@ class OrderController extends Controller//refactor todo
 
                 $orders = $order->get()->sortByDesc('created_at');
             }
-            
+
         if($orders->isNotEmpty()) {
             foreach ($orders as $order) {
                 $this->show_sublevel_confirmation($order);
             }
         }
 
-//        dump($orders);
         $orders = CustomPaginator::paginate($orders, 20)->setPath(route('user_orders'));
 
-        return view('orders.index', compact('orders', 'clients'));
+        $root = DB::table('clients')->where('root_id', DB::raw('`id`'))->get();
+        $root_id = DB::table('clients')->where('root_id', DB::raw('`id`'))->pluck('name', 'id');
+
+        return view('orders.index', compact('orders', 'clients', 'root', 'root_id'));
     }
 
     /**
@@ -167,7 +167,6 @@ class OrderController extends Controller//refactor todo
      */
     public function store(OrderRequest $request, Client $client)
     {
-//        dd($request);
         $this->authorize('create_order', $client);
 
         if(array_sum($request['amounts']) === 0) {
@@ -516,10 +515,151 @@ class OrderController extends Controller//refactor todo
         $expected_delivery_dates = $request['dates'];
 
         $delivery_dates = [];
+        
+        if($request['select-all'] == true)
+        {
+            if(Auth::user()->isCompanyAdmin()) {
+                $clients = Client::pluck('name', 'id')->all();          
 
-        $orders = Order::whereIn('id', array_keys($statuses))
-                            ->get()
-                            ->keyBy('id');
+            }elseif(Auth::user()->isClientAdmin()) {
+                $clients = Auth::user()->employer->network()->pluck('name', 'id')->all();          
+
+            }elseif(Auth::user()->isManager()) {
+                $roots = Auth::user()->clients;
+
+                $collect_network = collect();
+
+                foreach ($roots as $root) {
+                    $collect_network = $collect_network->merge($root->network);
+                }
+
+                $clients = $collect_network->pluck('name', 'id')->all();
+
+            }elseif(Auth::user()->isSublevel()) {
+                $clients = Auth::user()->subject->expand_network()->pluck('name', 'id')->all();
+                $clients[Auth::user()->subject->id] = Auth::user()->subject->name;
+
+            }elseif(Auth::user()->isConsumer()) {
+                $clients = Auth::user()->subject()->pluck('name', 'id')->all();
+            }
+            
+            /**
+             * Form new statuses - start
+             */
+
+            $order = Order::whereIn('client_id', array_keys($clients));
+            $order1 = Order::whereIn('client_id', array_keys($clients));
+                                
+            if(Auth::user()->isClientAdmin()) { 
+
+                $order->whereIn('status_id', [3, 4]);
+            } 
+            if(Auth::user()->isClientAdmin()) {
+                $order1->whereIn('status_id', [1, 2, 5]);
+            } 
+            if(Auth::user()->isManager()) {
+                $order->whereIn('status_id', [2, 5]);
+            }
+            if(Auth::user()->isConsumer()){
+                $order->whereIn('status_id', [3, 4]);
+            }
+            if(Auth::user()->isSublevel()){
+                $order1->where('status_id', 1);
+            }
+
+            if(Auth::user()->isSublevel()){
+                $order->whereIn('status_id', [3, 4]);
+            }
+
+            if (isset($filters['created_from']) || isset($filters['created_to'])) {
+                $created_from = isset($filters['created_from']) ?
+                                Carbon::parse($filters['created_from'])->startOfDay() :
+                                Carbon::now()->subYears(1000)->startOfDay();
+    
+                $created_to = isset($filters['created_to']) ?
+                                Carbon::parse($filters['created_to'])->endOfDay() :
+                                Carbon::now()->addYears(1000)->endOfDay();
+    
+                if($created_from <= $created_to) {
+                    $order->whereBetween('created_at', [$created_from, $created_to]);
+                    $order1->whereBetween('created_at', [$created_from, $created_to]);
+                }
+            }
+    
+            if (isset($filters['expected_delivery_from']) || isset($filters['expected_delivery_to'])) {
+                $expected_delivery_from = isset($filters['expected_delivery_from']) ?
+                                        Carbon::parse($filters['expected_delivery_from'])->startOfDay() :
+                                        Carbon::now()->subYears(1000)->startOfDay();
+    
+                $expected_delivery_to = isset($filters['expected_delivery_to']) ?
+                                            Carbon::parse($filters['expected_delivery_to'])->endOfDay() :
+                                            Carbon::now()->addYears(1000)->endOfDay();
+    
+                if($expected_delivery_from <= $expected_delivery_to) {
+                    $order->whereBetween('expected_delivery_date', [$expected_delivery_from, $expected_delivery_to]);
+                    $order1->whereBetween('expected_delivery_date', [$expected_delivery_from, $expected_delivery_to]);
+                }
+            }
+    
+            if (isset($filters['delivery_from']) || isset($filters['delivery_to'])) {
+                $delivery_from = isset($filters['delivery_from']) ?
+                                Carbon::parse($filters['delivery_from'])->startOfDay() :
+                                Carbon::now()->subYears(1000)->startOfDay();
+    
+                $delivery_to = isset($filters['delivery_to']) ?
+                                Carbon::parse($filters['delivery_to'])->endOfDay() :
+                                    Carbon::now()->addYears(1000)->endOfDay();
+    
+                if($delivery_from <= $delivery_to) {
+                    $order->whereBetween('delivery_date', [$delivery_from, $delivery_to]);
+                    $order1->whereBetween('delivery_date', [$delivery_from, $delivery_to]);
+                }
+            }
+            
+            $all_statuses = ['statuses'];
+            foreach ($order->get()->sortByDesc('created_at') as $value) {
+                if( $request['active-select'] != null )
+                {
+                    $all_statuses['statuses'][$value->id] =  (int)$request['active-select'];
+                } else {
+                    $all_statuses['statuses'][$value->id] =  (int)$value->status_id;
+                }
+                
+            }
+            
+            if (Auth::user()->isSublevel() || Auth::user()->isClientAdmin())
+            {
+                foreach ($order1->get()->sortByDesc('created_at') as $value) {
+                    if( $request['active-select-1'] != null )
+                    {
+                        $all_statuses['statuses'][$value->id] = (int)$request['active-select-1'];
+                    } else {
+                        $all_statuses['statuses'][$value->id] =  (int)$value->status_id;
+                    }
+                    
+                }
+            }
+
+            $all_dates = ['dates'];
+            if(Auth::user()->isManager()) {
+                foreach (Order::whereIn('client_id', array_keys($clients))->where('status_id', 3)->get()->sortByDesc('created_at') as $value) {
+                    $all_dates['dates'][$value->id] =  $value->expected_delivery_date;
+                }
+            }
+
+            $statuses = [];
+            $expected_delivery_dates = [];
+            if(!empty($all_statuses['statuses']))
+            {
+                $statuses = $all_statuses['statuses'];
+            }
+            if (!empty($all_dates['dates']))
+            {
+                $expected_delivery_dates = $all_dates['dates'];
+            }
+        }
+
+        $orders = Order::whereIn('id', array_keys($statuses))->get()->keyBy('id');
 
         foreach ($orders as $order) {
             $this->authorize('mass_set_status_date', $order);
@@ -666,7 +806,7 @@ class OrderController extends Controller//refactor todo
         $message = 'Статусы обновлены'.$messages;
 
         session()->flash('message', $message);
-        
+
         return back();
     }
 
@@ -703,7 +843,7 @@ class OrderController extends Controller//refactor todo
         $order = $order->newQuery();
 
         if (isset($filters['statuses'])) {
-            $order->whereIn('status_id', array_keys($filters['statuses']));
+            $order->whereIn('status_id', array_unique(array_values($filters['statuses'])));
         }
 
         if (isset($filters['clients'])) {
@@ -752,6 +892,11 @@ class OrderController extends Controller//refactor todo
             if($delivery_from <= $delivery_to) {
                 $order->whereBetween('delivery_date', [$delivery_from, $delivery_to]);
             }
+        }
+
+        if (isset($filters['root_id'])) {
+            $clients_root = Client::where('root_id', $filters['root_id'])->pluck('name', 'id')->all();
+            $order->whereIn('client_id', array_keys($clients_root));
         }
 
         return $order;        
